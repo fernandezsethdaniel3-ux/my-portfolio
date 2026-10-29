@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seth, Daniel M. Fernandez | Visual Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        heading: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            950: '#050a17',
+                            900: '#0a1128',
+                            800: '#0c1838',
+                            700: '#111d4a',
+                            600: '#1a2b63',
+                        },
+                        gold: {
+                            300: '#ffe875',
+                            400: '#f3c64f',
+                            500: '#ffd700',
+                            600: '#dfa010',
+                            700: '#b88209',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 3s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        },
+                        glow: {
+                            '0%': { filter: 'drop-shadow(0 0 10px rgba(255, 215, 0, 0.3))' },
+                            '100%': { filter: 'drop-shadow(0 0 25px rgba(255, 215, 0, 0.7))' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Navy & Gold Theme Styles */
+        body {
+            background-color: #050a17;
+            color: #e2e8f0;
+        }
+
+        /* Glassmorphism with Gold Border Highlights */
+        .glass-panel-navy {
+            background: rgba(12, 24, 56, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(5, 10, 23, 0.6);
+        }
+
+        .glass-panel-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-panel-hover:hover {
+            background: rgba(17, 29, 74, 0.75);
+            border-color: rgba(255, 215, 0, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px 0 rgba(255, 215, 0, 0.15);
+        }
+
+        .glass-nav {
+            background: rgba(10, 17, 40, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+        }
+
+        /* Gradient Gold Text */
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #ffe875 0%, #ffd700 40%, #dfa010 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-gradient-bg {
+            background: linear-gradient(135deg, #ffd700 0%, #dfa010 100%);
+        }
+
+        .gold-gradient-bg-hover:hover {
+            background: linear-gradient(135deg, #ffe875 0%, #ffd700 100%);
+        }
+
+        /* Hexagon Clip Paths */
+        .hexagon-clip {
+            clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+        }
+
+        .hexagon-border {
+            filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.4));
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050a17;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #111d4a;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1a2b63;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased overflow-x-hidden selection:bg-gold-500 selection:text-navy-950">
+
+    <!-- Interactive Techy Hexagon Canvas Background -->
+    <canvas id="hexagon-canvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0"></canvas>
+
+    <!-- Ambient Gold & Navy Glow Orbs -->
+    <div class="fixed top-1/4 -left-32 w-96 h-96 rounded-full pointer-events-none z-0 animate-pulse-slow" style="background: radial-gradient(circle, rgba(255, 215, 0, 0.12) 0%, rgba(5, 10, 23, 0) 70%);"></div>
+    <div class="fixed bottom-1/4 -right-32 w-96 h-96 rounded-full pointer-events-none z-0 animate-pulse-slow" style="background: radial-gradient(circle, rgba(17, 29, 74, 0.5) 0%, rgba(5, 10, 23, 0) 70%);"></div>
+
+    <!-- HEADER / NAVIGATION BAR -->
+    <header class="fixed top-0 left-0 w-full z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Brand / Logo -->
+                <a href="#home" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-400 to-gold-600 p-0.5 transition-transform duration-300 group-hover:scale-105 shadow-lg shadow-gold-500/20">
+                        <div class="w-full h-full bg-navy-950 rounded-[10px] flex items-center justify-center">
+                            <span class="font-heading font-extrabold text-base gold-gradient-text">SF</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-heading font-bold text-lg tracking-tight text-white group-hover:text-gold-400 transition-colors">Seth<span class="text-gold-500">.</span>dev</span>
+                        <span class="text-[10px] font-mono text-slate-400 tracking-wider">UC BAGUIO • BSIT</span>
+                    </div>
+                </a>
+
+                <!-- Navigation Links (Top Right: Home Page & Personal Info) -->
+                <nav class="hidden md:flex items-center space-x-3">
+                    <a href="#home" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-navy-950 gold-gradient-bg shadow-md shadow-gold-500/20 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-house-chimney text-xs"></i>
+                        <span>Home Page</span>
+                    </a>
+                    <a href="#personal-info" class="px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 border border-gold-500/20 hover:border-gold-500/60 hover:text-gold-400 hover:bg-navy-800/50 transition-all flex items-center gap-2">
+                        <i class="fa-regular fa-user text-xs"></i>
+                        <span>Personal Info</span>
+                    </a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" aria-label="Toggle Navigation" class="md:hidden p-2.5 rounded-xl border border-gold-500/20 text-slate-300 hover:text-gold-400 hover:bg-navy-800/50 focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden glass-panel-navy border-t border-gold-500/20 px-4 pt-3 pb-6 space-y-3">
+            <a href="#home" class="mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-semibold text-navy-950 gold-gradient-bg">
+                <i class="fa-solid fa-house-chimney text-sm"></i>
+                <span>Home Page</span>
+            </a>
+            <a href="#personal-info" class="mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium text-slate-300 border border-gold-500/20 hover:text-gold-400 hover:bg-navy-800/50">
+                <i class="fa-regular fa-user text-sm"></i>
+                <span>Personal Info</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- MAIN HOME SECTION -->
+    <main class="relative z-10 pt-20">
+        <section id="home" class="min-h-[calc(100vh-80px)] flex items-center justify-center px-4 sm:px-6 lg:px-8 py-10 relative">
+            
+            <!-- EXPLICIT FLEX ROW LAYOUT (Image strictly LEFT, Text strictly RIGHT) -->
+            <div class="max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
+                
+                <!-- LEFT SIDE: PICTURE FRAME (35% Width on Desktop) -->
+                <div class="w-full lg:w-[38%] flex justify-center shrink-0">
+                    <div class="relative group animate-float w-full max-w-sm">
+                        
+                        <!-- Glowing Outer Ring -->
+                        <div class="absolute -inset-2 rounded-3xl bg-gradient-to-r from-gold-500 via-gold-400 to-navy-600 blur-md opacity-60 group-hover:opacity-100 transition duration-500"></div>
+
+                        <!-- Picture Card Frame -->
+                        <div class="relative w-full rounded-3xl glass-panel-navy p-3 flex flex-col justify-between border-2 border-gold-500/40">
+                            
+                            <!-- Top Tech Header on Image Box -->
+                            <div class="flex items-center justify-between border-b border-gold-500/20 pb-2 px-1">
+                                <span class="text-[10px] font-mono text-gold-400 flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                                    SLIDESHOW_ACTIVE
+                                </span>
+                                <i class="fa-solid fa-microchip text-gold-500/60 text-xs"></i>
+                            </div>
+
+                            <!-- Image Slider Container (Strict 1:1 Square Aspect Ratio) -->
+                            <div class="relative w-full aspect-square my-2 rounded-2xl overflow-hidden bg-navy-900 border border-navy-700 group-hover:border-gold-500/50 transition-colors">
+                                
+                                <!-- Slider Track -->
+                                <div id="carousel-track" class="w-full h-full flex transition-transform duration-700 ease-in-out">
+                                    
+                                    <!-- Slide 1 -->
+                                    <div class="w-full h-full flex-shrink-0 relative">
+                                        <img src="961466e5-9a79-4547-ba51-7429e4c93800.jfif" 
+                                             alt="Seth, Daniel M. Fernandez - Photo 1" 
+                                             class="w-full h-full object-cover object-[50%_25%]">
+                                    </div>
+
+                                    <!-- Slide 2 -->
+                                    <div class="w-full h-full flex-shrink-0 relative">
+                                        <img src="e2b8694f-943e-4056-9d67-fd132c031c3d.jfif" 
+                                             alt="Seth, Daniel M. Fernandez - Photo 2" 
+                                             class="w-full h-full object-cover object-[50%_25%]">
+                                    </div>
+
+                                    <!-- Slide 3 -->
+                                    <div class="w-full h-full flex-shrink-0 relative">
+                                        <img src="ce972d77-2733-4a30-a2b3-f1a2f3e43392.jfif" 
+                                             alt="Seth, Daniel M. Fernandez - Photo 3" 
+                                             class="w-full h-full object-cover object-[50%_15%]">
+                                    </div>
+
+                                </div>
+
+                                <!-- Manual Navigation Controls (Arrows) -->
+                                <button id="prev-slide-btn" aria-label="Previous Slide" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full glass-panel-navy border border-gold-500/40 text-gold-400 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-gold-500 hover:text-navy-950">
+                                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                                </button>
+                                <button id="next-slide-btn" aria-label="Next Slide" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full glass-panel-navy border border-gold-500/40 text-gold-400 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-gold-500 hover:text-navy-950">
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </button>
+
+                                <!-- Navigation Dots -->
+                                <div class="absolute top-2 right-2 flex gap-1.5 bg-navy-950/70 backdrop-blur-md px-2 py-1 rounded-full border border-gold-500/20">
+                                    <button class="slide-dot w-2 h-2 rounded-full bg-gold-500 transition-all" data-index="0"></button>
+                                    <button class="slide-dot w-2 h-2 rounded-full bg-slate-600 transition-all" data-index="1"></button>
+                                    <button class="slide-dot w-2 h-2 rounded-full bg-slate-600 transition-all" data-index="2"></button>
+                                </div>
+
+                                <!-- Overlay Tech Grid Label -->
+                                <div class="absolute bottom-2 left-2 right-2 px-3 py-1.5 rounded-lg glass-panel-navy border border-gold-500/30 flex items-center justify-between text-[11px]">
+                                    <span class="text-slate-300 font-medium">Seth Daniel Fernandez</span>
+                                    <span class="font-mono text-gold-400">BSIT</span>
+                                </div>
+                            </div>
+
+                            <!-- Bottom Tech Status -->
+                            <div class="flex items-center justify-between text-[10px] font-mono text-slate-400 px-1 pt-1 border-t border-gold-500/10">
+                                <span>SLIDE_INTERVAL: 3.0s</span>
+                                <span class="text-gold-400">UC_CORDILLERAS</span>
+                            </div>
+                        </div>
+
+                        <!-- Floating Tech Hexagon Badge -->
+                        <div class="absolute -bottom-3 -right-3 glass-panel-navy px-3.5 py-2 rounded-2xl flex items-center gap-2 border border-gold-500/50 shadow-xl">
+                            <i class="fa-solid fa-graduation-cap text-gold-400 text-sm"></i>
+                            <div class="flex flex-col">
+                                <span class="text-[9px] font-mono text-slate-400 uppercase">Education</span>
+                                <span class="text-xs font-bold text-white">UC Baguio</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- RIGHT SIDE: WELCOMING PHRASE & DETAILS (65% Width on Desktop) -->
+                <div class="w-full lg:w-[65%] space-y-6 text-center lg:text-left">
+                    
+                    <!-- University Status Pill Badge -->
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel-navy border border-gold-500/40 text-gold-300 text-xs sm:text-sm font-mono shadow-lg shadow-gold-500/10">
+                        <i class="fa-solid fa-atom text-gold-400 animate-spin" style="animation-duration: 10s;"></i>
+                        <span>University of the Cordilleras</span>
+                        <span class="text-slate-500">•</span>
+                        <span class="text-gold-400 font-semibold">BSIT Student</span>
+                    </div>
+
+                    <!-- Main Headline Phrase -->
+                    <div class="space-y-3">
+                        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white tracking-tight leading-tight">
+                            Hello, my name is <br/>
+                            <span class="gold-gradient-text">Seth, Daniel M. Fernandez</span>
+                        </h1>
+                        
+                        <!-- Subtitle -->
+                        <p class="text-base sm:text-xl lg:text-2xl font-medium text-slate-300 font-sans leading-relaxed">
+                            A student in <span class="text-gold-400 font-semibold border-b-2 border-gold-500/40 pb-0.5">University of the Cordilleras (BSIT)</span>
+                        </p>
+                    </div>
+
+                    <p class="text-slate-400 text-xs sm:text-sm lg:text-base max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        Welcome to my personal digital portfolio space. Focused on modern information technology, web development, software engineering, and high-tech digital solutions.
+                    </p>
+
+                    <!-- Tech Badge Tags -->
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 pt-1">
+                        <span class="px-3 py-1.5 rounded-lg bg-navy-800 border border-gold-500/20 text-xs font-mono text-slate-300 hover:border-gold-500/50 transition-colors">
+                            <i class="fa-solid fa-code text-gold-400 mr-1.5"></i>Information Technology
+                        </span>
+                        <span class="px-3 py-1.5 rounded-lg bg-navy-800 border border-gold-500/20 text-xs font-mono text-slate-300 hover:border-gold-500/50 transition-colors">
+                            <i class="fa-solid fa-laptop-code text-gold-400 mr-1.5"></i>Web & Systems
+                        </span>
+                        <span class="px-3 py-1.5 rounded-lg bg-navy-800 border border-gold-500/20 text-xs font-mono text-slate-300 hover:border-gold-500/50 transition-colors">
+                            <i class="fa-solid fa-building-columns text-gold-400 mr-1.5"></i>UC Cordilleras
+                        </span>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#personal-info" class="w-full sm:w-auto px-7 py-3.5 rounded-xl text-navy-950 font-bold font-heading gold-gradient-bg gold-gradient-bg-hover shadow-xl shadow-gold-500/20 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 text-sm sm:text-base">
+                            <span>Explore Personal Info</span>
+                            <i class="fa-solid fa-arrow-right text-xs sm:text-sm"></i>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-gold-500/15 py-8 relative z-10 bg-navy-950/90">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="font-heading font-bold text-base text-white">Seth, Daniel M. Fernandez</span>
+                <span class="text-xs text-slate-500">•</span>
+                <span class="text-xs text-slate-400 font-mono">BSIT @ UC Cordilleras</span>
+            </div>
+
+            <div class="flex items-center gap-6 text-slate-400 text-xs font-mono">
+                <a href="#home" class="text-gold-400 hover:underline">Home</a>
+                <a href="#personal-info" class="hover:text-gold-400 transition-colors">Personal Info</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE HEXAGON BACKGROUND CANVAS SCRIPT -->
+    <script>
+        const canvas = document.getElementById('hexagon-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let hexRadius = 38;
+        let hexWidth = Math.sqrt(3) * hexRadius;
+        let hexHeight = 2 * hexRadius;
+
+        let cols, rows;
+        let grid = [];
+        let mouse = { x: null, y: null, radius: 180 };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initGrid();
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        window.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        function initGrid() {
+            grid = [];
+            cols = Math.ceil(canvas.width / (hexWidth)) + 2;
+            rows = Math.ceil(canvas.height / (hexHeight * 0.75)) + 2;
+
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    let x = c * hexWidth;
+                    let y = r * hexHeight * 0.75;
+
+                    if (r % 2 === 1) {
+                        x += hexWidth / 2;
+                    }
+
+                    grid.push({
+                        x: x,
+                        y: y,
+                        pulse: Math.random() * Math.PI * 2,
+                        pulseSpeed: 0.015 + Math.random() * 0.015
+                    });
+                }
+            }
+        }
+
+        function drawHexagon(x, y, radius, strokeStyle, fillStyle, lineWidth = 1) {
+            ctx.beginPath();
+            for (let i = 0; i < 6; i++) {
+                const angle = (Math.PI / 3) * i - Math.PI / 6;
+                const hx = x + radius * Math.cos(angle);
+                const hy = y + radius * Math.sin(angle);
+                if (i === 0) ctx.moveTo(hx, hy);
+                else ctx.lineTo(hx, hy);
+            }
+            ctx.closePath();
+
+            if (fillStyle) {
+                ctx.fillStyle = fillStyle;
+                ctx.fill();
+            }
+            if (strokeStyle) {
+                ctx.strokeStyle = strokeStyle;
+                ctx.lineWidth = lineWidth;
+                ctx.stroke();
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            grid.forEach(cell => {
+                cell.pulse += cell.pulseSpeed;
+                let baseOpacity = 0.05 + Math.sin(cell.pulse) * 0.03;
+
+                let distanceToMouse = 9999;
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dx = mouse.x - cell.x;
+                    const dy = mouse.y - cell.y;
+                    distanceToMouse = Math.sqrt(dx * dx + dy * dy);
+                }
+
+                let strokeStyle = `rgba(255, 215, 0, ${baseOpacity})`;
+                let fillStyle = null;
+                let lineWidth = 0.8;
+
+                // Mouse Proximity Glowing Hexagons Effect
+                if (distanceToMouse < mouse.radius) {
+                    const factor = 1 - (distanceToMouse / mouse.radius);
+                    const hoverOpacity = baseOpacity + factor * 0.45;
+                    strokeStyle = `rgba(255, 215, 0, ${hoverOpacity})`;
+                    fillStyle = `rgba(255, 215, 0, ${factor * 0.12})`;
+                    lineWidth = 1.5;
+                }
+
+                drawHexagon(cell.x, cell.y, hexRadius, strokeStyle, fillStyle, lineWidth);
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        // Initialize Hexagon canvas on page load
+        window.onload = function() {
+            resizeCanvas();
+            animate();
+        };
+
+        // Mobile Navigation Menu Toggle Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                menuIcon.className = 'fa-solid fa-bars text-xl';
+            } else {
+                menuIcon.className = 'fa-solid fa-xmark text-xl';
+            }
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.className = 'fa-solid fa-bars text-xl';
+            });
+        });
+
+        // 3-SECOND AUTOMATIC IMAGE CAROUSEL LOGIC
+        const track = document.getElementById('carousel-track');
+        const dots = document.querySelectorAll('.slide-dot');
+        const prevBtn = document.getElementById('prev-slide-btn');
+        const nextBtn = document.getElementById('next-slide-btn');
+        
+        let currentSlide = 0;
+        const totalSlides = 3;
+        let slideTimer;
+
+        function updateCarousel(index) {
+            currentSlide = index;
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update indicator dots styling
+            dots.forEach((dot, idx) => {
+                if (idx === currentSlide) {
+                    dot.className = 'slide-dot w-5 h-2 rounded-full bg-gold-500 transition-all';
+                } else {
+                    dot.className = 'slide-dot w-2 h-2 rounded-full bg-slate-600 hover:bg-gold-400/50 transition-all';
+                }
+            });
+        }
+
+        function nextSlide() {
+            const nextIndex = (currentSlide + 1) % totalSlides;
+            updateCarousel(nextIndex);
+        }
+
+        function prevSlide() {
+            const prevIndex = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel(prevIndex);
+        }
+
+        function startAutoSlide() {
+            stopAutoSlide();
+            slideTimer = setInterval(nextSlide, 3000);
+        }
+
+        function stopAutoSlide() {
+            if (slideTimer) clearInterval(slideTimer);
+        }
+
+        // Event Listeners for Buttons and Dots
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            startAutoSlide();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            startAutoSlide();
+        });
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                const targetIndex = parseInt(e.target.getAttribute('data-index'));
+                updateCarousel(targetIndex);
+                startAutoSlide();
+            });
+        });
+
+        // Start automatic 3-second slideshow on page load
+        updateCarousel(0);
+        startAutoSlide();
+    </script>
+</body>
+</html>
