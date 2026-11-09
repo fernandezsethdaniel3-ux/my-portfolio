@@ -162,7 +162,7 @@
             <div class="flex items-center justify-between h-20">
                 
                 <!-- Brand Logo -->
-                <a href="#home" onclick="triggerPacedTransition(event, 'home')" class="flex items-center gap-3 group">
+                <a href="#home" onclick="triggerBiDirectionalTransition(event, 'home')" class="flex items-center gap-3 group">
                     <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-400 to-gold-600 p-0.5 transition-transform duration-300 group-hover:scale-105 shadow-lg shadow-gold-500/20">
                         <div class="w-full h-full bg-navy-950 rounded-[10px] flex items-center justify-center">
                             <span class="font-heading font-extrabold text-base gold-gradient-text">SF</span>
@@ -176,11 +176,11 @@
 
                 <!-- Nav Links -->
                 <nav class="hidden md:flex items-center space-x-3">
-                    <button id="nav-btn-home" onclick="triggerPacedTransition(event, 'home')" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-navy-950 gold-gradient-bg shadow-md shadow-gold-500/20 transition-all flex items-center gap-2">
+                    <button id="nav-btn-home" onclick="triggerBiDirectionalTransition(event, 'home')" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-navy-950 gold-gradient-bg shadow-md shadow-gold-500/20 transition-all flex items-center gap-2">
                         <i class="fa-solid fa-house-chimney text-xs"></i>
                         <span>Home Page</span>
                     </button>
-                    <button id="nav-btn-personal" onclick="triggerPacedTransition(event, 'personal')" class="px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 border border-gold-500/20 hover:border-gold-500/60 hover:text-gold-400 hover:bg-navy-800/50 transition-all flex items-center gap-2">
+                    <button id="nav-btn-personal" onclick="triggerBiDirectionalTransition(event, 'personal')" class="px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 border border-gold-500/20 hover:border-gold-500/60 hover:text-gold-400 hover:bg-navy-800/50 transition-all flex items-center gap-2">
                         <i class="fa-regular fa-user text-xs"></i>
                         <span>Personal Info</span>
                     </button>
@@ -195,11 +195,11 @@
 
         <!-- Mobile Dropdown -->
         <div id="mobile-menu" class="hidden md:hidden glass-panel-navy border-t border-gold-500/20 px-4 pt-3 pb-6 space-y-3">
-            <button onclick="triggerPacedTransition(event, 'home')" class="w-full mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-semibold text-navy-950 gold-gradient-bg">
+            <button onclick="triggerBiDirectionalTransition(event, 'home')" class="w-full mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-semibold text-navy-950 gold-gradient-bg">
                 <i class="fa-solid fa-house-chimney text-sm"></i>
                 <span>Home Page</span>
             </button>
-            <button onclick="triggerPacedTransition(event, 'personal')" class="w-full mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium text-slate-300 border border-gold-500/20 hover:text-gold-400 hover:bg-navy-800/50">
+            <button onclick="triggerBiDirectionalTransition(event, 'personal')" class="w-full mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium text-slate-300 border border-gold-500/20 hover:text-gold-400 hover:bg-navy-800/50">
                 <i class="fa-regular fa-user text-sm"></i>
                 <span>Personal Info</span>
             </button>
@@ -319,7 +319,7 @@
 
                     <!-- ACTION BUTTON -->
                     <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-                        <button onclick="triggerPacedTransition(event, 'personal')" class="w-full sm:w-auto px-7 py-3.5 rounded-xl text-navy-950 font-bold font-heading gold-gradient-bg gold-gradient-bg-hover shadow-xl shadow-gold-500/20 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 text-sm sm:text-base">
+                        <button onclick="triggerBiDirectionalTransition(event, 'personal')" class="w-full sm:w-auto px-7 py-3.5 rounded-xl text-navy-950 font-bold font-heading gold-gradient-bg gold-gradient-bg-hover shadow-xl shadow-gold-500/20 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 text-sm sm:text-base">
                             <span>Explore Personal Info</span>
                             <i class="fa-solid fa-arrow-right text-xs sm:text-sm"></i>
                         </button>
@@ -416,7 +416,7 @@
             </div>
 
             <div class="text-center pt-4">
-                <button onclick="triggerPacedTransition(event, 'home')" class="px-6 py-3 rounded-xl border border-gold-500/30 text-gold-400 hover:bg-gold-500 hover:text-navy-950 font-semibold transition-all text-sm inline-flex items-center gap-2">
+                <button onclick="triggerBiDirectionalTransition(event, 'home')" class="px-6 py-3 rounded-xl border border-gold-500/30 text-gold-400 hover:bg-gold-500 hover:text-navy-950 font-semibold transition-all text-sm inline-flex items-center gap-2">
                     <i class="fa-solid fa-arrow-left"></i>
                     <span>Back to Home Page</span>
                 </button>
@@ -436,13 +436,13 @@
             </div>
 
             <div class="flex items-center gap-6 text-slate-400 text-xs font-mono">
-                <button onclick="triggerPacedTransition(event, 'home')" class="text-gold-400 hover:underline">Home</button>
-                <button onclick="triggerPacedTransition(event, 'personal')" class="hover:text-gold-400 transition-colors">Personal Info</button>
+                <button onclick="triggerBiDirectionalTransition(event, 'home')" class="text-gold-400 hover:underline">Home</button>
+                <button onclick="triggerBiDirectionalTransition(event, 'personal')" class="hover:text-gold-400 transition-colors">Personal Info</button>
             </div>
         </div>
     </footer>
 
-    <!-- JAVASCRIPT: PERFECTLY SYNCHRONIZED WAVE & PAGE CROSS-FADE TRANSITION -->
+    <!-- JAVASCRIPT: SYMMETRICAL BI-DIRECTIONAL ULTRA-SMOOTH WAVE TRANSITION LOGIC -->
     <script>
         // 1. Ambient Background Canvas
         const bgCanvas = document.getElementById('hexagon-canvas');
@@ -509,7 +509,7 @@
             requestAnimationFrame(animateBg);
         }
 
-        // 2. PERFECTLY PACED SYNCHRONIZED TRANSITION LOGIC
+        // 2. UNIFIED BI-DIRECTIONAL PACED TRANSITION (Home <-> Personal Info)
         const transCanvas = document.getElementById('transition-canvas');
         const transCtx = transCanvas.getContext('2d');
         let isTransitioning = false;
@@ -526,7 +526,7 @@
             return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
         }
 
-        function triggerPacedTransition(e, targetView) {
+        function triggerBiDirectionalTransition(e, targetView) {
             if (e) e.preventDefault();
             if (isTransitioning || targetView === activeView) return;
 
@@ -534,6 +534,7 @@
             const currentSec = document.getElementById(`view-${activeView}`);
             const nextSec = document.getElementById(`view-${targetView}`);
 
+            // Target click origin for seamless wave propagation from any button
             const clickX = e && e.clientX ? e.clientX : window.innerWidth / 2;
             const clickY = e && e.clientY ? e.clientY : window.innerHeight / 2;
 
@@ -553,11 +554,12 @@
                 }
             }
 
-            // Un-hide target section immediately so it can fade in during the exact same frame
+            // Immediately reveal next section DOM shell so both pages cross-fade in unison
             nextSec.classList.remove('view-hidden');
+            nextSec.style.opacity = '0';
 
             const startTime = performance.now();
-            const DURATION = 1200; // 1.2 seconds uniform pace for both Canvas Wave & Page Cross-Fade
+            const DURATION = 1300; // Synchronized 1.3-second smooth easing duration
             const maxDist = Math.hypot(transCanvas.width, transCanvas.height);
             let navUpdated = false;
 
@@ -566,26 +568,26 @@
                 const progress = Math.min(elapsed / DURATION, 1);
                 const easedProgress = easeInOutCubic(progress);
 
-                // 1. Synchronized DOM Page Cross-Fade (Exact same progress & pace)
+                // 1. Symmetrical Cross-Fade Pace for both Home and Personal Info Views
                 currentSec.style.opacity = (1 - easedProgress).toString();
-                currentSec.style.transform = `scale(${1 - easedProgress * 0.03}) translateY(${-easedProgress * 15}px)`;
+                currentSec.style.transform = `scale(${1 - easedProgress * 0.02}) translateY(${-easedProgress * 12}px)`;
 
                 nextSec.style.opacity = easedProgress.toString();
-                nextSec.style.transform = `scale(${0.97 + easedProgress * 0.03}) translateY(${(1 - easedProgress) * 15}px)`;
+                nextSec.style.transform = `scale(${0.98 + easedProgress * 0.02}) translateY(${(1 - easedProgress) * 12}px)`;
 
-                // Scroll to top right at midpoint
+                // Scroll reset at exact mid-point transition
                 if (progress >= 0.5 && !navUpdated) {
                     navUpdated = true;
                     updateNavButtons(targetView);
                     window.scrollTo({ top: 0, behavior: 'instant' });
                 }
 
-                // 2. Synchronized Canvas Wave Animation (Exact same progress & pace)
+                // 2. Radial Hexagon Wave Animation synchronized to page morphing
                 transCtx.clearRect(0, 0, transCanvas.width, transCanvas.height);
 
                 waveGrid.forEach(hex => {
-                    const waveDelay = (hex.dist / maxDist) * 0.5; // Normalized delay factor
-                    const localProgress = Math.min(Math.max((progress - waveDelay) / 0.5, 0), 1);
+                    const waveDelay = (hex.dist / maxDist) * 0.45;
+                    const localProgress = Math.min(Math.max((progress - waveDelay) / 0.55, 0), 1);
 
                     if (localProgress > 0 && localProgress < 1) {
                         const localEased = easeInOutCubic(localProgress);
@@ -609,7 +611,7 @@
                 if (progress < 1) {
                     requestAnimationFrame(step);
                 } else {
-                    // Cleanup & Lock Final State
+                    // Lock final state
                     transCtx.clearRect(0, 0, transCanvas.width, transCanvas.height);
 
                     currentSec.classList.add('view-hidden');
