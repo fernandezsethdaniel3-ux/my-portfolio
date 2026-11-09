@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seth, Daniel M. Fernandez | BSIT Portfolio</title>
+    <title>Seth, Daniel M. Fernandez | Visual Portfolio</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -40,11 +40,16 @@
                     animation: {
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 3s ease-in-out infinite alternate',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-10px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        },
+                        glow: {
+                            '0%': { filter: 'drop-shadow(0 0 10px rgba(255, 215, 0, 0.3))' },
+                            '100%': { filter: 'drop-shadow(0 0 25px rgba(255, 215, 0, 0.7))' },
                         }
                     }
                 }
@@ -61,31 +66,31 @@
 
         /* Glassmorphism Panels */
         .glass-panel-navy {
-            background: rgba(12, 24, 56, 0.7);
+            background: rgba(12, 24, 56, 0.65);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 215, 0, 0.2);
+            border: 1px solid rgba(255, 215, 0, 0.15);
             box-shadow: 0 8px 32px 0 rgba(5, 10, 23, 0.6);
         }
 
         .glass-panel-hover {
-            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .glass-panel-hover:hover {
-            background: rgba(17, 29, 74, 0.85);
-            border-color: rgba(255, 215, 0, 0.5);
+            background: rgba(17, 29, 74, 0.75);
+            border-color: rgba(255, 215, 0, 0.4);
             transform: translateY(-4px);
-            box-shadow: 0 12px 40px 0 rgba(255, 215, 0, 0.18);
+            box-shadow: 0 12px 40px 0 rgba(255, 215, 0, 0.15);
         }
 
         .glass-nav {
-            background: rgba(10, 17, 40, 0.88);
+            background: rgba(10, 17, 40, 0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.15);
         }
 
-        /* Gradient Gold Text */
+        /* Gradient Gold Text & Backgrounds */
         .gold-gradient-text {
             background: linear-gradient(135deg, #ffe875 0%, #ffd700 40%, #dfa010 100%);
             -webkit-background-clip: text;
@@ -98,6 +103,27 @@
 
         .gold-gradient-bg-hover:hover {
             background: linear-gradient(135deg, #ffe875 0%, #ffd700 100%);
+        }
+
+        /* View Switching Logic */
+        .view-section {
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        .view-hidden {
+            display: none !important;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Smooth Hexagon Wave Transition Canvas Overlay (No Flipping) */
+        #transition-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 100;
         }
 
         /* Custom Scrollbar */
@@ -115,38 +141,17 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #1a2b63;
         }
-
-        /* Page View Switcher Styling */
-        .page-view {
-            transition: opacity 0.4s ease, transform 0.4s ease;
-        }
-        .page-view.hidden-view {
-            display: none !important;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        /* Fullscreen Transition Overlay Canvas */
-        #transition-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 9999;
-        }
     </style>
 </head>
-<body class="font-sans antialiased selection:bg-gold-500 selection:text-navy-950 min-h-screen flex flex-col justify-between">
+<body class="font-sans antialiased selection:bg-gold-500 selection:text-navy-950">
 
-    <!-- Interactive Background Hexagon Grid Canvas -->
+    <!-- Interactive Background Canvas (Hexagon Grid) -->
     <canvas id="hexagon-canvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0"></canvas>
 
-    <!-- Fullscreen Hexagon Wave Flip Overlay Canvas -->
+    <!-- Smooth Wave Transition Canvas Overlay -->
     <canvas id="transition-canvas"></canvas>
 
-    <!-- Ambient Gold & Navy Glow Orbs -->
+    <!-- Ambient Glow Orbs -->
     <div class="fixed top-1/4 -left-32 w-96 h-96 rounded-full pointer-events-none z-0 animate-pulse-slow" style="background: radial-gradient(circle, rgba(255, 215, 0, 0.12) 0%, rgba(5, 10, 23, 0) 70%);"></div>
     <div class="fixed bottom-1/4 -right-32 w-96 h-96 rounded-full pointer-events-none z-0 animate-pulse-slow" style="background: radial-gradient(circle, rgba(17, 29, 74, 0.5) 0%, rgba(5, 10, 23, 0) 70%);"></div>
 
@@ -156,7 +161,7 @@
             <div class="flex items-center justify-between h-20">
                 
                 <!-- Brand Logo -->
-                <button onclick="switchPage('home', event)" class="flex items-center gap-3 group text-left focus:outline-none">
+                <a href="#home" onclick="triggerWaveTransition(event, 'home')" class="flex items-center gap-3 group">
                     <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-400 to-gold-600 p-0.5 transition-transform duration-300 group-hover:scale-105 shadow-lg shadow-gold-500/20">
                         <div class="w-full h-full bg-navy-950 rounded-[10px] flex items-center justify-center">
                             <span class="font-heading font-extrabold text-base gold-gradient-text">SF</span>
@@ -166,130 +171,107 @@
                         <span class="font-heading font-bold text-lg tracking-tight text-white group-hover:text-gold-400 transition-colors">Seth<span class="text-gold-500">.</span>dev</span>
                         <span class="text-[10px] font-mono text-slate-400 tracking-wider">UC BAGUIO • BSIT</span>
                     </div>
-                </button>
+                </a>
 
-                <!-- Navigation Links -->
+                <!-- Nav Links -->
                 <nav class="hidden md:flex items-center space-x-3">
-                    <button id="nav-btn-home" onclick="switchPage('home', event)" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-navy-950 gold-gradient-bg shadow-md shadow-gold-500/20 transition-all flex items-center gap-2">
+                    <button id="nav-btn-home" onclick="triggerWaveTransition(event, 'home')" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-navy-950 gold-gradient-bg shadow-md shadow-gold-500/20 transition-all flex items-center gap-2">
                         <i class="fa-solid fa-house-chimney text-xs"></i>
                         <span>Home Page</span>
                     </button>
-                    <button id="nav-btn-info" onclick="switchPage('personal-info', event)" class="px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 border border-gold-500/20 hover:border-gold-500/60 hover:text-gold-400 hover:bg-navy-800/50 transition-all flex items-center gap-2">
+                    <button id="nav-btn-personal" onclick="triggerWaveTransition(event, 'personal')" class="px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 border border-gold-500/20 hover:border-gold-500/60 hover:text-gold-400 hover:bg-navy-800/50 transition-all flex items-center gap-2">
                         <i class="fa-regular fa-user text-xs"></i>
                         <span>Personal Info</span>
                     </button>
                 </nav>
 
-                <!-- Mobile Menu Toggle Button -->
-                <button id="mobile-menu-btn" aria-label="Toggle Navigation Menu" class="md:hidden p-2.5 rounded-xl border border-gold-500/20 text-slate-300 hover:text-gold-400 hover:bg-navy-800/50 focus:outline-none">
+                <!-- Mobile Menu Toggle -->
+                <button id="mobile-menu-btn" aria-label="Toggle Navigation" class="md:hidden p-2.5 rounded-xl border border-gold-500/20 text-slate-300 hover:text-gold-400 hover:bg-navy-800/50">
                     <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Mobile Navigation Menu Dropdown -->
+        <!-- Mobile Dropdown -->
         <div id="mobile-menu" class="hidden md:hidden glass-panel-navy border-t border-gold-500/20 px-4 pt-3 pb-6 space-y-3">
-            <button onclick="switchPage('home', event)" class="mobile-link w-full text-left flex items-center gap-3 px-4 py-3 rounded-xl text-base font-semibold text-navy-950 gold-gradient-bg">
+            <button onclick="triggerWaveTransition(event, 'home')" class="w-full mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-semibold text-navy-950 gold-gradient-bg">
                 <i class="fa-solid fa-house-chimney text-sm"></i>
                 <span>Home Page</span>
             </button>
-            <button onclick="switchPage('personal-info', event)" class="mobile-link w-full text-left flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium text-slate-300 border border-gold-500/20 hover:text-gold-400 hover:bg-navy-800/50">
+            <button onclick="triggerWaveTransition(event, 'personal')" class="w-full mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium text-slate-300 border border-gold-500/20 hover:text-gold-400 hover:bg-navy-800/50">
                 <i class="fa-regular fa-user text-sm"></i>
                 <span>Personal Info</span>
             </button>
         </div>
     </header>
 
-    <!-- CONTENT WRAPPER -->
-    <main class="relative z-10 pt-24 pb-12 flex-grow">
+    <!-- MAIN VIEW CONTAINER -->
+    <main class="relative z-10 pt-20">
 
-        <!-- PAGE 1: HOME PAGE VIEW -->
-        <div id="view-home" class="page-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div class="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-14 min-h-[calc(100vh-180px)]">
+        <!-- ==================== HOME VIEW ==================== -->
+        <section id="view-home" class="view-section min-h-[calc(100vh-80px)] flex items-center justify-center px-4 sm:px-6 lg:px-8 py-10">
+            <div class="max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-10">
                 
-                <!-- LEFT SIDE: MAXIMIZED PICTURE CAROUSEL FRAME -->
-                <div class="w-full lg:w-[48%] flex justify-center shrink-0">
-                    <div class="relative group animate-float w-full max-w-lg">
+                <!-- LEFT SIDE: PICTURE FRAME -->
+                <div class="w-full lg:w-[42%] flex justify-center shrink-0">
+                    <div class="relative group animate-float w-full max-w-md">
                         
-                        <!-- Glowing Outer Frame Accent -->
-                        <div class="absolute -inset-3 rounded-3xl bg-gradient-to-r from-gold-500 via-gold-400 to-navy-600 blur-lg opacity-60 group-hover:opacity-100 transition duration-500"></div>
+                        <div class="absolute -inset-2 rounded-3xl bg-gradient-to-r from-gold-500 via-gold-400 to-navy-600 blur-md opacity-60 group-hover:opacity-100 transition duration-500"></div>
 
-                        <!-- Picture Card Frame (Expanded Padding & Size) -->
-                        <div class="relative w-full rounded-3xl glass-panel-navy p-4 sm:p-5 flex flex-col justify-between border-2 border-gold-500/40 shadow-2xl">
+                        <div class="relative w-full rounded-3xl glass-panel-navy p-3.5 flex flex-col justify-between border-2 border-gold-500/40">
                             
-                            <!-- Header Bar -->
-                            <div class="flex items-center justify-between border-b border-gold-500/20 pb-3 px-2">
-                                <span class="text-xs font-mono text-gold-400 flex items-center gap-2">
-                                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                            <div class="flex items-center justify-between border-b border-gold-500/20 pb-2 px-1">
+                                <span class="text-[10px] font-mono text-gold-400 flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
                                     SLIDESHOW_ACTIVE
                                 </span>
-                                <i class="fa-solid fa-microchip text-gold-500/70 text-sm"></i>
+                                <i class="fa-solid fa-microchip text-gold-500/60 text-xs"></i>
                             </div>
 
-                            <!-- 1:1 Square Photo Carousel (Maximized Screen Footprint) -->
-                            <div class="relative w-full aspect-square my-3 rounded-2xl overflow-hidden bg-navy-900 border border-navy-700 group-hover:border-gold-500/60 transition-colors shadow-inner">
+                            <!-- Carousel Container (1:1 Aspect Ratio) -->
+                            <div class="relative w-full aspect-square my-2 rounded-2xl overflow-hidden bg-navy-900 border border-navy-700 group-hover:border-gold-500/50 transition-colors">
+                                
                                 <div id="carousel-track" class="w-full h-full flex transition-transform duration-700 ease-in-out">
-                                    
-                                    <!-- Slide 1 -->
                                     <div class="w-full h-full flex-shrink-0 relative">
-                                        <img src="961466e5-9a79-4547-ba51-7429e4c93800.jfif" 
-                                             onerror="this.onerror=null; this.src='https://placehold.co/800x800/0a1128/ffd700?text=Seth+Daniel+1'"
-                                             alt="Seth, Daniel M. Fernandez - Portrait 1" 
-                                             class="w-full h-full object-cover object-[50%_25%]">
+                                        <img src="961466e5-9a79-4547-ba51-7429e4c93800.jfif" alt="Seth Daniel Fernandez 1" class="w-full h-full object-cover object-[50%_25%]">
                                     </div>
-
-                                    <!-- Slide 2 -->
                                     <div class="w-full h-full flex-shrink-0 relative">
-                                        <img src="e2b8694f-943e-4056-9d67-fd132c031c3d.jfif" 
-                                             onerror="this.onerror=null; this.src='https://placehold.co/800x800/0a1128/ffd700?text=Seth+Daniel+2'"
-                                             alt="Seth Daniel M. Fernandez - Portrait 2" 
-                                             class="w-full h-full object-cover object-[50%_25%]">
+                                        <img src="e2b8694f-943e-4056-9d67-fd132c031c3d.jfif" alt="Seth Daniel Fernandez 2" class="w-full h-full object-cover object-[50%_25%]">
                                     </div>
-
-                                    <!-- Slide 3 -->
                                     <div class="w-full h-full flex-shrink-0 relative">
-                                        <img src="ce972d77-2733-4a30-a2b3-f1a2f3e43392.jfif" 
-                                             onerror="this.onerror=null; this.src='https://placehold.co/800x800/0a1128/ffd700?text=Seth+Daniel+3'"
-                                             alt="Seth, Daniel M. Fernandez - Portrait 3" 
-                                             class="w-full h-full object-cover object-[50%_15%]">
+                                        <img src="ce972d77-2733-4a30-a2b3-f1a2f3e43392.jfif" alt="Seth Daniel Fernandez 3" class="w-full h-full object-cover object-[50%_15%]">
                                     </div>
-
                                 </div>
 
-                                <!-- Manual Arrow Controls -->
-                                <button id="prev-slide-btn" aria-label="Previous Slide" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full glass-panel-navy border border-gold-500/40 text-gold-400 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-gold-500 hover:text-navy-950 shadow-lg">
-                                    <i class="fa-solid fa-chevron-left text-sm"></i>
+                                <button id="prev-slide-btn" aria-label="Previous Slide" class="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full glass-panel-navy border border-gold-500/40 text-gold-400 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-gold-500 hover:text-navy-950">
+                                    <i class="fa-solid fa-chevron-left text-xs"></i>
                                 </button>
-                                <button id="next-slide-btn" aria-label="Next Slide" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full glass-panel-navy border border-gold-500/40 text-gold-400 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-gold-500 hover:text-navy-950 shadow-lg">
-                                    <i class="fa-solid fa-chevron-right text-sm"></i>
+                                <button id="next-slide-btn" aria-label="Next Slide" class="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full glass-panel-navy border border-gold-500/40 text-gold-400 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-gold-500 hover:text-navy-950">
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
                                 </button>
 
-                                <!-- Navigation Dots -->
-                                <div class="absolute top-3 right-3 flex gap-2 bg-navy-950/75 backdrop-blur-md px-2.5 py-1.5 rounded-full border border-gold-500/25">
-                                    <button class="slide-dot w-2.5 h-2.5 rounded-full bg-gold-500 transition-all" data-index="0"></button>
-                                    <button class="slide-dot w-2.5 h-2.5 rounded-full bg-slate-600 transition-all" data-index="1"></button>
-                                    <button class="slide-dot w-2.5 h-2.5 rounded-full bg-slate-600 transition-all" data-index="2"></button>
+                                <div class="absolute top-2 right-2 flex gap-1.5 bg-navy-950/70 backdrop-blur-md px-2 py-1 rounded-full border border-gold-500/20">
+                                    <button class="slide-dot w-2 h-2 rounded-full bg-gold-500 transition-all" data-index="0"></button>
+                                    <button class="slide-dot w-2 h-2 rounded-full bg-slate-600 transition-all" data-index="1"></button>
+                                    <button class="slide-dot w-2 h-2 rounded-full bg-slate-600 transition-all" data-index="2"></button>
                                 </div>
 
-                                <!-- Overlay Caption -->
-                                <div class="absolute bottom-3 left-3 right-3 px-3.5 py-2 rounded-xl glass-panel-navy border border-gold-500/30 flex items-center justify-between text-xs sm:text-sm">
-                                    <span class="text-slate-200 font-semibold">Seth Daniel Fernandez</span>
-                                    <span class="font-mono text-gold-400 font-bold">BSIT</span>
+                                <div class="absolute bottom-2 left-2 right-2 px-3 py-1.5 rounded-lg glass-panel-navy border border-gold-500/30 flex items-center justify-between text-[11px]">
+                                    <span class="text-slate-300 font-medium">Seth Daniel Fernandez</span>
+                                    <span class="font-mono text-gold-400">BSIT</span>
                                 </div>
                             </div>
 
-                            <!-- Footer Status -->
-                            <div class="flex items-center justify-between text-xs font-mono text-slate-400 px-2 pt-2 border-t border-gold-500/10">
+                            <div class="flex items-center justify-between text-[10px] font-mono text-slate-400 px-1 pt-1 border-t border-gold-500/10">
                                 <span>SLIDE_INTERVAL: 3.0s</span>
-                                <span class="text-gold-400 font-semibold">UC_CORDILLERAS</span>
+                                <span class="text-gold-400">UC_CORDILLERAS</span>
                             </div>
                         </div>
 
-                        <!-- Floating Education Badge -->
-                        <div class="absolute -bottom-4 -right-4 glass-panel-navy px-4 py-2.5 rounded-2xl flex items-center gap-2.5 border border-gold-500/50 shadow-2xl">
-                            <i class="fa-solid fa-graduation-cap text-gold-400 text-base"></i>
+                        <div class="absolute -bottom-3 -right-3 glass-panel-navy px-3.5 py-2 rounded-2xl flex items-center gap-2 border border-gold-500/50 shadow-xl">
+                            <i class="fa-solid fa-graduation-cap text-gold-400 text-sm"></i>
                             <div class="flex flex-col">
-                                <span class="text-[9px] font-mono text-slate-400 uppercase tracking-wider">Education</span>
+                                <span class="text-[9px] font-mono text-slate-400 uppercase">Education</span>
                                 <span class="text-xs font-bold text-white">UC Baguio</span>
                             </div>
                         </div>
@@ -297,6 +279,394 @@
                     </div>
                 </div>
 
-                <!-- RIGHT SIDE: WELCOME HEADLINE & ACTION -->
-                <div class="w-full lg:w-[50%] space-y-6 text-center lg:text-left">
-<!-- ... existing code -->
+                <!-- RIGHT SIDE: WELCOMING TEXT & DETAILS -->
+                <div class="w-full lg:w-[58%] space-y-6 text-center lg:text-left">
+                    
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel-navy border border-gold-500/40 text-gold-300 text-xs sm:text-sm font-mono shadow-lg shadow-gold-500/10">
+                        <i class="fa-solid fa-atom text-gold-400 animate-spin" style="animation-duration: 10s;"></i>
+                        <span>University of the Cordilleras</span>
+                        <span class="text-slate-500">•</span>
+                        <span class="text-gold-400 font-semibold">BSIT Student</span>
+                    </div>
+
+                    <div class="space-y-3">
+                        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white tracking-tight leading-tight">
+                            Hello, my name is <br/>
+                            <span class="gold-gradient-text">Seth, Daniel M. Fernandez</span>
+                        </h1>
+                        
+                        <p class="text-base sm:text-xl lg:text-2xl font-medium text-slate-300 font-sans leading-relaxed">
+                            A student in <span class="text-gold-400 font-semibold border-b-2 border-gold-500/40 pb-0.5">University of the Cordilleras (BSIT)</span>
+                        </p>
+                    </div>
+
+                    <p class="text-slate-400 text-xs sm:text-sm lg:text-base max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        Welcome to my personal digital portfolio space. Focused on modern information technology, web development, software engineering, and high-tech digital solutions.
+                    </p>
+
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 pt-1">
+                        <span class="px-3 py-1.5 rounded-lg bg-navy-800 border border-gold-500/20 text-xs font-mono text-slate-300 hover:border-gold-500/50 transition-colors">
+                            <i class="fa-solid fa-code text-gold-400 mr-1.5"></i>Information Technology
+                        </span>
+                        <span class="px-3 py-1.5 rounded-lg bg-navy-800 border border-gold-500/20 text-xs font-mono text-slate-300 hover:border-gold-500/50 transition-colors">
+                            <i class="fa-solid fa-laptop-code text-gold-400 mr-1.5"></i>Web & Systems
+                        </span>
+                        <span class="px-3 py-1.5 rounded-lg bg-navy-800 border border-gold-500/20 text-xs font-mono text-slate-300 hover:border-gold-500/50 transition-colors">
+                            <i class="fa-solid fa-building-columns text-gold-400 mr-1.5"></i>UC Cordilleras
+                        </span>
+                    </div>
+
+                    <!-- TRIGGER WAVE TRANSITION BUTTON -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <button onclick="triggerWaveTransition(event, 'personal')" class="w-full sm:w-auto px-7 py-3.5 rounded-xl text-navy-950 font-bold font-heading gold-gradient-bg gold-gradient-bg-hover shadow-xl shadow-gold-500/20 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 text-sm sm:text-base">
+                            <span>Explore Personal Info</span>
+                            <i class="fa-solid fa-arrow-right text-xs sm:text-sm"></i>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ==================== PERSONAL INFO VIEW ==================== -->
+        <section id="view-personal" class="view-section view-hidden min-h-[calc(100vh-80px)] px-4 sm:px-6 lg:px-8 py-12 max-w-7xl mx-auto space-y-10">
+            
+            <!-- UPPER LEFT BIO CONTAINER -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <div class="lg:col-span-7 glass-panel-navy p-6 sm:p-8 rounded-3xl border border-gold-500/30 space-y-4 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-2 h-full gold-gradient-bg"></div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-900 border border-gold-500/30 text-gold-400 text-xs font-mono">
+                        <i class="fa-regular fa-user text-xs"></i>
+                        <span>UPPER LEFT BIO</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-white">
+                        About <span class="gold-gradient-text">Seth Daniel Fernandez</span>
+                    </h2>
+                    <!-- EXACT REQUESTED STATEMENT -->
+                    <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-sans font-medium">
+                        "I am a BSIT student at the University of the Cordilleras with a passion of web development and designing, system analyzation, and algorithm."
+                    </p>
+                </div>
+
+                <div class="lg:col-span-5 glass-panel-navy p-6 sm:p-8 rounded-3xl border border-gold-500/20 space-y-4">
+                    <h3 class="text-lg font-heading font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap text-gold-400"></i>
+                        Academic Profile
+                    </h3>
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li class="flex justify-between border-b border-gold-500/10 pb-2">
+                            <span class="text-slate-400 font-mono">Degree:</span>
+                            <span class="font-semibold text-gold-300">BS Information Technology</span>
+                        </li>
+                        <li class="flex justify-between border-b border-gold-500/10 pb-2">
+                            <span class="text-slate-400 font-mono">Institution:</span>
+                            <span class="font-semibold text-white">UC Baguio</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="text-slate-400 font-mono">Location:</span>
+                            <span class="font-semibold text-white">Baguio City, Philippines</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- PERSONAL INFO GRID CARDS -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <div class="glass-panel-navy rounded-3xl p-6 sm:p-8 border border-gold-500/20 glass-panel-hover flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl gold-gradient-bg flex items-center justify-center text-navy-950 text-xl shadow-lg shadow-gold-500/20">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-white">Web Development</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Creating responsive, luxury interactive front-end layouts with modern JavaScript logic and utility-first styling.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="glass-panel-navy rounded-3xl p-6 sm:p-8 border border-gold-500/20 glass-panel-hover flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl gold-gradient-bg flex items-center justify-center text-navy-950 text-xl shadow-lg shadow-gold-500/20">
+                            <i class="fa-solid fa-diagram-project"></i>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-white">System Analyzation</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Evaluating system workflows, structure optimization, and modern architectural solutions for IT platforms.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="glass-panel-navy rounded-3xl p-6 sm:p-8 border border-gold-500/20 glass-panel-hover flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl gold-gradient-bg flex items-center justify-center text-navy-950 text-xl shadow-lg shadow-gold-500/20">
+                            <i class="fa-solid fa-square-root-variable"></i>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-white">Algorithms & Logic</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Solving technical challenges with structured programmatic thinking, clean data structures, and efficient code.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-center pt-4">
+                <button onclick="triggerWaveTransition(event, 'home')" class="px-6 py-3 rounded-xl border border-gold-500/30 text-gold-400 hover:bg-gold-500 hover:text-navy-950 font-semibold transition-all text-sm inline-flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Back to Home Page</span>
+                </button>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-gold-500/15 py-8 relative z-10 bg-navy-950/90">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="font-heading font-bold text-base text-white">Seth, Daniel M. Fernandez</span>
+                <span class="text-xs text-slate-500">•</span>
+                <span class="text-xs text-slate-400 font-mono">BSIT @ UC Cordilleras</span>
+            </div>
+
+            <div class="flex items-center gap-6 text-slate-400 text-xs font-mono">
+                <button onclick="triggerWaveTransition(event, 'home')" class="text-gold-400 hover:underline">Home</button>
+                <button onclick="triggerWaveTransition(event, 'personal')" class="hover:text-gold-400 transition-colors">Personal Info</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT: BACKGROUND CANVAS & SMOOTH HEXAGON WAVE EXPANSION (NO FLIPPING) -->
+    <script>
+        // 1. Ambient Background Hexagon Canvas
+        const bgCanvas = document.getElementById('hexagon-canvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        let hexRadius = 38;
+        let hexWidth = Math.sqrt(3) * hexRadius;
+        let hexHeight = 2 * hexRadius;
+        let bgCols, bgRows, bgGrid = [];
+        let mouse = { x: null, y: null, radius: 180 };
+
+        function resizeBgCanvas() {
+            bgCanvas.width = window.innerWidth;
+            bgCanvas.height = window.innerHeight;
+            initBgGrid();
+        }
+        window.addEventListener('resize', resizeBgCanvas);
+        window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+        window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+
+        function initBgGrid() {
+            bgGrid = [];
+            bgCols = Math.ceil(bgCanvas.width / hexWidth) + 2;
+            bgRows = Math.ceil(bgCanvas.height / (hexHeight * 0.75)) + 2;
+            for (let r = 0; r < bgRows; r++) {
+                for (let c = 0; c < bgCols; c++) {
+                    let x = c * hexWidth + (r % 2 === 1 ? hexWidth / 2 : 0);
+                    let y = r * hexHeight * 0.75;
+                    bgGrid.push({ x, y, pulse: Math.random() * Math.PI * 2, pulseSpeed: 0.015 + Math.random() * 0.015 });
+                }
+            }
+        }
+
+        function drawHexagon(ctx, x, y, radius, strokeStyle, fillStyle, lineWidth = 1) {
+            ctx.beginPath();
+            for (let i = 0; i < 6; i++) {
+                const angle = (Math.PI / 3) * i - Math.PI / 6;
+                const hx = x + radius * Math.cos(angle);
+                const hy = y + radius * Math.sin(angle);
+                if (i === 0) ctx.moveTo(hx, hy); else ctx.lineTo(hx, hy);
+            }
+            ctx.closePath();
+            if (fillStyle) { ctx.fillStyle = fillStyle; ctx.fill(); }
+            if (strokeStyle) { ctx.strokeStyle = strokeStyle; ctx.lineWidth = lineWidth; ctx.stroke(); }
+        }
+
+        function animateBg() {
+            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+            bgGrid.forEach(cell => {
+                cell.pulse += cell.pulseSpeed;
+                let baseOpacity = 0.05 + Math.sin(cell.pulse) * 0.03;
+                let dist = mouse.x !== null ? Math.hypot(mouse.x - cell.x, mouse.y - cell.y) : 9999;
+                let strokeStyle = `rgba(255, 215, 0, ${baseOpacity})`;
+                let fillStyle = null;
+                let lineWidth = 0.8;
+
+                if (dist < mouse.radius) {
+                    const factor = 1 - (dist / mouse.radius);
+                    strokeStyle = `rgba(255, 215, 0, ${baseOpacity + factor * 0.45})`;
+                    fillStyle = `rgba(255, 215, 0, ${factor * 0.12})`;
+                    lineWidth = 1.5;
+                }
+                drawHexagon(bgCtx, cell.x, cell.y, hexRadius, strokeStyle, fillStyle, lineWidth);
+            });
+            requestAnimationFrame(animateBg);
+        }
+
+        // 2. Smooth Hexagon Wave Expansion (No Flipping)
+        const transCanvas = document.getElementById('transition-canvas');
+        const transCtx = transCanvas.getContext('2d');
+        let waveGrid = [];
+        let isTransitioning = false;
+
+        function resizeTransCanvas() {
+            transCanvas.width = window.innerWidth;
+            transCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeTransCanvas);
+        resizeTransCanvas();
+
+        function triggerWaveTransition(e, targetView) {
+            if (e) e.preventDefault();
+            if (isTransitioning) return;
+
+            const clickX = e && e.clientX ? e.clientX : window.innerWidth / 2;
+            const clickY = e && e.clientY ? e.clientY : window.innerHeight / 2;
+
+            isTransitioning = true;
+
+            const size = 30;
+            const tWidth = Math.sqrt(3) * size;
+            const tHeight = 2 * size;
+            const cols = Math.ceil(transCanvas.width / tWidth) + 2;
+            const rows = Math.ceil(transCanvas.height / (tHeight * 0.75)) + 2;
+
+            waveGrid = [];
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    let x = c * tWidth + (r % 2 === 1 ? tWidth / 2 : 0);
+                    let y = r * tHeight * 0.75;
+                    let dist = Math.hypot(x - clickX, y - clickY);
+                    waveGrid.push({ x, y, dist });
+                }
+            }
+
+            const startTime = performance.now();
+            const duration = 900;
+            let switched = false;
+
+            function animateWave(now) {
+                const elapsed = now - startTime;
+                const maxDist = Math.hypot(transCanvas.width, transCanvas.height);
+                transCtx.clearRect(0, 0, transCanvas.width, transCanvas.height);
+
+                let allFinished = true;
+
+                waveGrid.forEach(hex => {
+                    const waveDelay = (hex.dist / maxDist) * 350;
+                    const progress = Math.min(Math.max((elapsed - waveDelay) / 350, 0), 1);
+
+                    if (progress < 1) allFinished = false;
+
+                    // Smooth radial scale and opacity pulse without 3D side flipping
+                    if (progress > 0 && progress < 1) {
+                        const scale = Math.sin(progress * Math.PI) * 1.15;
+                        const alpha = Math.sin(progress * Math.PI) * 0.85;
+
+                        transCtx.save();
+                        transCtx.translate(hex.x, hex.y);
+                        transCtx.scale(scale, scale);
+
+                        const stroke = `rgba(255, 215, 0, ${alpha})`;
+                        const fill = `rgba(12, 24, 56, ${alpha * 0.9})`;
+
+                        drawHexagon(transCtx, 0, 0, size, stroke, fill, 1.5);
+                        transCtx.restore();
+                    }
+                });
+
+                if (elapsed >= duration / 2 && !switched) {
+                    switched = true;
+                    switchViewDOM(targetView);
+                }
+
+                if (!allFinished || elapsed < duration) {
+                    requestAnimationFrame(animateWave);
+                } else {
+                    transCtx.clearRect(0, 0, transCanvas.width, transCanvas.height);
+                    isTransitioning = false;
+                }
+            }
+
+            requestAnimationFrame(animateWave);
+        }
+
+        function switchViewDOM(targetView) {
+            const homeView = document.getElementById('view-home');
+            const personalView = document.getElementById('view-personal');
+            const navHome = document.getElementById('nav-btn-home');
+            const navPersonal = document.getElementById('nav-btn-personal');
+
+            if (targetView === 'personal') {
+                homeView.classList.add('view-hidden');
+                personalView.classList.remove('view-hidden');
+                
+                navHome.className = "px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 border border-gold-500/20 hover:border-gold-500/60 hover:text-gold-400 hover:bg-navy-800/50 transition-all flex items-center gap-2";
+                navPersonal.className = "px-5 py-2.5 rounded-xl text-sm font-semibold text-navy-950 gold-gradient-bg shadow-md shadow-gold-500/20 transition-all flex items-center gap-2";
+            } else {
+                personalView.classList.add('view-hidden');
+                homeView.classList.remove('view-hidden');
+
+                navPersonal.className = "px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 border border-gold-500/20 hover:border-gold-500/60 hover:text-gold-400 hover:bg-navy-800/50 transition-all flex items-center gap-2";
+                navHome.className = "px-5 py-2.5 rounded-xl text-sm font-semibold text-navy-950 gold-gradient-bg shadow-md shadow-gold-500/20 transition-all flex items-center gap-2";
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 3. Carousel Logic (3-Second Slideshow)
+        const track = document.getElementById('carousel-track');
+        const dots = document.querySelectorAll('.slide-dot');
+        const prevBtn = document.getElementById('prev-slide-btn');
+        const nextBtn = document.getElementById('next-slide-btn');
+        let currentSlide = 0;
+        let slideTimer;
+
+        function updateCarousel(index) {
+            currentSlide = index;
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            dots.forEach((dot, idx) => {
+                dot.className = idx === currentSlide 
+                    ? 'slide-dot w-5 h-2 rounded-full bg-gold-500 transition-all' 
+                    : 'slide-dot w-2 h-2 rounded-full bg-slate-600 hover:bg-gold-400/50 transition-all';
+            });
+        }
+
+        function nextSlide() { updateCarousel((currentSlide + 1) % 3); }
+        function prevSlide() { updateCarousel((currentSlide - 1 + 3) % 3); }
+        function startAutoSlide() { stopAutoSlide(); slideTimer = setInterval(nextSlide, 3000); }
+        function stopAutoSlide() { if (slideTimer) clearInterval(slideTimer); }
+
+        nextBtn.addEventListener('click', () => { nextSlide(); startAutoSlide(); });
+        prevBtn.addEventListener('click', () => { prevSlide(); startAutoSlide(); });
+        dots.forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                updateCarousel(parseInt(e.target.getAttribute('data-index')));
+                startAutoSlide();
+            });
+        });
+
+        // Init
+        window.onload = function() {
+            resizeBgCanvas();
+            animateBg();
+            updateCarousel(0);
+            startAutoSlide();
+        };
+
+        // Mobile Menu Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            menuIcon.className = mobileMenu.classList.contains('hidden') ? 'fa-solid fa-bars text-xl' : 'fa-solid fa-xmark text-xl';
+        });
+    </script>
+</body>
+</html>
