@@ -105,20 +105,11 @@
             background: linear-gradient(135deg, #ffe875 0%, #ffd700 100%);
         }
 
-        /* View Section Page Motion Classes */
+        /* Synchronized View Section Classes */
         .view-section {
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 1.8s cubic-bezier(0.25, 1, 0.5, 1), transform 1.8s cubic-bezier(0.25, 1, 0.5, 1);
             opacity: 1;
-            transform: translateY(0px) scale(1);
-        }
-        .view-exit {
-            opacity: 0 !important;
-            transform: translateY(-20px) scale(0.98) !important;
-            pointer-events: none;
-        }
-        .view-enter-start {
-            opacity: 0 !important;
-            transform: translateY(35px) scale(0.97) !important;
+            transform: scale(1);
         }
         .view-hidden {
             display: none !important;
@@ -170,7 +161,7 @@
             <div class="flex items-center justify-between h-20">
                 
                 <!-- Brand Logo -->
-                <a href="#home" onclick="triggerSequenceTransition(event, 'home')" class="flex items-center gap-3 group">
+                <a href="#home" onclick="triggerSynchronizedWave(event, 'home')" class="flex items-center gap-3 group">
                     <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-400 to-gold-600 p-0.5 transition-transform duration-300 group-hover:scale-105 shadow-lg shadow-gold-500/20">
                         <div class="w-full h-full bg-navy-950 rounded-[10px] flex items-center justify-center">
                             <span class="font-heading font-extrabold text-base gold-gradient-text">SF</span>
@@ -184,11 +175,11 @@
 
                 <!-- Nav Links -->
                 <nav class="hidden md:flex items-center space-x-3">
-                    <button id="nav-btn-home" onclick="triggerSequenceTransition(event, 'home')" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-navy-950 gold-gradient-bg shadow-md shadow-gold-500/20 transition-all flex items-center gap-2">
+                    <button id="nav-btn-home" onclick="triggerSynchronizedWave(event, 'home')" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-navy-950 gold-gradient-bg shadow-md shadow-gold-500/20 transition-all flex items-center gap-2">
                         <i class="fa-solid fa-house-chimney text-xs"></i>
                         <span>Home Page</span>
                     </button>
-                    <button id="nav-btn-personal" onclick="triggerSequenceTransition(event, 'personal')" class="px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 border border-gold-500/20 hover:border-gold-500/60 hover:text-gold-400 hover:bg-navy-800/50 transition-all flex items-center gap-2">
+                    <button id="nav-btn-personal" onclick="triggerSynchronizedWave(event, 'personal')" class="px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 border border-gold-500/20 hover:border-gold-500/60 hover:text-gold-400 hover:bg-navy-800/50 transition-all flex items-center gap-2">
                         <i class="fa-regular fa-user text-xs"></i>
                         <span>Personal Info</span>
                     </button>
@@ -203,11 +194,11 @@
 
         <!-- Mobile Dropdown -->
         <div id="mobile-menu" class="hidden md:hidden glass-panel-navy border-t border-gold-500/20 px-4 pt-3 pb-6 space-y-3">
-            <button onclick="triggerSequenceTransition(event, 'home')" class="w-full mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-semibold text-navy-950 gold-gradient-bg">
+            <button onclick="triggerSynchronizedWave(event, 'home')" class="w-full mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-semibold text-navy-950 gold-gradient-bg">
                 <i class="fa-solid fa-house-chimney text-sm"></i>
                 <span>Home Page</span>
             </button>
-            <button onclick="triggerSequenceTransition(event, 'personal')" class="w-full mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium text-slate-300 border border-gold-500/20 hover:text-gold-400 hover:bg-navy-800/50">
+            <button onclick="triggerSynchronizedWave(event, 'personal')" class="w-full mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium text-slate-300 border border-gold-500/20 hover:text-gold-400 hover:bg-navy-800/50">
                 <i class="fa-regular fa-user text-sm"></i>
                 <span>Personal Info</span>
             </button>
@@ -327,7 +318,7 @@
 
                     <!-- ACTION BUTTON -->
                     <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-                        <button onclick="triggerSequenceTransition(event, 'personal')" class="w-full sm:w-auto px-7 py-3.5 rounded-xl text-navy-950 font-bold font-heading gold-gradient-bg gold-gradient-bg-hover shadow-xl shadow-gold-500/20 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 text-sm sm:text-base">
+                        <button onclick="triggerSynchronizedWave(event, 'personal')" class="w-full sm:w-auto px-7 py-3.5 rounded-xl text-navy-950 font-bold font-heading gold-gradient-bg gold-gradient-bg-hover shadow-xl shadow-gold-500/20 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 text-sm sm:text-base">
                             <span>Explore Personal Info</span>
                             <i class="fa-solid fa-arrow-right text-xs sm:text-sm"></i>
                         </button>
@@ -340,7 +331,7 @@
 
 
         <!-- ==================== PERSONAL INFO VIEW ==================== -->
-        <section id="view-personal" class="view-section view-hidden view-enter-start min-h-[calc(100vh-80px)] px-4 sm:px-6 lg:px-8 py-12 max-w-7xl mx-auto space-y-10">
+        <section id="view-personal" class="view-section view-hidden min-h-[calc(100vh-80px)] px-4 sm:px-6 lg:px-8 py-12 max-w-7xl mx-auto space-y-10">
             
             <!-- UPPER LEFT BIO CONTAINER -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -424,7 +415,7 @@
             </div>
 
             <div class="text-center pt-4">
-                <button onclick="triggerSequenceTransition(event, 'home')" class="px-6 py-3 rounded-xl border border-gold-500/30 text-gold-400 hover:bg-gold-500 hover:text-navy-950 font-semibold transition-all text-sm inline-flex items-center gap-2">
+                <button onclick="triggerSynchronizedWave(event, 'home')" class="px-6 py-3 rounded-xl border border-gold-500/30 text-gold-400 hover:bg-gold-500 hover:text-navy-950 font-semibold transition-all text-sm inline-flex items-center gap-2">
                     <i class="fa-solid fa-arrow-left"></i>
                     <span>Back to Home Page</span>
                 </button>
@@ -444,13 +435,13 @@
             </div>
 
             <div class="flex items-center gap-6 text-slate-400 text-xs font-mono">
-                <button onclick="triggerSequenceTransition(event, 'home')" class="text-gold-400 hover:underline">Home</button>
-                <button onclick="triggerSequenceTransition(event, 'personal')" class="hover:text-gold-400 transition-colors">Personal Info</button>
+                <button onclick="triggerSynchronizedWave(event, 'home')" class="text-gold-400 hover:underline">Home</button>
+                <button onclick="triggerSynchronizedWave(event, 'personal')" class="hover:text-gold-400 transition-colors">Personal Info</button>
             </div>
         </div>
     </footer>
 
-    <!-- JAVASCRIPT: TWO-PHASE SEQUENCED PAGE TRANSITION LOGIC -->
+    <!-- JAVASCRIPT: SYNCHRONIZED REAL-TIME WAVE + PAGE TRANSITION LOGIC -->
     <script>
         // 1. Ambient Background Canvas
         const bgCanvas = document.getElementById('hexagon-canvas');
@@ -517,7 +508,7 @@
             requestAnimationFrame(animateBg);
         }
 
-        // 2. SEQUENCED PAGE TRANSITION: Wave Canvas -> Followed by Smooth Page Slide Entry
+        // 2. SYNCHRONIZED TRANSITION: Page Morphing EXACTLY alongside the Canvas Wave Front
         const transCanvas = document.getElementById('transition-canvas');
         const transCtx = transCanvas.getContext('2d');
         let isTransitioning = false;
@@ -534,7 +525,7 @@
             return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
         }
 
-        function triggerSequenceTransition(e, targetView) {
+        function triggerSynchronizedWave(e, targetView) {
             if (e) e.preventDefault();
             if (isTransitioning || targetView === activeView) return;
 
@@ -542,13 +533,12 @@
             const currentSec = document.getElementById(`view-${activeView}`);
             const nextSec = document.getElementById(`view-${targetView}`);
 
-            // STEP 1: Smoothly fade & scale out the current active page
-            currentSec.classList.add('view-exit');
-
-            // Set up wave grid relative to click origin
+            // Coordinates of click origin
             const clickX = e && e.clientX ? e.clientX : window.innerWidth / 2;
             const clickY = e && e.clientY ? e.clientY : window.innerHeight / 2;
-            const size = 30;
+
+            // Generate Hexagon Overlay Grid
+            const size = 32;
             const tWidth = Math.sqrt(3) * size;
             const tHeight = 2 * size;
             const cols = Math.ceil(transCanvas.width / tWidth) + 2;
@@ -564,76 +554,84 @@
                 }
             }
 
-            // STEP 2: Execute Canvas Wave Animation
-            const startTime = performance.now();
-            const duration = 1400; // Wave animation phase length
-            let pageSwitched = false;
+            // Prepare both views for real-time opacity morphing during the wave
+            currentSec.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+            nextSec.style.transition = 'opacity 1.2s ease-in-out, transform 1.2s ease-in-out';
+            
+            // Show incoming view initially transparent beneath the canvas wave
+            nextSec.style.opacity = '0';
+            nextSec.style.transform = 'scale(0.98) translateY(15px)';
+            nextSec.classList.remove('view-hidden');
 
-            function animateCanvasWave(now) {
+            const startTime = performance.now();
+            const duration = 2200; // Overall wave animation duration
+            const maxDist = Math.hypot(transCanvas.width, transCanvas.height);
+            let viewSwapped = false;
+
+            function animateSynchronized(now) {
                 const elapsed = now - startTime;
-                const maxDist = Math.hypot(transCanvas.width, transCanvas.height);
                 transCtx.clearRect(0, 0, transCanvas.width, transCanvas.height);
 
                 let waveActive = false;
 
                 waveGrid.forEach(hex => {
-                    const waveDelay = (hex.dist / maxDist) * 600;
-                    const linearProgress = Math.min(Math.max((elapsed - waveDelay) / 600, 0), 1);
+                    const waveDelay = (hex.dist / maxDist) * 1100;
+                    const linearProgress = Math.min(Math.max((elapsed - waveDelay) / 800, 0), 1);
 
                     if (linearProgress > 0 && linearProgress < 1) {
                         waveActive = true;
                         const easedProgress = easeInOutCubic(linearProgress);
                         const sineFactor = Math.sin(easedProgress * Math.PI);
 
-                        const scale = 0.85 + sineFactor * 0.4;
-                        const alpha = sineFactor * 0.85;
+                        // Canvas Hexagon Pulse Front
+                        const scale = 0.8 + sineFactor * 0.5;
+                        const alpha = sineFactor * 0.9;
 
                         transCtx.save();
                         transCtx.translate(hex.x, hex.y);
                         transCtx.scale(scale, scale);
 
                         const stroke = `rgba(255, 215, 0, ${alpha})`;
-                        const fill = `rgba(12, 24, 56, ${alpha * 0.9})`;
+                        const fill = `rgba(12, 24, 56, ${alpha * 0.95})`;
 
-                        drawHexagon(transCtx, 0, 0, size, stroke, fill, 1.2);
+                        drawHexagon(transCtx, 0, 0, size, stroke, fill, 1.4);
                         transCtx.restore();
                     }
                 });
 
-                // STEP 3: Mid-point view swap (When wave peaks)
-                if (elapsed >= duration * 0.45 && !pageSwitched) {
-                    pageSwitched = true;
-                    
-                    // Hide old view completely
-                    currentSec.classList.add('view-hidden');
-                    currentSec.classList.remove('view-exit');
+                // Smoothly fade out outgoing page as wave spreads past center
+                const overallProgress = Math.min(elapsed / duration, 1);
+                if (overallProgress > 0.15 && overallProgress < 0.55) {
+                    const fadeOutRatio = 1 - ((overallProgress - 0.15) / 0.4);
+                    currentSec.style.opacity = Math.max(fadeOutRatio, 0).toString();
+                }
 
-                    // Prepare target view in pre-entrance state
-                    nextSec.classList.remove('view-hidden');
-                    nextSec.classList.add('view-enter-start');
-
-                    // Update navigation buttons styling
+                // Seamlessly reveal incoming page following right behind the wave front
+                if (overallProgress >= 0.4 && !viewSwapped) {
+                    viewSwapped = true;
                     updateNavButtons(targetView);
                     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-                    // Trigger the smooth incoming page transition
-                    requestAnimationFrame(() => {
-                        requestAnimationFrame(() => {
-                            nextSec.classList.remove('view-enter-start');
-                        });
-                    });
+                    nextSec.style.opacity = '1';
+                    nextSec.style.transform = 'scale(1) translateY(0px)';
                 }
 
                 if (elapsed < duration || waveActive) {
-                    requestAnimationFrame(animateCanvasWave);
+                    requestAnimationFrame(animateSynchronized);
                 } else {
                     transCtx.clearRect(0, 0, transCanvas.width, transCanvas.height);
+                    
+                    // Cleanup old view state
+                    currentSec.classList.add('view-hidden');
+                    currentSec.style.opacity = '1';
+                    currentSec.style.transform = 'scale(1) translateY(0px)';
+
                     activeView = targetView;
                     isTransitioning = false;
                 }
             }
 
-            requestAnimationFrame(animateCanvasWave);
+            requestAnimationFrame(animateSynchronized);
         }
 
         function updateNavButtons(targetView) {
