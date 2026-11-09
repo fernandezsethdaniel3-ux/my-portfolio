@@ -107,7 +107,7 @@
 
         /* View Switching Logic */
         .view-section {
-            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
         }
         .view-hidden {
             display: none !important;
@@ -115,7 +115,7 @@
             pointer-events: none;
         }
 
-        /* Smooth Hexagon Wave Transition Canvas Overlay (No Flipping) */
+        /* Smooth Wave Transition Canvas Overlay */
         #transition-canvas {
             position: fixed;
             top: 0;
@@ -148,7 +148,7 @@
     <!-- Interactive Background Canvas (Hexagon Grid) -->
     <canvas id="hexagon-canvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0"></canvas>
 
-    <!-- Smooth Wave Transition Canvas Overlay -->
+    <!-- Slow & Ultra-Smooth Wave Transition Canvas Overlay -->
     <canvas id="transition-canvas"></canvas>
 
     <!-- Ambient Glow Orbs -->
@@ -442,7 +442,7 @@
         </div>
     </footer>
 
-    <!-- JAVASCRIPT: BACKGROUND CANVAS & SMOOTH HEXAGON WAVE EXPANSION (NO FLIPPING) -->
+    <!-- JAVASCRIPT: BACKGROUND CANVAS & SLOW SMOOTH EASED HEXAGON WAVE EXPANSION -->
     <script>
         // 1. Ambient Background Hexagon Canvas
         const bgCanvas = document.getElementById('hexagon-canvas');
@@ -509,7 +509,7 @@
             requestAnimationFrame(animateBg);
         }
 
-        // 2. Smooth Hexagon Wave Expansion (No Flipping)
+        // 2. Slow & Ultra-Smooth Eased Hexagon Wave Expansion
         const transCanvas = document.getElementById('transition-canvas');
         const transCtx = transCanvas.getContext('2d');
         let waveGrid = [];
@@ -521,6 +521,11 @@
         }
         window.addEventListener('resize', resizeTransCanvas);
         resizeTransCanvas();
+
+        // Smooth cubic easing function for liquid-like motion
+        function easeInOutCubic(x) {
+            return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+        }
 
         function triggerWaveTransition(e, targetView) {
             if (e) e.preventDefault();
@@ -548,7 +553,7 @@
             }
 
             const startTime = performance.now();
-            const duration = 900;
+            const duration = 2000; // Increased total duration to 2.0s for a luxurious slow feel
             let switched = false;
 
             function animateWave(now) {
@@ -559,24 +564,28 @@
                 let allFinished = true;
 
                 waveGrid.forEach(hex => {
-                    const waveDelay = (hex.dist / maxDist) * 350;
-                    const progress = Math.min(Math.max((elapsed - waveDelay) / 350, 0), 1);
+                    // Extended wave spread delay and individual hex animation duration
+                    const waveDelay = (hex.dist / maxDist) * 900;
+                    const linearProgress = Math.min(Math.max((elapsed - waveDelay) / 900, 0), 1);
 
-                    if (progress < 1) allFinished = false;
+                    if (linearProgress < 1) allFinished = false;
 
-                    // Smooth radial scale and opacity pulse without 3D side flipping
-                    if (progress > 0 && progress < 1) {
-                        const scale = Math.sin(progress * Math.PI) * 1.15;
-                        const alpha = Math.sin(progress * Math.PI) * 0.85;
+                    if (linearProgress > 0 && linearProgress < 1) {
+                        const easedProgress = easeInOutCubic(linearProgress);
+                        const sineFactor = Math.sin(easedProgress * Math.PI);
+
+                        // Smooth radial pulse without flipping
+                        const scale = 0.8 + sineFactor * 0.45;
+                        const alpha = sineFactor * 0.8;
 
                         transCtx.save();
                         transCtx.translate(hex.x, hex.y);
                         transCtx.scale(scale, scale);
 
                         const stroke = `rgba(255, 215, 0, ${alpha})`;
-                        const fill = `rgba(12, 24, 56, ${alpha * 0.9})`;
+                        const fill = `rgba(12, 24, 56, ${alpha * 0.85})`;
 
-                        drawHexagon(transCtx, 0, 0, size, stroke, fill, 1.5);
+                        drawHexagon(transCtx, 0, 0, size, stroke, fill, 1.2);
                         transCtx.restore();
                     }
                 });
