@@ -121,6 +121,12 @@
             display: none !important;
         }
 
+        /* Elements affected by the transition wave */
+        .wave-item {
+            will-change: transform, opacity;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+        }
+
         /* Hexagon Light-Spread Loading Overlay */
         #loader-overlay {
             position: fixed;
@@ -179,12 +185,12 @@
     <div class="fixed bottom-1/4 -right-32 w-96 h-96 rounded-full pointer-events-none z-0 animate-pulse-slow" style="background: radial-gradient(circle, rgba(17, 29, 74, 0.5) 0%, rgba(5, 10, 23, 0) 70%);"></div>
 
     <!-- HEADER / NAVIGATION BAR -->
-    <header class="fixed top-0 left-0 w-full z-50 glass-nav">
+    <header class="fixed top-0 left-0 w-full z-50 glass-nav wave-item">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 
                 <!-- Brand Logo -->
-                <a href="#home" onclick="triggerDropletWaveTransition(event, 'home')" class="flex items-center gap-3 group">
+                <a href="#home" onclick="triggerWaveTransition(event, 'home')" class="flex items-center gap-3 group wave-item">
                     <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-400 to-gold-600 p-0.5 transition-transform duration-300 group-hover:scale-105 shadow-lg shadow-gold-500/20">
                         <div class="w-full h-full bg-navy-950 rounded-[10px] flex items-center justify-center">
                             <span class="font-heading font-extrabold text-base gold-gradient-text">SF</span>
@@ -198,11 +204,11 @@
 
                 <!-- Nav Links -->
                 <nav class="hidden md:flex items-center space-x-3">
-                    <button id="nav-btn-home" onclick="triggerDropletWaveTransition(event, 'home')" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-navy-950 gold-gradient-bg shadow-md shadow-gold-500/20 transition-all flex items-center gap-2">
+                    <button id="nav-btn-home" onclick="triggerWaveTransition(event, 'home')" class="wave-item px-5 py-2.5 rounded-xl text-sm font-semibold text-navy-950 gold-gradient-bg shadow-md shadow-gold-500/20 transition-all flex items-center gap-2">
                         <i class="fa-solid fa-house-chimney text-xs"></i>
                         <span>Home Page</span>
                     </button>
-                    <button id="nav-btn-personal" onclick="triggerDropletWaveTransition(event, 'personal')" class="px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 border border-gold-500/20 hover:border-gold-500/60 hover:text-gold-400 hover:bg-navy-800/50 transition-all flex items-center gap-2">
+                    <button id="nav-btn-personal" onclick="triggerWaveTransition(event, 'personal')" class="wave-item px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 border border-gold-500/20 hover:border-gold-500/60 hover:text-gold-400 hover:bg-navy-800/50 transition-all flex items-center gap-2">
                         <i class="fa-regular fa-user text-xs"></i>
                         <span>Personal Info</span>
                     </button>
@@ -217,11 +223,11 @@
 
         <!-- Mobile Dropdown -->
         <div id="mobile-menu" class="hidden md:hidden glass-panel-navy border-t border-gold-500/20 px-4 pt-3 pb-6 space-y-3">
-            <button onclick="triggerDropletWaveTransition(event, 'home')" class="w-full mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-semibold text-navy-950 gold-gradient-bg">
+            <button onclick="triggerWaveTransition(event, 'home')" class="w-full mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-semibold text-navy-950 gold-gradient-bg">
                 <i class="fa-solid fa-house-chimney text-sm"></i>
                 <span>Home Page</span>
             </button>
-            <button onclick="triggerDropletWaveTransition(event, 'personal')" class="w-full mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium text-slate-300 border border-gold-500/20 hover:text-gold-400 hover:bg-navy-800/50">
+            <button onclick="triggerWaveTransition(event, 'personal')" class="w-full mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium text-slate-300 border border-gold-500/20 hover:text-gold-400 hover:bg-navy-800/50">
                 <i class="fa-regular fa-user text-sm"></i>
                 <span>Personal Info</span>
             </button>
@@ -236,7 +242,7 @@
             <div class="max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-10">
                 
                 <!-- LEFT SIDE: PICTURE FRAME -->
-                <div class="w-full lg:w-[42%] flex justify-center shrink-0">
+                <div class="w-full lg:w-[42%] flex justify-center shrink-0 wave-item">
                     <div class="relative group animate-float w-full max-w-md">
                         
                         <div class="absolute -inset-2 rounded-3xl bg-gradient-to-r from-gold-500 via-gold-400 to-navy-600 blur-md opacity-60 group-hover:opacity-100 transition duration-500"></div>
@@ -305,14 +311,14 @@
                 <!-- RIGHT SIDE: WELCOMING TEXT & DETAILS -->
                 <div class="w-full lg:w-[58%] space-y-6 text-center lg:text-left">
                     
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel-navy border border-gold-500/40 text-gold-300 text-xs sm:text-sm font-mono shadow-lg shadow-gold-500/10">
+                    <div class="wave-item inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel-navy border border-gold-500/40 text-gold-300 text-xs sm:text-sm font-mono shadow-lg shadow-gold-500/10">
                         <i class="fa-solid fa-atom text-gold-400 animate-spin" style="animation-duration: 10s;"></i>
                         <span>University of the Cordilleras</span>
                         <span class="text-slate-500">•</span>
                         <span class="text-gold-400 font-semibold">BSIT Student</span>
                     </div>
 
-                    <div class="space-y-3">
+                    <div class="space-y-3 wave-item">
                         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white tracking-tight leading-tight">
                             Hello, my name is <br/>
                             <span class="gold-gradient-text">Seth, Daniel M. Fernandez</span>
@@ -323,25 +329,25 @@
                         </p>
                     </div>
 
-                    <p class="text-slate-400 text-xs sm:text-sm lg:text-base max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                    <p class="wave-item text-slate-400 text-xs sm:text-sm lg:text-base max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
                         Welcome to my personal digital portfolio space. Focused on modern information technology, web development, software engineering, and high-tech digital solutions.
                     </p>
 
                     <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 pt-1">
-                        <span class="px-3 py-1.5 rounded-lg bg-navy-800 border border-gold-500/20 text-xs font-mono text-slate-300 hover:border-gold-500/50 transition-colors">
+                        <span class="wave-item px-3 py-1.5 rounded-lg bg-navy-800 border border-gold-500/20 text-xs font-mono text-slate-300 hover:border-gold-500/50 transition-colors">
                             <i class="fa-solid fa-code text-gold-400 mr-1.5"></i>Information Technology
                         </span>
-                        <span class="px-3 py-1.5 rounded-lg bg-navy-800 border border-gold-500/20 text-xs font-mono text-slate-300 hover:border-gold-500/50 transition-colors">
+                        <span class="wave-item px-3 py-1.5 rounded-lg bg-navy-800 border border-gold-500/20 text-xs font-mono text-slate-300 hover:border-gold-500/50 transition-colors">
                             <i class="fa-solid fa-laptop-code text-gold-400 mr-1.5"></i>Web & Systems
                         </span>
-                        <span class="px-3 py-1.5 rounded-lg bg-navy-800 border border-gold-500/20 text-xs font-mono text-slate-300 hover:border-gold-500/50 transition-colors">
+                        <span class="wave-item px-3 py-1.5 rounded-lg bg-navy-800 border border-gold-500/20 text-xs font-mono text-slate-300 hover:border-gold-500/50 transition-colors">
                             <i class="fa-solid fa-building-columns text-gold-400 mr-1.5"></i>UC Cordilleras
                         </span>
                     </div>
 
                     <!-- ACTION BUTTON -->
-                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-                        <button onclick="triggerDropletWaveTransition(event, 'personal')" class="w-full sm:w-auto px-7 py-3.5 rounded-xl text-navy-950 font-bold font-heading gold-gradient-bg gold-gradient-bg-hover shadow-xl shadow-gold-500/20 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 text-sm sm:text-base">
+                    <div class="wave-item flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <button onclick="triggerWaveTransition(event, 'personal')" class="w-full sm:w-auto px-7 py-3.5 rounded-xl text-navy-950 font-bold font-heading gold-gradient-bg gold-gradient-bg-hover shadow-xl shadow-gold-500/20 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 text-sm sm:text-base">
                             <span>Explore Personal Info</span>
                             <i class="fa-solid fa-arrow-right text-xs sm:text-sm"></i>
                         </button>
@@ -359,7 +365,7 @@
             <!-- UPPER LEFT BIO CONTAINER -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 
-                <div class="lg:col-span-7 glass-panel-navy p-6 sm:p-8 rounded-3xl border border-gold-500/30 space-y-4 shadow-2xl relative overflow-hidden">
+                <div class="wave-item lg:col-span-7 glass-panel-navy p-6 sm:p-8 rounded-3xl border border-gold-500/30 space-y-4 shadow-2xl relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-2 h-full gold-gradient-bg"></div>
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-900 border border-gold-500/30 text-gold-400 text-xs font-mono">
                         <i class="fa-regular fa-user text-xs"></i>
@@ -373,7 +379,7 @@
                     </p>
                 </div>
 
-                <div class="lg:col-span-5 glass-panel-navy p-6 sm:p-8 rounded-3xl border border-gold-500/20 space-y-4">
+                <div class="wave-item lg:col-span-5 glass-panel-navy p-6 sm:p-8 rounded-3xl border border-gold-500/20 space-y-4">
                     <h3 class="text-lg font-heading font-bold text-white flex items-center gap-2">
                         <i class="fa-solid fa-graduation-cap text-gold-400"></i>
                         Academic Profile
@@ -399,7 +405,7 @@
             <!-- PERSONAL INFO GRID CARDS -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 
-                <div class="glass-panel-navy rounded-3xl p-6 sm:p-8 border border-gold-500/20 glass-panel-hover flex flex-col justify-between">
+                <div class="wave-item glass-panel-navy rounded-3xl p-6 sm:p-8 border border-gold-500/20 glass-panel-hover flex flex-col justify-between">
                     <div class="space-y-4">
                         <div class="w-12 h-12 rounded-2xl gold-gradient-bg flex items-center justify-center text-navy-950 text-xl shadow-lg shadow-gold-500/20">
                             <i class="fa-solid fa-laptop-code"></i>
@@ -411,7 +417,7 @@
                     </div>
                 </div>
 
-                <div class="glass-panel-navy rounded-3xl p-6 sm:p-8 border border-gold-500/20 glass-panel-hover flex flex-col justify-between">
+                <div class="wave-item glass-panel-navy rounded-3xl p-6 sm:p-8 border border-gold-500/20 glass-panel-hover flex flex-col justify-between">
                     <div class="space-y-4">
                         <div class="w-12 h-12 rounded-2xl gold-gradient-bg flex items-center justify-center text-navy-950 text-xl shadow-lg shadow-gold-500/20">
                             <i class="fa-solid fa-diagram-project"></i>
@@ -423,7 +429,7 @@
                     </div>
                 </div>
 
-                <div class="glass-panel-navy rounded-3xl p-6 sm:p-8 border border-gold-500/20 glass-panel-hover flex flex-col justify-between">
+                <div class="wave-item glass-panel-navy rounded-3xl p-6 sm:p-8 border border-gold-500/20 glass-panel-hover flex flex-col justify-between">
                     <div class="space-y-4">
                         <div class="w-12 h-12 rounded-2xl gold-gradient-bg flex items-center justify-center text-navy-950 text-xl shadow-lg shadow-gold-500/20">
                             <i class="fa-solid fa-square-root-variable"></i>
@@ -437,8 +443,8 @@
 
             </div>
 
-            <div class="text-center pt-4 pb-6">
-                <button onclick="triggerDropletWaveTransition(event, 'home')" class="px-6 py-3 rounded-xl border border-gold-500/30 text-gold-400 hover:bg-gold-500 hover:text-navy-950 font-semibold transition-all text-sm inline-flex items-center gap-2">
+            <div class="wave-item text-center pt-4 pb-6">
+                <button onclick="triggerWaveTransition(event, 'home')" class="px-6 py-3 rounded-xl border border-gold-500/30 text-gold-400 hover:bg-gold-500 hover:text-navy-950 font-semibold transition-all text-sm inline-flex items-center gap-2">
                     <i class="fa-solid fa-arrow-left"></i>
                     <span>Back to Home Page</span>
                 </button>
@@ -449,7 +455,7 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="border-t border-gold-500/15 py-8 relative z-10 bg-navy-950/90">
+    <footer class="wave-item border-t border-gold-500/15 py-8 relative z-10 bg-navy-950/90">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-2">
                 <span class="font-heading font-bold text-base text-white">Seth, Daniel M. Fernandez</span>
@@ -458,38 +464,14 @@
             </div>
 
             <div class="flex items-center gap-6 text-slate-400 text-xs font-mono">
-                <button onclick="triggerDropletWaveTransition(event, 'home')" class="text-gold-400 hover:underline">Home</button>
-                <button onclick="triggerDropletWaveTransition(event, 'personal')" class="hover:text-gold-400 transition-colors">Personal Info</button>
+                <button onclick="triggerWaveTransition(event, 'home')" class="text-gold-400 hover:underline">Home</button>
+                <button onclick="triggerWaveTransition(event, 'personal')" class="hover:text-gold-400 transition-colors">Personal Info</button>
             </div>
         </div>
     </footer>
 
-    <!-- JAVASCRIPT: HEXAGON LIGHT-SPREAD LOADER + INTERACTIVE BACKGROUND -->
+    <!-- JAVASCRIPT: SILKY-SMOOTH WAVE TRANSITION + LIGHT-SPREAD LOADER -->
     <script>
-        function drawHexagon(ctx, x, y, radius, strokeStyle, fillStyle, lineWidth = 1) {
-            ctx.beginPath();
-            for (let i = 0; i < 6; i++) {
-                const angle = (Math.PI / 3) * i - Math.PI / 6;
-                const hx = x + radius * Math.cos(angle);
-                const hy = y + radius * Math.sin(angle);
-                if (i === 0) ctx.moveTo(hx, hy); else ctx.lineTo(hx, hy);
-            }
-            ctx.closePath();
-            if (fillStyle) {
-                ctx.fillStyle = fillStyle;
-                ctx.fill();
-            }
-            if (strokeStyle) {
-                ctx.strokeStyle = strokeStyle;
-                ctx.lineWidth = lineWidth;
-                ctx.stroke();
-            }
-        }
-
-        function easeOutCubic(x) {
-            return 1 - Math.pow(1 - x, 3);
-        }
-
         // ==================== 1. CENTER-OUT LIGHT-SPREADING HEXAGON LOADER ====================
         (function initHexLightLoader() {
             const loaderOverlay = document.getElementById('loader-overlay');
@@ -499,7 +481,6 @@
 
             const radius = 34;
             const hexW = Math.sqrt(3) * radius;
-            const hexH = 2 * radius;
             let cells = [];
             let centerX = 0;
             let centerY = 0;
@@ -512,16 +493,14 @@
                 centerX = loaderCanvas.width / 2;
                 centerY = loaderCanvas.height / 2;
 
-                // Build an axial/offset hex cluster centered strictly on screen center
                 cells = [];
-                const rings = 5; // 5 concentric hexagon rings radiating from the center
+                const rings = 5;
                 maxRingDist = rings * hexW;
 
                 for (let q = -rings; q <= rings; q++) {
                     const r1 = Math.max(-rings, -q - rings);
                     const r2 = Math.min(rings, -q + rings);
                     for (let r = r1; r <= r2; r++) {
-                        // Pointy-top axial to pixel coordinates
                         const x = centerX + radius * Math.sqrt(3) * (q + r / 2);
                         const y = centerY + radius * (3 / 2) * r;
                         const dist = Math.hypot(x - centerX, y - centerY);
@@ -537,33 +516,26 @@
             });
 
             const startTime = performance.now();
-            const LOAD_DURATION = 1900; // Total loading sequence duration (ms)
+            const LOAD_DURATION = 1700;
 
             function renderLoader(now) {
                 if (loaderFinished) return;
 
                 const elapsed = now - startTime;
                 const progress = Math.min(elapsed / LOAD_DURATION, 1);
-                const pct = Math.round(easeOutCubic(progress) * 100);
+                const easedProg = 1 - Math.pow(1 - progress, 3);
+                const pct = Math.round(easedProg * 100);
                 loaderPercent.textContent = `${pct}%`;
 
                 ctx.clearRect(0, 0, loaderCanvas.width, loaderCanvas.height);
 
-                // Light beam front expands from center (0) to outer ring (maxRingDist + padding)
-                const beamRadius = easeOutCubic(progress) * (maxRingDist + hexW * 1.4);
+                const beamRadius = easedProg * (maxRingDist + hexW * 1.4);
 
-                // 1. Draw glowing light bridges spreading between adjacent lit hexagons
                 cells.forEach(cell => {
                     const cellLit = Math.max(0, Math.min(1, (beamRadius - cell.dist + hexW * 0.6) / (hexW * 0.8)));
                     if (cellLit <= 0.05) return;
 
-                    // Connect to 3 forward neighbor directions so each edge is drawn once
-                    const neighborOffsets = [
-                        [1, 0],
-                        [0, 1],
-                        [-1, 1]
-                    ];
-
+                    const neighborOffsets = [[1, 0], [0, 1], [-1, 1]];
                     neighborOffsets.forEach(([dq, dr]) => {
                         const nq = cell.q + dq;
                         const nr = cell.r + dr;
@@ -573,7 +545,6 @@
                         const nLit = Math.max(0, Math.min(1, (beamRadius - neighbor.dist + hexW * 0.6) / (hexW * 0.8)));
                         if (nLit <= 0.05) return;
 
-                        // Light travels outward from the hexagon closer to center to the outer neighbor
                         const from = cell.dist <= neighbor.dist ? cell : neighbor;
                         const to = cell.dist <= neighbor.dist ? neighbor : cell;
                         const bridgeProgress = Math.min(cellLit, nLit);
@@ -599,26 +570,15 @@
                     });
                 });
 
-                // 2. Draw each hexagon cell illuminating as the central light reaches it
                 cells.forEach(cell => {
                     const activation = Math.max(0, Math.min(1, (beamRadius - cell.dist + hexW * 0.5) / (hexW * 0.75)));
                     const isCenter = cell.ringIndex === 0;
-
-                    // Pulse wave crest right at the leading edge of light spread
                     const crestDist = Math.abs(beamRadius - cell.dist);
                     const crestBoost = crestDist < hexW ? Math.sin((1 - crestDist / hexW) * Math.PI) : 0;
 
-                    const scale = isCenter
-                        ? 1 + Math.sin(now * 0.008) * 0.06
-                        : 0.86 + activation * 0.14 + crestBoost * 0.08;
-
-                    const strokeAlpha = isCenter
-                        ? 0.95
-                        : 0.1 + activation * 0.65 + crestBoost * 0.25;
-
-                    const fillAlpha = isCenter
-                        ? 0.38
-                        : activation * 0.16 + crestBoost * 0.22;
+                    const scale = isCenter ? 1 + Math.sin(now * 0.008) * 0.06 : 0.86 + activation * 0.14 + crestBoost * 0.08;
+                    const strokeAlpha = isCenter ? 0.95 : 0.1 + activation * 0.65 + crestBoost * 0.25;
+                    const fillAlpha = isCenter ? 0.38 : activation * 0.16 + crestBoost * 0.22;
 
                     ctx.save();
                     ctx.translate(cell.x, cell.y);
@@ -629,17 +589,8 @@
                         ctx.shadowBlur = isCenter ? 22 : 12 * (activation + crestBoost);
                     }
 
-                    drawHexagon(
-                        ctx,
-                        0,
-                        0,
-                        radius - 3,
-                        `rgba(255, 215, 0, ${Math.min(strokeAlpha, 1)})`,
-                        `rgba(255, 215, 0, ${Math.min(fillAlpha, 0.5)})`,
-                        isCenter ? 2.2 : 1.3
-                    );
+                    drawHexagon(ctx, 0, 0, radius - 3, `rgba(255, 215, 0, ${Math.min(strokeAlpha, 1)})`, `rgba(255, 215, 0, ${Math.min(fillAlpha, 0.5)})`, isCenter ? 2.2 : 1.3);
 
-                    // Bright inner core node inside lit hexagons
                     if (activation > 0.15 || isCenter) {
                         const coreAlpha = isCenter ? 1 : activation;
                         ctx.beginPath();
@@ -647,7 +598,6 @@
                         ctx.fillStyle = `rgba(255, 245, 180, ${coreAlpha})`;
                         ctx.fill();
                     }
-
                     ctx.restore();
                 });
 
@@ -655,16 +605,13 @@
                     requestAnimationFrame(renderLoader);
                 } else {
                     loaderFinished = true;
-                    setTimeout(() => {
-                        loaderOverlay.classList.add('loader-done');
-                    }, 180);
+                    setTimeout(() => { loaderOverlay.classList.add('loader-done'); }, 180);
                 }
             }
-
             requestAnimationFrame(renderLoader);
         })();
 
-        // ==================== 2. BACKGROUND HEXAGON GRID & WATER DROPLET RIPPLE ====================
+        // ==================== 2. BACKGROUND HEXAGON CANVAS ====================
         const bgCanvas = document.getElementById('hexagon-canvas');
         const bgCtx = bgCanvas.getContext('2d');
         const hexRadius = 38;
@@ -672,8 +619,7 @@
         const hexHeight = 2 * hexRadius;
         let bgCols, bgRows, bgGrid = [];
         let mouse = { x: null, y: null, radius: 180 };
-
-        let activeDroplets = [];
+        let activeRipples = [];
         let isTransitioning = false;
         let activeView = 'home';
 
@@ -683,14 +629,8 @@
             initBgGrid();
         }
         window.addEventListener('resize', resizeBgCanvas);
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        });
-        window.addEventListener('mouseleave', () => {
-            mouse.x = null;
-            mouse.y = null;
-        });
+        window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+        window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
 
         function initBgGrid() {
             bgGrid = [];
@@ -700,30 +640,37 @@
                 for (let c = 0; c < bgCols; c++) {
                     let x = c * hexWidth + (r % 2 === 1 ? hexWidth / 2 : 0);
                     let y = r * hexHeight * 0.75;
-                    bgGrid.push({
-                        x,
-                        y,
-                        pulse: Math.random() * Math.PI * 2,
-                        pulseSpeed: 0.015 + Math.random() * 0.015
-                    });
+                    bgGrid.push({ x, y, pulse: Math.random() * Math.PI * 2, pulseSpeed: 0.015 + Math.random() * 0.015 });
                 }
             }
         }
 
-        function spawnDropletRipple(originX, originY, duration = 450) {
-            activeDroplets.push({
+        function drawHexagon(ctx, x, y, radius, strokeStyle, fillStyle, lineWidth = 1) {
+            ctx.beginPath();
+            for (let i = 0; i < 6; i++) {
+                const angle = (Math.PI / 3) * i - Math.PI / 6;
+                const hx = x + radius * Math.cos(angle);
+                const hy = y + radius * Math.sin(angle);
+                if (i === 0) ctx.moveTo(hx, hy); else ctx.lineTo(hx, hy);
+            }
+            ctx.closePath();
+            if (fillStyle) { ctx.fillStyle = fillStyle; ctx.fill(); }
+            if (strokeStyle) { ctx.strokeStyle = strokeStyle; ctx.lineWidth = lineWidth; ctx.stroke(); }
+        }
+
+        function spawnRipple(originX, originY, duration = 650) {
+            activeRipples.push({
                 x: originX,
                 y: originY,
                 startTime: performance.now(),
                 duration: duration,
-                maxRadius: 280
+                maxRadius: Math.max(window.innerWidth, window.innerHeight) * 1.2
             });
         }
 
         function animateBg(now) {
             bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
-
-            activeDroplets = activeDroplets.filter(d => (now - d.startTime) < d.duration);
+            activeRipples = activeRipples.filter(r => (now - r.startTime) < r.duration);
 
             bgGrid.forEach(cell => {
                 cell.pulse += cell.pulseSpeed;
@@ -731,41 +678,38 @@
                 let dist = mouse.x !== null ? Math.hypot(mouse.x - cell.x, mouse.y - cell.y) : 9999;
 
                 let scale = 1;
-                let rippleAlphaBoost = 0;
-                let rippleFillBoost = 0;
+                let alphaBoost = 0;
+                let fillBoost = 0;
                 let lineWidth = 0.8;
 
                 if (dist < mouse.radius) {
                     const factor = 1 - (dist / mouse.radius);
-                    rippleAlphaBoost += factor * 0.45;
-                    rippleFillBoost += factor * 0.12;
+                    alphaBoost += factor * 0.45;
+                    fillBoost += factor * 0.12;
                     lineWidth = Math.max(lineWidth, 1.5);
                 }
 
-                activeDroplets.forEach(droplet => {
-                    const elapsed = now - droplet.startTime;
-                    const progress = elapsed / droplet.duration;
-                    const cellDist = Math.hypot(cell.x - droplet.x, cell.y - droplet.y);
+                activeRipples.forEach(ripple => {
+                    const elapsed = now - ripple.startTime;
+                    const progress = elapsed / ripple.duration;
+                    const cellDist = Math.hypot(cell.x - ripple.x, cell.y - ripple.y);
+                    const currentRing = progress * ripple.maxRadius;
+                    const ringWidth = 85;
 
-                    const currentRingRadius = progress * droplet.maxRadius;
-                    const ringWidth = 55;
+                    if (Math.abs(cellDist - currentRing) < ringWidth) {
+                        const ringProg = 1 - (Math.abs(cellDist - currentRing) / ringWidth);
+                        const waveSine = Math.sin(ringProg * Math.PI);
 
-                    if (Math.abs(cellDist - currentRingRadius) < ringWidth) {
-                        const ringProgress = 1 - (Math.abs(cellDist - currentRingRadius) / ringWidth);
-                        const waveSine = Math.sin(ringProgress * Math.PI);
-
-                        scale = Math.min(scale, 1 - waveSine * 0.35);
-                        rippleAlphaBoost += waveSine * 0.85;
-                        rippleFillBoost += waveSine * 0.25;
-                        lineWidth = Math.max(lineWidth, 1.6);
+                        scale = Math.min(scale, 1 - waveSine * 0.42);
+                        alphaBoost += waveSine * 0.9;
+                        fillBoost += waveSine * 0.35;
+                        lineWidth = Math.max(lineWidth, 1.8);
                     }
                 });
 
-                const finalStrokeAlpha = Math.min(baseOpacity + rippleAlphaBoost, 0.95);
+                const finalStrokeAlpha = Math.min(baseOpacity + alphaBoost, 0.98);
                 const strokeStyle = `rgba(255, 215, 0, ${finalStrokeAlpha})`;
-                const fillStyle = rippleFillBoost > 0
-                    ? `rgba(17, 36, 86, ${Math.min(rippleFillBoost, 0.65)})`
-                    : null;
+                const fillStyle = fillBoost > 0 ? `rgba(17, 36, 86, ${Math.min(fillBoost, 0.7)})` : null;
 
                 bgCtx.save();
                 bgCtx.translate(cell.x, cell.y);
@@ -777,8 +721,8 @@
             requestAnimationFrame(animateBg);
         }
 
-        // 3. WATER DROPLET PAGE TRANSITION LOGIC
-        function triggerDropletWaveTransition(e, targetView) {
+        // ==================== 3. SMOOTH & SLIGHTLY FAST WAVE TRANSITION FOR ALL ELEMENTS ====================
+        function triggerWaveTransition(e, targetView) {
             if (e) e.preventDefault();
             if (isTransitioning || targetView === activeView) return;
 
@@ -806,36 +750,67 @@
                 menuIcon.className = 'fa-solid fa-bars text-xl';
             }
 
-            const DURATION = 450;
-            spawnDropletRipple(clickX, clickY, DURATION);
+            const DURATION = 650; // Slightly fast, silky smooth duration (0.65s)
+            spawnRipple(clickX, clickY, DURATION);
 
             nextSec.classList.remove('view-hidden');
-            nextSec.style.opacity = '0';
 
+            // Gather all wave items in the current view and header/footer
+            const items = document.querySelectorAll('.wave-item');
+            items.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const elX = rect.left + rect.width / 2;
+                const elY = rect.top + rect.height / 2;
+                const d = Math.hypot(elX - clickX, elY - clickY);
+                el.dataset.waveDist = d;
+
+                // Initial out state for exit wave
+                el.style.transition = 'transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease';
+            });
+
+            // 1. Exit wave across current elements
             const startTime = performance.now();
             let navUpdated = false;
 
             function step(now) {
                 const elapsed = now - startTime;
                 const progress = Math.min(elapsed / DURATION, 1);
-                const easedProgress = easeOutCubic(progress);
 
-                currentSec.style.opacity = (1 - easedProgress).toString();
-                nextSec.style.opacity = easedProgress.toString();
+                items.forEach(el => {
+                    const d = parseFloat(el.dataset.waveDist || 0);
+                    // Staggered delay based on radial distance from click point
+                    const delay = (d / 1200) * 0.25;
+                    const itemProg = Math.min(Math.max((progress - delay) / 0.6, 0), 1);
 
-                if (progress >= 0.5 && !navUpdated) {
-                    navUpdated = true;
-                    updateNavButtons(targetView);
-                    window.scrollTo({ top: 0, behavior: 'instant' });
-                }
+                    if (itemProg > 0) {
+                        const eased = 1 - Math.pow(1 - itemProg, 3);
+                        if (progress < 0.5) {
+                            // Outgoing phase
+                            el.style.transform = `translate3d(0, ${-eased * 25}px, 0) scale(${1 - eased * 0.08})`;
+                            el.style.opacity = (1 - eased).toString();
+                        } else {
+                            if (!navUpdated) {
+                                navUpdated = true;
+                                updateNavButtons(targetView);
+                                currentSec.classList.add('view-hidden');
+                                window.scrollTo({ top: 0, behavior: 'instant' });
+                            }
+                            // Incoming phase for new view elements
+                            const entryEased = Math.pow(itemProg, 2);
+                            el.style.transform = `translate3d(0, ${(1 - entryEased) * 25}px, 0) scale(${0.92 + entryEased * 0.08})`;
+                            el.style.opacity = entryEased.toString();
+                        }
+                    }
+                });
 
                 if (progress < 1) {
                     requestAnimationFrame(step);
                 } else {
-                    currentSec.classList.add('view-hidden');
-                    currentSec.style.opacity = '';
-                    nextSec.style.opacity = '';
-
+                    items.forEach(el => {
+                        el.style.transform = '';
+                        el.style.opacity = '';
+                        el.style.transition = '';
+                    });
                     activeView = targetView;
                     isTransitioning = false;
                 }
@@ -849,15 +824,15 @@
             const navPersonal = document.getElementById('nav-btn-personal');
 
             if (targetView === 'personal') {
-                navHome.className = "px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 border border-gold-500/20 hover:border-gold-500/60 hover:text-gold-400 hover:bg-navy-800/50 transition-all flex items-center gap-2";
-                navPersonal.className = "px-5 py-2.5 rounded-xl text-sm font-semibold text-navy-950 gold-gradient-bg shadow-md shadow-gold-500/20 transition-all flex items-center gap-2";
+                navHome.className = "wave-item px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 border border-gold-500/20 hover:border-gold-500/60 hover:text-gold-400 hover:bg-navy-800/50 transition-all flex items-center gap-2";
+                navPersonal.className = "wave-item px-5 py-2.5 rounded-xl text-sm font-semibold text-navy-950 gold-gradient-bg shadow-md shadow-gold-500/20 transition-all flex items-center gap-2";
             } else {
-                navPersonal.className = "px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 border border-gold-500/20 hover:border-gold-500/60 hover:text-gold-400 hover:bg-navy-800/50 transition-all flex items-center gap-2";
-                navHome.className = "px-5 py-2.5 rounded-xl text-sm font-semibold text-navy-950 gold-gradient-bg shadow-md shadow-gold-500/20 transition-all flex items-center gap-2";
+                navPersonal.className = "wave-item px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 border border-gold-500/20 hover:border-gold-500/60 hover:text-gold-400 hover:bg-navy-800/50 transition-all flex items-center gap-2";
+                navHome.className = "wave-item px-5 py-2.5 rounded-xl text-sm font-semibold text-navy-950 gold-gradient-bg shadow-md shadow-gold-500/20 transition-all flex items-center gap-2";
             }
         }
 
-        // 4. Image Carousel Logic (3-Second Slideshow)
+        // ==================== 4. IMAGE CAROUSEL LOGIC ====================
         const track = document.getElementById('carousel-track');
         const dots = document.querySelectorAll('.slide-dot');
         const prevBtn = document.getElementById('prev-slide-btn');
