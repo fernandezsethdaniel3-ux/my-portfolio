@@ -124,7 +124,17 @@
         /* Elements affected by the transition wave */
         .wave-item {
             will-change: transform, opacity;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+            transform-origin: center center;
+        }
+
+        /* Foreground Hexagon Wave Transition Canvas */
+        #hex-wave-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 80;
         }
 
         /* Hexagon Light-Spread Loading Overlay */
@@ -180,6 +190,9 @@
     <!-- Unified Interactive Background Canvas -->
     <canvas id="hexagon-canvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0"></canvas>
 
+    <!-- Foreground Hexagon Wave Transition Canvas -->
+    <canvas id="hex-wave-overlay"></canvas>
+
     <!-- Ambient Glow Orbs -->
     <div class="fixed top-1/4 -left-32 w-96 h-96 rounded-full pointer-events-none z-0 animate-pulse-slow" style="background: radial-gradient(circle, rgba(255, 215, 0, 0.12) 0%, rgba(5, 10, 23, 0) 70%);"></div>
     <div class="fixed bottom-1/4 -right-32 w-96 h-96 rounded-full pointer-events-none z-0 animate-pulse-slow" style="background: radial-gradient(circle, rgba(17, 29, 74, 0.5) 0%, rgba(5, 10, 23, 0) 70%);"></div>
@@ -190,7 +203,7 @@
             <div class="flex items-center justify-between h-20">
                 
                 <!-- Brand Logo -->
-                <a href="#home" onclick="triggerWaveTransition(event, 'home')" class="flex items-center gap-3 group wave-item">
+                <a href="#home" onclick="triggerHexWaveTransition(event, 'home')" class="flex items-center gap-3 group wave-item">
                     <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-400 to-gold-600 p-0.5 transition-transform duration-300 group-hover:scale-105 shadow-lg shadow-gold-500/20">
                         <div class="w-full h-full bg-navy-950 rounded-[10px] flex items-center justify-center">
                             <span class="font-heading font-extrabold text-base gold-gradient-text">SF</span>
@@ -204,11 +217,11 @@
 
                 <!-- Nav Links -->
                 <nav class="hidden md:flex items-center space-x-3">
-                    <button id="nav-btn-home" onclick="triggerWaveTransition(event, 'home')" class="wave-item px-5 py-2.5 rounded-xl text-sm font-semibold text-navy-950 gold-gradient-bg shadow-md shadow-gold-500/20 transition-all flex items-center gap-2">
+                    <button id="nav-btn-home" onclick="triggerHexWaveTransition(event, 'home')" class="wave-item px-5 py-2.5 rounded-xl text-sm font-semibold text-navy-950 gold-gradient-bg shadow-md shadow-gold-500/20 transition-all flex items-center gap-2">
                         <i class="fa-solid fa-house-chimney text-xs"></i>
                         <span>Home Page</span>
                     </button>
-                    <button id="nav-btn-personal" onclick="triggerWaveTransition(event, 'personal')" class="wave-item px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 border border-gold-500/20 hover:border-gold-500/60 hover:text-gold-400 hover:bg-navy-800/50 transition-all flex items-center gap-2">
+                    <button id="nav-btn-personal" onclick="triggerHexWaveTransition(event, 'personal')" class="wave-item px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 border border-gold-500/20 hover:border-gold-500/60 hover:text-gold-400 hover:bg-navy-800/50 transition-all flex items-center gap-2">
                         <i class="fa-regular fa-user text-xs"></i>
                         <span>Personal Info</span>
                     </button>
@@ -223,11 +236,11 @@
 
         <!-- Mobile Dropdown -->
         <div id="mobile-menu" class="hidden md:hidden glass-panel-navy border-t border-gold-500/20 px-4 pt-3 pb-6 space-y-3">
-            <button onclick="triggerWaveTransition(event, 'home')" class="w-full mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-semibold text-navy-950 gold-gradient-bg">
+            <button onclick="triggerHexWaveTransition(event, 'home')" class="w-full mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-semibold text-navy-950 gold-gradient-bg">
                 <i class="fa-solid fa-house-chimney text-sm"></i>
                 <span>Home Page</span>
             </button>
-            <button onclick="triggerWaveTransition(event, 'personal')" class="w-full mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium text-slate-300 border border-gold-500/20 hover:text-gold-400 hover:bg-navy-800/50">
+            <button onclick="triggerHexWaveTransition(event, 'personal')" class="w-full mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium text-slate-300 border border-gold-500/20 hover:text-gold-400 hover:bg-navy-800/50">
                 <i class="fa-regular fa-user text-sm"></i>
                 <span>Personal Info</span>
             </button>
@@ -297,7 +310,7 @@
                             </div>
                         </div>
 
-                        <div class="absolute -bottom-3 -right-3 glass-panel-navy px-3.5 py-2 rounded-2xl flex items-center gap-2 border border-gold-500/50 shadow-xl">
+                        <div class="wave-item absolute -bottom-3 -right-3 glass-panel-navy px-3.5 py-2 rounded-2xl flex items-center gap-2 border border-gold-500/50 shadow-xl">
                             <i class="fa-solid fa-graduation-cap text-gold-400 text-sm"></i>
                             <div class="flex flex-col">
                                 <span class="text-[9px] font-mono text-slate-400 uppercase">Education</span>
@@ -347,7 +360,7 @@
 
                     <!-- ACTION BUTTON -->
                     <div class="wave-item flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-                        <button onclick="triggerWaveTransition(event, 'personal')" class="w-full sm:w-auto px-7 py-3.5 rounded-xl text-navy-950 font-bold font-heading gold-gradient-bg gold-gradient-bg-hover shadow-xl shadow-gold-500/20 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 text-sm sm:text-base">
+                        <button onclick="triggerHexWaveTransition(event, 'personal')" class="w-full sm:w-auto px-7 py-3.5 rounded-xl text-navy-950 font-bold font-heading gold-gradient-bg gold-gradient-bg-hover shadow-xl shadow-gold-500/20 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 text-sm sm:text-base">
                             <span>Explore Personal Info</span>
                             <i class="fa-solid fa-arrow-right text-xs sm:text-sm"></i>
                         </button>
@@ -444,7 +457,7 @@
             </div>
 
             <div class="wave-item text-center pt-4 pb-6">
-                <button onclick="triggerWaveTransition(event, 'home')" class="px-6 py-3 rounded-xl border border-gold-500/30 text-gold-400 hover:bg-gold-500 hover:text-navy-950 font-semibold transition-all text-sm inline-flex items-center gap-2">
+                <button onclick="triggerHexWaveTransition(event, 'home')" class="px-6 py-3 rounded-xl border border-gold-500/30 text-gold-400 hover:bg-gold-500 hover:text-navy-950 font-semibold transition-all text-sm inline-flex items-center gap-2">
                     <i class="fa-solid fa-arrow-left"></i>
                     <span>Back to Home Page</span>
                 </button>
@@ -464,14 +477,31 @@
             </div>
 
             <div class="flex items-center gap-6 text-slate-400 text-xs font-mono">
-                <button onclick="triggerWaveTransition(event, 'home')" class="text-gold-400 hover:underline">Home</button>
-                <button onclick="triggerWaveTransition(event, 'personal')" class="hover:text-gold-400 transition-colors">Personal Info</button>
+                <button onclick="triggerHexWaveTransition(event, 'home')" class="text-gold-400 hover:underline">Home</button>
+                <button onclick="triggerHexWaveTransition(event, 'personal')" class="hover:text-gold-400 transition-colors">Personal Info</button>
             </div>
         </div>
     </footer>
 
-    <!-- JAVASCRIPT: SILKY-SMOOTH WAVE TRANSITION + LIGHT-SPREAD LOADER -->
+    <!-- JAVASCRIPT: SILKY-SMOOTH HEXAGON WAVE TRANSITION + LIGHT-SPREAD LOADER -->
     <script>
+        function drawHexagon(ctx, x, y, radius, strokeStyle, fillStyle, lineWidth = 1) {
+            ctx.beginPath();
+            for (let i = 0; i < 6; i++) {
+                const angle = (Math.PI / 3) * i - Math.PI / 6;
+                const hx = x + radius * Math.cos(angle);
+                const hy = y + radius * Math.sin(angle);
+                if (i === 0) ctx.moveTo(hx, hy); else ctx.lineTo(hx, hy);
+            }
+            ctx.closePath();
+            if (fillStyle) { ctx.fillStyle = fillStyle; ctx.fill(); }
+            if (strokeStyle) { ctx.strokeStyle = strokeStyle; ctx.lineWidth = lineWidth; ctx.stroke(); }
+        }
+
+        function easeInOutCubic(x) {
+            return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+        }
+
         // ==================== 1. CENTER-OUT LIGHT-SPREADING HEXAGON LOADER ====================
         (function initHexLightLoader() {
             const loaderOverlay = document.getElementById('loader-overlay');
@@ -516,7 +546,7 @@
             });
 
             const startTime = performance.now();
-            const LOAD_DURATION = 1700;
+            const LOAD_DURATION = 1650;
 
             function renderLoader(now) {
                 if (loaderFinished) return;
@@ -645,26 +675,13 @@
             }
         }
 
-        function drawHexagon(ctx, x, y, radius, strokeStyle, fillStyle, lineWidth = 1) {
-            ctx.beginPath();
-            for (let i = 0; i < 6; i++) {
-                const angle = (Math.PI / 3) * i - Math.PI / 6;
-                const hx = x + radius * Math.cos(angle);
-                const hy = y + radius * Math.sin(angle);
-                if (i === 0) ctx.moveTo(hx, hy); else ctx.lineTo(hx, hy);
-            }
-            ctx.closePath();
-            if (fillStyle) { ctx.fillStyle = fillStyle; ctx.fill(); }
-            if (strokeStyle) { ctx.strokeStyle = strokeStyle; ctx.lineWidth = lineWidth; ctx.stroke(); }
-        }
-
-        function spawnRipple(originX, originY, duration = 650) {
+        function spawnBgRipple(originX, originY, duration = 700) {
             activeRipples.push({
                 x: originX,
                 y: originY,
                 startTime: performance.now(),
                 duration: duration,
-                maxRadius: Math.max(window.innerWidth, window.innerHeight) * 1.2
+                maxRadius: Math.hypot(window.innerWidth, window.innerHeight) * 1.15
             });
         }
 
@@ -691,16 +708,16 @@
 
                 activeRipples.forEach(ripple => {
                     const elapsed = now - ripple.startTime;
-                    const progress = elapsed / ripple.duration;
+                    const progress = easeInOutCubic(Math.min(elapsed / ripple.duration, 1));
                     const cellDist = Math.hypot(cell.x - ripple.x, cell.y - ripple.y);
                     const currentRing = progress * ripple.maxRadius;
-                    const ringWidth = 85;
+                    const ringWidth = 110;
 
                     if (Math.abs(cellDist - currentRing) < ringWidth) {
                         const ringProg = 1 - (Math.abs(cellDist - currentRing) / ringWidth);
                         const waveSine = Math.sin(ringProg * Math.PI);
 
-                        scale = Math.min(scale, 1 - waveSine * 0.42);
+                        scale = Math.min(scale, 1 - waveSine * 0.48);
                         alphaBoost += waveSine * 0.9;
                         fillBoost += waveSine * 0.35;
                         lineWidth = Math.max(lineWidth, 1.8);
@@ -721,8 +738,18 @@
             requestAnimationFrame(animateBg);
         }
 
-        // ==================== 3. SMOOTH & SLIGHTLY FAST WAVE TRANSITION FOR ALL ELEMENTS ====================
-        function triggerWaveTransition(e, targetView) {
+        // ==================== 3. SMOOTH & SLIGHTLY FAST HEXAGON WAVE TRANSITION ====================
+        const waveOverlay = document.getElementById('hex-wave-overlay');
+        const waveCtx = waveOverlay.getContext('2d');
+
+        function resizeWaveOverlay() {
+            waveOverlay.width = window.innerWidth;
+            waveOverlay.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeWaveOverlay);
+        resizeWaveOverlay();
+
+        function triggerHexWaveTransition(e, targetView) {
             if (e) e.preventDefault();
             if (isTransitioning || targetView === activeView) return;
 
@@ -730,6 +757,7 @@
             const currentSec = document.getElementById(`view-${activeView}`);
             const nextSec = document.getElementById(`view-${targetView}`);
 
+            // Capture origin of the hexagon wave from the clicked button
             let clickX = window.innerWidth / 2;
             let clickY = window.innerHeight / 2;
             if (e) {
@@ -743,6 +771,7 @@
                 }
             }
 
+            // Close mobile menu if open
             const mobileMenu = document.getElementById('mobile-menu');
             const menuIcon = document.getElementById('menu-icon');
             if (!mobileMenu.classList.contains('hidden')) {
@@ -750,66 +779,158 @@
                 menuIcon.className = 'fa-solid fa-bars text-xl';
             }
 
-            const DURATION = 650; // Slightly fast, silky smooth duration (0.65s)
-            spawnRipple(clickX, clickY, DURATION);
+            const DURATION = 680; // Silky smooth & slightly fast (0.68s)
+            spawnBgRipple(clickX, clickY, DURATION);
 
-            nextSec.classList.remove('view-hidden');
+            // Build foreground hexagon wave grid
+            const wRadius = 34;
+            const wWidth = Math.sqrt(3) * wRadius;
+            const wHeight = 2 * wRadius;
+            const cols = Math.ceil(waveOverlay.width / wWidth) + 2;
+            const rows = Math.ceil(waveOverlay.height / (wHeight * 0.75)) + 2;
+            const maxScreenDist = Math.hypot(
+                Math.max(clickX, waveOverlay.width - clickX),
+                Math.max(clickY, waveOverlay.height - clickY)
+            );
 
-            // Gather all wave items in the current view and header/footer
-            const items = document.querySelectorAll('.wave-item');
-            items.forEach(el => {
+            const hexWaveCells = [];
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    const x = c * wWidth + (r % 2 === 1 ? wWidth / 2 : 0);
+                    const y = r * wHeight * 0.75;
+                    const dist = Math.hypot(x - clickX, y - clickY);
+                    hexWaveCells.push({ x, y, dist });
+                }
+            }
+
+            // Measure distances for all outgoing elements
+            const currentItems = Array.from(currentSec.querySelectorAll('.wave-item'));
+            const globalItems = Array.from(document.querySelectorAll('header .wave-item, footer .wave-item'));
+
+            [...currentItems, ...globalItems].forEach(el => {
                 const rect = el.getBoundingClientRect();
                 const elX = rect.left + rect.width / 2;
                 const elY = rect.top + rect.height / 2;
-                const d = Math.hypot(elX - clickX, elY - clickY);
-                el.dataset.waveDist = d;
-
-                // Initial out state for exit wave
-                el.style.transition = 'transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease';
+                el.dataset.waveDist = Math.hypot(elX - clickX, elY - clickY);
             });
 
-            // 1. Exit wave across current elements
+            let switchedView = false;
+            let nextItems = [];
             const startTime = performance.now();
-            let navUpdated = false;
 
             function step(now) {
                 const elapsed = now - startTime;
                 const progress = Math.min(elapsed / DURATION, 1);
+                const easedProgress = easeInOutCubic(progress);
 
-                items.forEach(el => {
-                    const d = parseFloat(el.dataset.waveDist || 0);
-                    // Staggered delay based on radial distance from click point
-                    const delay = (d / 1200) * 0.25;
-                    const itemProg = Math.min(Math.max((progress - delay) / 0.6, 0), 1);
+                // 1. Render smooth hexagon wave sweeping across the screen
+                waveCtx.clearRect(0, 0, waveOverlay.width, waveOverlay.height);
+                const waveFront = easedProgress * (maxScreenDist + 160);
+                const bandWidth = 170;
 
-                    if (itemProg > 0) {
-                        const eased = 1 - Math.pow(1 - itemProg, 3);
-                        if (progress < 0.5) {
-                            // Outgoing phase
-                            el.style.transform = `translate3d(0, ${-eased * 25}px, 0) scale(${1 - eased * 0.08})`;
-                            el.style.opacity = (1 - eased).toString();
-                        } else {
-                            if (!navUpdated) {
-                                navUpdated = true;
-                                updateNavButtons(targetView);
-                                currentSec.classList.add('view-hidden');
-                                window.scrollTo({ top: 0, behavior: 'instant' });
-                            }
-                            // Incoming phase for new view elements
-                            const entryEased = Math.pow(itemProg, 2);
-                            el.style.transform = `translate3d(0, ${(1 - entryEased) * 25}px, 0) scale(${0.92 + entryEased * 0.08})`;
-                            el.style.opacity = entryEased.toString();
-                        }
+                hexWaveCells.forEach(cell => {
+                    const delta = waveFront - cell.dist;
+                    if (delta > -bandWidth && delta < bandWidth) {
+                        const norm = 1 - Math.abs(delta) / bandWidth;
+                        const smoothBell = Math.pow(Math.sin(norm * Math.PI * 0.5), 1.6);
+
+                        // Hexagons swell slightly at the crest and smoothly shrink as the wave passes
+                        const scale = delta >= 0
+                            ? 0.25 + smoothBell * 0.85
+                            : 0.4 + smoothBell * 0.7;
+
+                        const strokeAlpha = smoothBell * 0.85;
+                        const fillAlpha = smoothBell * 0.45;
+
+                        waveCtx.save();
+                        waveCtx.translate(cell.x, cell.y);
+                        waveCtx.scale(scale, scale);
+
+                        drawHexagon(
+                            waveCtx,
+                            0,
+                            0,
+                            wRadius - 1,
+                            `rgba(255, 215, 0, ${strokeAlpha})`,
+                            `rgba(10, 17, 40, ${fillAlpha})`,
+                            1.4
+                        );
+                        waveCtx.restore();
                     }
                 });
+
+                // 2. Ripple & transition all elements smoothly with the hexagon wave
+                if (progress < 0.5) {
+                    const outPhase = progress / 0.5; // 0 -> 1
+                    currentItems.forEach(el => {
+                        const d = parseFloat(el.dataset.waveDist || 0);
+                        const delay = (d / (maxScreenDist || 1)) * 0.35;
+                        const localP = Math.min(Math.max((outPhase - delay) / 0.65, 0), 1);
+                        const eOut = localP * localP * (3 - 2 * localP);
+
+                        el.style.transform = `translate3d(0, ${-eOut * 22}px, 0) scale(${1 - eOut * 0.06})`;
+                        el.style.opacity = (1 - eOut).toString();
+                    });
+
+                    // Subtle wave bounce on header/footer elements
+                    globalItems.forEach(el => {
+                        const d = parseFloat(el.dataset.waveDist || 0);
+                        const delay = (d / (maxScreenDist || 1)) * 0.35;
+                        const localP = Math.min(Math.max((outPhase - delay) / 0.65, 0), 1);
+                        const pulse = Math.sin(localP * Math.PI);
+                        el.style.transform = `translate3d(0, ${-pulse * 4}px, 0) scale(${1 - pulse * 0.015})`;
+                    });
+                } else {
+                    if (!switchedView) {
+                        switchedView = true;
+                        currentSec.classList.add('view-hidden');
+                        currentItems.forEach(el => {
+                            el.style.transform = '';
+                            el.style.opacity = '';
+                        });
+
+                        nextSec.classList.remove('view-hidden');
+                        updateNavButtons(targetView);
+                        window.scrollTo({ top: 0, behavior: 'instant' });
+
+                        nextItems = Array.from(nextSec.querySelectorAll('.wave-item'));
+                        nextItems.forEach(el => {
+                            const rect = el.getBoundingClientRect();
+                            const elX = rect.left + rect.width / 2;
+                            const elY = rect.top + rect.height / 2;
+                            el.dataset.waveDist = Math.hypot(elX - clickX, elY - clickY);
+                            el.style.opacity = '0';
+                            el.style.transform = 'translate3d(0, 22px, 0) scale(0.94)';
+                        });
+                    }
+
+                    const inPhase = (progress - 0.5) / 0.5; // 0 -> 1
+                    nextItems.forEach(el => {
+                        const d = parseFloat(el.dataset.waveDist || 0);
+                        const delay = (d / (maxScreenDist || 1)) * 0.35;
+                        const localP = Math.min(Math.max((inPhase - delay) / 0.65, 0), 1);
+                        const eIn = 1 - Math.pow(1 - localP, 3);
+
+                        el.style.transform = `translate3d(0, ${(1 - eIn) * 22}px, 0) scale(${0.94 + eIn * 0.06})`;
+                        el.style.opacity = eIn.toString();
+                    });
+
+                    globalItems.forEach(el => {
+                        const d = parseFloat(el.dataset.waveDist || 0);
+                        const delay = (d / (maxScreenDist || 1)) * 0.35;
+                        const localP = Math.min(Math.max((inPhase - delay) / 0.65, 0), 1);
+                        const pulse = Math.sin(localP * Math.PI);
+                        el.style.transform = `translate3d(0, ${-pulse * 4}px, 0) scale(${1 - pulse * 0.015})`;
+                    });
+                }
 
                 if (progress < 1) {
                     requestAnimationFrame(step);
                 } else {
-                    items.forEach(el => {
+                    waveCtx.clearRect(0, 0, waveOverlay.width, waveOverlay.height);
+                    [...nextItems, ...globalItems].forEach(el => {
                         el.style.transform = '';
                         el.style.opacity = '';
-                        el.style.transition = '';
                     });
                     activeView = targetView;
                     isTransitioning = false;
