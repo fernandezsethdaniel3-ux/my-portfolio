@@ -375,82 +375,175 @@
         <!-- ==================== PERSONAL INFO VIEW ==================== -->
         <section id="view-personal" class="view-section view-hidden px-4 sm:px-6 lg:px-8 py-12 max-w-7xl mx-auto space-y-10">
             
-            <!-- UPPER LEFT BIO CONTAINER -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- TOP ROW: SHORT BIO & ACADEMIC PROFILE -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
                 
-                <div class="wave-item lg:col-span-7 glass-panel-navy p-6 sm:p-8 rounded-3xl border border-gold-500/30 space-y-4 shadow-2xl relative overflow-hidden">
+                <!-- SHORT BIO -->
+                <div class="wave-item lg:col-span-7 glass-panel-navy p-6 sm:p-8 rounded-3xl border border-gold-500/30 space-y-4 shadow-2xl relative overflow-hidden flex flex-col justify-center">
                     <div class="absolute top-0 left-0 w-2 h-full gold-gradient-bg"></div>
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-900 border border-gold-500/30 text-gold-400 text-xs font-mono">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-900 border border-gold-500/30 text-gold-400 text-xs font-mono w-fit">
                         <i class="fa-regular fa-user text-xs"></i>
-                        <span>UPPER LEFT BIO</span>
+                        <span>PERSONAL BIO</span>
                     </div>
                     <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-white">
-                        About <span class="gold-gradient-text">Seth Daniel Fernandez</span>
+                        To get to know <span class="gold-gradient-text">about me</span>
                     </h2>
-                    <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-sans font-medium">
-                        "I am a BSIT student at the University of the Cordilleras with a passion of web development and designing, system analyzation, and algorithm."
-                    </p>
+                    <div class="space-y-4 text-slate-200 text-sm sm:text-base leading-relaxed font-sans">
+                        <p>
+                            "Hello my name is <span class="text-gold-400 font-semibold">Seth Daniel M. Fernandez</span> a Bachelor of Science in Information Technology, a student in University of the Cordilleras. I will be helping you on how to create a website and express your creativity in designing a website.
+                        </p>
+                        <p>
+                            My goal is to develop a website with ease to use, well organized elements, and usable for the company. A good website should be a long last, because that's what are professor taught us, and as a information technology web developer, it is a passion of me to develop such ways on how website designs, and well functionality."
+                        </p>
+                    </div>
                 </div>
 
-                <div class="wave-item lg:col-span-5 glass-panel-navy p-6 sm:p-8 rounded-3xl border border-gold-500/20 space-y-4">
-                    <h3 class="text-lg font-heading font-bold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-graduation-cap text-gold-400"></i>
-                        Academic Profile
-                    </h3>
-                    <ul class="space-y-3 text-sm text-slate-300">
-                        <li class="flex justify-between border-b border-gold-500/10 pb-2">
-                            <span class="text-slate-400 font-mono">Degree:</span>
-                            <span class="font-semibold text-gold-300">BS Information Technology</span>
-                        </li>
-                        <li class="flex justify-between border-b border-gold-500/10 pb-2">
-                            <span class="text-slate-400 font-mono">Institution:</span>
-                            <span class="font-semibold text-white">UC Baguio</span>
-                        </li>
-                        <li class="flex justify-between">
-                            <span class="text-slate-400 font-mono">Location:</span>
-                            <span class="font-semibold text-white">Baguio City, Philippines</span>
-                        </li>
-                    </ul>
+                <!-- ACADEMIC PROFILE -->
+                <div class="wave-item lg:col-span-5 glass-panel-navy p-6 sm:p-8 rounded-3xl border border-gold-500/20 space-y-5 flex flex-col justify-between shadow-2xl">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-gold-500/20 pb-3">
+                            <h3 class="text-xl font-heading font-bold text-white flex items-center gap-2.5">
+                                <span class="w-9 h-9 rounded-xl gold-gradient-bg flex items-center justify-center text-navy-950 text-sm shadow-md shadow-gold-500/20">
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                </span>
+                                Academic Profile
+                            </h3>
+                            <span class="text-[10px] font-mono text-gold-400 bg-navy-900 px-2.5 py-1 rounded-full border border-gold-500/20">VERIFIED</span>
+                        </div>
+
+                        <ul class="space-y-3.5 text-sm">
+                            <li class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 border-b border-gold-500/10 pb-2.5">
+                                <span class="text-slate-400 font-mono text-xs uppercase tracking-wider">Full Name</span>
+                                <span class="font-semibold text-white">Seth Daniel M. Fernandez</span>
+                            </li>
+                            <li class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 border-b border-gold-500/10 pb-2.5">
+                                <span class="text-slate-400 font-mono text-xs uppercase tracking-wider">School</span>
+                                <span class="font-semibold text-gold-300">University of the Cordilleras</span>
+                            </li>
+                            <li class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 border-b border-gold-500/10 pb-2.5">
+                                <span class="text-slate-400 font-mono text-xs uppercase tracking-wider">Course</span>
+                                <span class="font-semibold text-white text-left sm:text-right">Bachelor of Science in Information Technology</span>
+                            </li>
+                            <li class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 pt-0.5">
+                                <span class="text-slate-400 font-mono text-xs uppercase tracking-wider">Birthday</span>
+                                <span class="font-semibold text-gold-400 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-cake-candles text-xs"></i>
+                                    May 20, 2008
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="pt-2 border-t border-gold-500/15 flex items-center justify-between text-[11px] font-mono text-slate-400">
+                        <span>BAGUIO CITY, PH</span>
+                        <span class="text-gold-400">BSIT_STUDENT</span>
+                    </div>
                 </div>
 
             </div>
 
-            <!-- PERSONAL INFO GRID CARDS -->
+            <!-- THREE-COLUMN GRID: INTERESTS, HOBBIES, STRENGTHS -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 
+                <!-- COLUMN 1: INTERESTS -->
                 <div class="wave-item glass-panel-navy rounded-3xl p-6 sm:p-8 border border-gold-500/20 glass-panel-hover flex flex-col justify-between">
-                    <div class="space-y-4">
-                        <div class="w-12 h-12 rounded-2xl gold-gradient-bg flex items-center justify-center text-navy-950 text-xl shadow-lg shadow-gold-500/20">
-                            <i class="fa-solid fa-laptop-code"></i>
+                    <div class="space-y-5">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-12 h-12 rounded-2xl gold-gradient-bg flex items-center justify-center text-navy-950 text-xl shadow-lg shadow-gold-500/20 shrink-0">
+                                <i class="fa-solid fa-compass"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-mono text-gold-400 uppercase tracking-widest">Focus Areas</span>
+                                <h3 class="text-xl font-heading font-bold text-white">Interests</h3>
+                            </div>
                         </div>
-                        <h3 class="text-xl font-heading font-bold text-white">Web Development</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Creating responsive, luxury interactive front-end layouts with modern JavaScript logic and utility-first styling.
-                        </p>
+
+                        <ul class="space-y-3 text-sm text-slate-200">
+                            <li class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-navy-900/70 border border-gold-500/15 hover:border-gold-500/40 transition-colors">
+                                <i class="fa-solid fa-palette text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Web Designer</span>
+                            </li>
+                            <li class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-navy-900/70 border border-gold-500/15 hover:border-gold-500/40 transition-colors">
+                                <i class="fa-solid fa-code text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Web Developer</span>
+                            </li>
+                            <li class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-navy-900/70 border border-gold-500/15 hover:border-gold-500/40 transition-colors">
+                                <i class="fa-solid fa-chart-line text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Data Analytics</span>
+                            </li>
+                            <li class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-navy-900/70 border border-gold-500/15 hover:border-gold-500/40 transition-colors">
+                                <i class="fa-solid fa-puzzle-piece text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Problem Solving</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
+                <!-- COLUMN 2: HOBBIES -->
                 <div class="wave-item glass-panel-navy rounded-3xl p-6 sm:p-8 border border-gold-500/20 glass-panel-hover flex flex-col justify-between">
-                    <div class="space-y-4">
-                        <div class="w-12 h-12 rounded-2xl gold-gradient-bg flex items-center justify-center text-navy-950 text-xl shadow-lg shadow-gold-500/20">
-                            <i class="fa-solid fa-diagram-project"></i>
+                    <div class="space-y-5">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-12 h-12 rounded-2xl gold-gradient-bg flex items-center justify-center text-navy-950 text-xl shadow-lg shadow-gold-500/20 shrink-0">
+                                <i class="fa-solid fa-icons"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-mono text-gold-400 uppercase tracking-widest">Creative & Leisure</span>
+                                <h3 class="text-xl font-heading font-bold text-white">Hobbies</h3>
+                            </div>
                         </div>
-                        <h3 class="text-xl font-heading font-bold text-white">System Analyzation</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Evaluating system workflows, structure optimization, and modern architectural solutions for IT platforms.
-                        </p>
+
+                        <ul class="space-y-3 text-sm text-slate-200">
+                            <li class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-navy-900/70 border border-gold-500/15 hover:border-gold-500/40 transition-colors">
+                                <i class="fa-solid fa-microphone-lines text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Singing</span>
+                            </li>
+                            <li class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-navy-900/70 border border-gold-500/15 hover:border-gold-500/40 transition-colors">
+                                <i class="fa-solid fa-guitar text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Playing guitar</span>
+                            </li>
+                            <li class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-navy-900/70 border border-gold-500/15 hover:border-gold-500/40 transition-colors">
+                                <i class="fa-solid fa-gamepad text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Playing online games</span>
+                            </li>
+                            <li class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-navy-900/70 border border-gold-500/15 hover:border-gold-500/40 transition-colors">
+                                <i class="fa-solid fa-pen-nib text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Canva designer</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
+                <!-- COLUMN 3: STRENGTHS -->
                 <div class="wave-item glass-panel-navy rounded-3xl p-6 sm:p-8 border border-gold-500/20 glass-panel-hover flex flex-col justify-between">
-                    <div class="space-y-4">
-                        <div class="w-12 h-12 rounded-2xl gold-gradient-bg flex items-center justify-center text-navy-950 text-xl shadow-lg shadow-gold-500/20">
-                            <i class="fa-solid fa-square-root-variable"></i>
+                    <div class="space-y-5">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-12 h-12 rounded-2xl gold-gradient-bg flex items-center justify-center text-navy-950 text-xl shadow-lg shadow-gold-500/20 shrink-0">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-mono text-gold-400 uppercase tracking-widest">Core Qualities</span>
+                                <h3 class="text-xl font-heading font-bold text-white">Strengths</h3>
+                            </div>
                         </div>
-                        <h3 class="text-xl font-heading font-bold text-white">Algorithms & Logic</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Solving technical challenges with structured programmatic thinking, clean data structures, and efficient code.
-                        </p>
+
+                        <ul class="space-y-3 text-sm text-slate-200">
+                            <li class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-navy-900/70 border border-gold-500/15 hover:border-gold-500/40 transition-colors">
+                                <i class="fa-solid fa-comments text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Communications</span>
+                            </li>
+                            <li class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-navy-900/70 border border-gold-500/15 hover:border-gold-500/40 transition-colors">
+                                <i class="fa-solid fa-arrows-spin text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Adaptability</span>
+                            </li>
+                            <li class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-navy-900/70 border border-gold-500/15 hover:border-gold-500/40 transition-colors">
+                                <i class="fa-solid fa-people-group text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Collaboration</span>
+                            </li>
+                            <li class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-navy-900/70 border border-gold-500/15 hover:border-gold-500/40 transition-colors">
+                                <i class="fa-solid fa-circle-check text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Reliability</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
@@ -834,7 +927,6 @@
                         const norm = 1 - Math.abs(delta) / bandWidth;
                         const smoothBell = Math.pow(Math.sin(norm * Math.PI * 0.5), 1.6);
 
-                        // Hexagons swell slightly at the crest and smoothly shrink as the wave passes
                         const scale = delta >= 0
                             ? 0.25 + smoothBell * 0.85
                             : 0.4 + smoothBell * 0.7;
@@ -861,7 +953,7 @@
 
                 // 2. Ripple & transition all elements smoothly with the hexagon wave
                 if (progress < 0.5) {
-                    const outPhase = progress / 0.5; // 0 -> 1
+                    const outPhase = progress / 0.5;
                     currentItems.forEach(el => {
                         const d = parseFloat(el.dataset.waveDist || 0);
                         const delay = (d / (maxScreenDist || 1)) * 0.35;
@@ -872,7 +964,6 @@
                         el.style.opacity = (1 - eOut).toString();
                     });
 
-                    // Subtle wave bounce on header/footer elements
                     globalItems.forEach(el => {
                         const d = parseFloat(el.dataset.waveDist || 0);
                         const delay = (d / (maxScreenDist || 1)) * 0.35;
@@ -904,7 +995,7 @@
                         });
                     }
 
-                    const inPhase = (progress - 0.5) / 0.5; // 0 -> 1
+                    const inPhase = (progress - 0.5) / 0.5;
                     nextItems.forEach(el => {
                         const d = parseFloat(el.dataset.waveDist || 0);
                         const delay = (d / (maxScreenDist || 1)) * 0.35;
