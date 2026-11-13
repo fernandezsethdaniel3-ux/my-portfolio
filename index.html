@@ -254,25 +254,28 @@
         <section id="view-home" class="view-section px-4 sm:px-6 lg:px-8 py-10">
             <div class="max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-10">
                 
-                <!-- LEFT SIDE: TRANSPARENT PORTRAIT ENCASED IN HEXAGON DESIGN -->
+                <!-- LEFT SIDE: TRANSPARENT PORTRAIT ENCASED IN HEXAGON BORDER DESIGN -->
                 <div class="w-full lg:w-[42%] flex justify-center shrink-0 wave-item">
                     <div class="relative group animate-float w-full max-w-sm flex items-center justify-center p-4">
                         
-                        <!-- Glowing Hexagon Frame Behind Picture -->
+                        <!-- Glowing Rotating Hexagon Borders -->
                         <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                            <svg class="w-72 h-72 sm:w-80 sm:h-80 animate-spin-slow text-gold-500/40 drop-shadow-[0_0_15px_rgba(255,215,0,0.3)]" style="animation: spin 25s linear infinite;" viewBox="0 0 100 100">
-                                <polygon points="50 3, 93 25, 93 75, 50 97, 7 75, 7 25" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 2"/>
+                            <svg class="w-72 h-72 sm:w-80 sm:h-80 animate-spin-slow text-gold-500/60 drop-shadow-[0_0_18px_rgba(255,215,0,0.4)]" style="animation: spin 25s linear infinite;" viewBox="0 0 100 100">
+                                <polygon points="50 3, 93 25, 93 75, 50 97, 7 75, 7 25" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="4 2"/>
                             </svg>
-                            <svg class="w-60 h-60 sm:w-68 sm:h-68 text-gold-400/25 absolute" style="animation: spin 18s linear infinite reverse;" viewBox="0 0 100 100">
-                                <polygon points="50 3, 93 25, 93 75, 50 97, 7 75, 7 25" fill="none" stroke="currentColor" stroke-width="1"/>
+                            <svg class="w-60 h-60 sm:w-68 sm:h-68 text-gold-400/40 absolute" style="animation: spin 18s linear infinite reverse;" viewBox="0 0 100 100">
+                                <polygon points="50 3, 93 25, 93 75, 50 97, 7 75, 7 25" fill="none" stroke="currentColor" stroke-width="1.5"/>
                             </svg>
                         </div>
+
+                        <!-- Inner Elegant Gold Border Card Frame -->
+                        <div class="absolute w-[82%] h-[82%] rounded-2xl border-2 border-gold-400/30 bg-navy-900/40 backdrop-blur-md shadow-[0_0_30px_rgba(255,215,0,0.15)] pointer-events-none group-hover:border-gold-400/60 transition-colors duration-500"></div>
 
                         <!-- Radial Ambient Glow -->
                         <div class="absolute w-64 h-64 rounded-full bg-gold-500/10 blur-2xl pointer-events-none"></div>
 
-                        <!-- Clean Cutout Picture (No Box/Background) -->
-                        <img src="file_00000000fc7c81fa970e36a4a2800e44_2.png" alt="Seth Daniel M. Fernandez" class="relative z-10 w-full max-h-[440px] object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.7)] transition-transform duration-500 group-hover:scale-105">
+                        <!-- Clean Cutout Picture with Border Framing -->
+                        <img src="file_00000000fc7c81fa970e36a4a2800e44_2.png" alt="Seth Daniel M. Fernandez" class="relative z-10 w-full max-h-[440px] object-contain p-3 rounded-2xl drop-shadow-[0_15px_30px_rgba(0,0,0,0.7)] transition-transform duration-500 group-hover:scale-105">
                     </div>
                 </div>
 
