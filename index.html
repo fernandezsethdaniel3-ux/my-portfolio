@@ -1,292 +1,899 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seth Daniel Fernandez | Portfolio</title>
+    <title>Seth, Daniel M. Fernandez | Visual Portfolio</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        heading: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            950: '#050a17',
+                            900: '#0a1128',
+                            800: '#0c1838',
+                            700: '#111d4a',
+                            600: '#1a2b63',
+                        },
+                        gold: {
+                            300: '#ffe875',
+                            400: '#f3c64f',
+                            500: '#ffd700',
+                            600: '#dfa010',
+                            700: '#b88209',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 3s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        },
+                        glow: {
+                            '0%': { filter: 'drop-shadow(0 0 10px rgba(255, 215, 0, 0.3))' },
+                            '100%': { filter: 'drop-shadow(0 0 25px rgba(255, 215, 0, 0.7))' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        body {
+        /* STRICT NON-SCROLL STATIC LAYOUT STYLES */
+        html, body {
             background-color: #050a17;
             color: #e2e8f0;
-            height: 100vh;
             width: 100vw;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            height: 100vh;
+            overflow: hidden !important;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Glassmorphism Panels */
+        .glass-panel-navy {
+            background: rgba(12, 24, 56, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(5, 10, 23, 0.6);
+        }
+
+        .glass-panel-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-panel-hover:hover {
+            background: rgba(17, 29, 74, 0.75);
+            border-color: rgba(255, 215, 0, 0.45);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px 0 rgba(255, 215, 0, 0.18);
         }
 
         .glass-nav {
-            background: rgba(5, 10, 23, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(56, 189, 248, 0.15);
+            background: rgba(10, 17, 40, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.15);
         }
 
-        .glass-card {
-            background: rgba(15, 23, 42, 0.65);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+        /* Gradient Gold Text & Backgrounds */
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #ffe875 0%, #ffd700 40%, #dfa010 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
+        .gold-gradient-bg {
+            background: linear-gradient(135deg, #ffd700 0%, #dfa010 100%);
+        }
+
+        .gold-gradient-bg-hover:hover {
+            background: linear-gradient(135deg, #ffe875 0%, #ffd700 100%);
+        }
+
+        /* Fixed Viewport Sections (No Scrolling, Absolute Fitting) */
         .view-section {
-            position: relative;
-            width: 100%;
-            height: calc(100vh - 64px);
-            will-change: opacity, transform;
+            position: absolute;
+            top: 80px; /* Below fixed navbar */
+            left: 0;
+            width: 100vw;
+            height: calc(100vh - 80px);
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            box-sizing: border-box;
             overflow: hidden;
+            will-change: opacity, transform;
+            transition: opacity 0.35s ease-in-out, transform 0.35s ease-in-out;
         }
 
         .view-hidden {
+            opacity: 0;
+            pointer-events: none;
             display: none !important;
         }
 
-        .nav-btn.active {
-            color: #38bdf8;
-            background: rgba(56, 189, 248, 0.12);
-            border: 1px solid rgba(56, 189, 248, 0.35);
+        .wave-item {
+            will-change: transform, opacity;
+            transform-origin: center center;
+        }
+
+        #hex-wave-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 80;
+        }
+
+        #loader-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: radial-gradient(circle at center, #0c1838 0%, #050a17 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s;
+        }
+
+        #loader-overlay.loader-done {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* School Logo Selection Card Active State */
+        .school-logo-card {
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .school-logo-card.active-school {
+            border-color: #ffd700;
+            background: rgba(17, 29, 74, 0.9);
+            box-shadow: 0 0 35px rgba(255, 215, 0, 0.28);
+            transform: translateY(-2px) scale(1.01);
         }
     </style>
 </head>
-<body class="font-sans antialiased selection:bg-sky-500 selection:text-white">
+<body class="font-sans antialiased selection:bg-gold-500 selection:text-navy-950">
+
+    <!-- HEXAGON LIGHT-SPREAD LOADING SCREEN -->
+    <div id="loader-overlay">
+        <canvas id="loader-canvas" class="w-full h-full block"></canvas>
+        <div class="absolute bottom-10 flex flex-col items-center gap-2 pointer-events-none">
+            <div class="flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel-navy border border-gold-500/40">
+                <span class="w-2 h-2 rounded-full bg-gold-400 animate-ping"></span>
+                <span class="font-mono text-xs tracking-widest text-gold-300 uppercase">Initializing Static Portfolio</span>
+            </div>
+            <span id="loader-percent" class="font-heading font-bold text-sm gold-gradient-text tracking-wider">0%</span>
+        </div>
+    </div>
+
+    <canvas id="hexagon-canvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0"></canvas>
+    <canvas id="hex-wave-overlay"></canvas>
+
+    <div class="fixed top-1/4 -left-32 w-96 h-96 rounded-full pointer-events-none z-0 animate-pulse-slow" style="background: radial-gradient(circle, rgba(255, 215, 0, 0.12) 0%, rgba(5, 10, 23, 0) 70%);"></div>
+    <div class="fixed bottom-1/4 -right-32 w-96 h-96 rounded-full pointer-events-none z-0 animate-pulse-slow" style="background: radial-gradient(circle, rgba(17, 29, 74, 0.5) 0%, rgba(5, 10, 23, 0) 70%);"></div>
 
     <!-- HEADER / NAVIGATION BAR -->
-    <header class="fixed top-0 left-0 w-full z-50 glass-nav wave-item">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchView('home')">
-                    <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center font-bold text-slate-950 shadow-lg shadow-sky-500/20">
-                        SF
+    <header class="fixed top-0 left-0 w-full z-50 glass-nav wave-item h-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+            <div class="flex items-center justify-between h-full">
+                <a href="#home" onclick="triggerHexWaveTransition(event, 'home')" class="flex items-center gap-3 group wave-item">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-400 to-gold-600 p-0.5 transition-transform duration-300 group-hover:scale-105 shadow-lg shadow-gold-500/20">
+                        <div class="w-full h-full bg-navy-950 rounded-[10px] flex items-center justify-center">
+                            <span class="font-heading font-extrabold text-base gold-gradient-text">SF</span>
+                        </div>
                     </div>
-                    <span class="font-bold text-lg tracking-wide text-slate-100">Seth Fernandez</span>
-                </div>
+                    <div class="flex flex-col">
+                        <span class="font-heading font-bold text-lg tracking-tight text-white group-hover:text-gold-400 transition-colors">Seth<span class="text-gold-500">.</span>dev</span>
+                        <span class="text-[10px] font-mono text-slate-400 tracking-wider">UC BAGUIO • BSIT</span>
+                    </div>
+                </a>
 
-                <nav class="flex items-center space-x-2 sm:space-x-3">
-                    <button id="nav-home" onclick="switchView('home')" class="nav-btn active px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-sky-400 transition-all">
-                        Home
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center space-x-3">
+                    <button id="nav-btn-home" onclick="triggerHexWaveTransition(event, 'home')" class="wave-item px-5 py-2.5 rounded-xl text-sm font-semibold text-navy-950 gold-gradient-bg shadow-md shadow-gold-500/20 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-house-chimney text-xs"></i>
+                        <span>Home Page</span>
                     </button>
-                    <button id="nav-personal" onclick="switchView('personal')" class="nav-btn px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-sky-400 transition-all">
-                        Personal Info
+                    <button id="nav-btn-personal" onclick="triggerHexWaveTransition(event, 'personal')" class="wave-item px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 border border-gold-500/20 hover:border-gold-500/60 hover:text-gold-400 hover:bg-navy-800/50 transition-all flex items-center gap-2">
+                        <i class="fa-regular fa-user text-xs"></i>
+                        <span>Personal Info</span>
                     </button>
-                    <button id="nav-achievements" onclick="switchView('achievements')" class="nav-btn px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-sky-400 transition-all">
-                        Achievements
+                    <button id="nav-btn-achievements" onclick="triggerHexWaveTransition(event, 'achievements')" class="wave-item px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 border border-gold-500/20 hover:border-gold-500/60 hover:text-gold-400 hover:bg-navy-800/50 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-trophy text-xs"></i>
+                        <span>Achievements</span>
                     </button>
                 </nav>
+
+                <!-- Mobile Hamburger Button -->
+                <button id="mobile-menu-btn" aria-label="Toggle Navigation" class="md:hidden p-2.5 rounded-xl border border-gold-500/20 text-slate-300 hover:text-gold-400 hover:bg-navy-800/50">
+                    <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+                </button>
             </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden glass-panel-navy border-t border-gold-500/20 px-4 pt-3 pb-4 space-y-2 absolute top-20 left-0 w-full z-50">
+            <button id="mob-btn-home" onclick="triggerHexWaveTransition(event, 'home')" class="w-full mobile-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-base font-semibold text-navy-950 gold-gradient-bg">
+                <i class="fa-solid fa-house-chimney text-sm"></i>
+                <span>Home Page</span>
+            </button>
+            <button id="mob-btn-personal" onclick="triggerHexWaveTransition(event, 'personal')" class="w-full mobile-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-base font-medium text-slate-300 border border-gold-500/20 hover:text-gold-400 hover:bg-navy-800/50">
+                <i class="fa-regular fa-user text-sm"></i>
+                <span>Personal Info</span>
+            </button>
+            <button id="mob-btn-achievements" onclick="triggerHexWaveTransition(event, 'achievements')" class="w-full mobile-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-base font-medium text-slate-300 border border-gold-500/20 hover:text-gold-400 hover:bg-navy-800/50">
+                <i class="fa-solid fa-trophy text-sm"></i>
+                <span>Achievements</span>
+            </button>
         </div>
     </header>
 
-    <!-- MAIN VIEW CONTAINER -->
-    <main class="relative z-10 pt-16 h-screen w-full overflow-hidden">
+    <!-- MAIN STATIC VIEW CONTAINER -->
+    <main class="relative z-10 w-full h-full">
 
-        <!-- VIEW 1: HOME -->
-        <section id="view-home" class="view-section px-4 sm:px-6 lg:px-8 py-3 max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center w-full">
-                <!-- Left Column: Portrait -->
-                <div class="lg:col-span-5 flex justify-center">
-                    <div class="glass-card p-3 rounded-2xl relative group">
-                        <div class="absolute -inset-0.5 bg-gradient-to-r from-sky-500 to-blue-600 rounded-2xl blur opacity-25 group-hover:opacity-45 transition duration-500"></div>
-                        <img src="portrait.jpg" alt="Seth Daniel Fernandez" class="relative rounded-xl object-cover w-full max-h-[300px] lg:max-h-[340px]">
+        <!-- ==================== 1. HOME VIEW ==================== -->
+        <section id="view-home" class="view-section">
+            <div class="max-w-6xl mx-auto w-full flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-10">
+                
+                <!-- LEFT SIDE: PORTRAIT WITH AN ELEGANT GOLD BORDER FRAME -->
+                <div class="w-full lg:w-[40%] flex justify-center shrink-0 wave-item">
+                    <div class="relative group animate-float w-full max-w-xs flex items-center justify-center p-2">
+                        
+                        <!-- Outer Rotating Hexagon Frame -->
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <svg class="w-64 h-64 sm:w-72 sm:h-72 text-gold-500/40 drop-shadow-[0_0_15px_rgba(255,215,0,0.3)]" style="animation: spin 25s linear infinite;" viewBox="0 0 100 100">
+                                <polygon points="50 3, 93 25, 93 75, 50 97, 7 75, 7 25" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 2"/>
+                            </svg>
+                        </div>
+
+                        <!-- Radial Ambient Glow -->
+                        <div class="absolute w-56 h-56 rounded-full bg-gold-500/10 blur-2xl pointer-events-none"></div>
+
+                        <!-- Picture Wrapper -->
+                        <div class="relative z-10 p-1.5 rounded-3xl bg-navy-900/80 border-2 border-gold-500 shadow-[0_0_25px_rgba(255,215,0,0.35)] backdrop-blur-sm transition-transform duration-500 group-hover:scale-105">
+                            <img src="file_00000000fc7c81fa970e36a4a2800e44_2.png" alt="Seth Daniel M. Fernandez" class="w-full max-h-[320px] object-contain rounded-2xl block">
+                        </div>
+
                     </div>
                 </div>
 
-                <!-- Right Column: Intro & CTA -->
-                <div class="lg:col-span-7 space-y-4 text-center lg:text-left">
-                    <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-sky-500/10 text-sky-400 border border-sky-500/20">
-                        BSIT Student &bull; Web &amp; Systems Developer
+                <!-- RIGHT SIDE: WELCOMING TEXT & DETAILS -->
+                <div class="w-full lg:w-[60%] space-y-4 text-center lg:text-left">
+                    
+                    <div class="wave-item inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel-navy border border-gold-500/40 text-gold-300 text-xs font-mono shadow-lg shadow-gold-500/10">
+                        <i class="fa-solid fa-atom text-gold-400 animate-spin" style="animation-duration: 10s;"></i>
+                        <span>University of the Cordilleras</span>
+                        <span class="text-slate-500">•</span>
+                        <span class="text-gold-400 font-semibold">BSIT Student</span>
                     </div>
 
-                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
-                        Hi, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">Seth Daniel Fernandez</span>
-                    </h1>
+                    <div class="space-y-2 wave-item">
+                        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-heading font-extrabold text-white tracking-tight leading-tight">
+                            Hello, my name is <br/>
+                            <span class="gold-gradient-text">Seth, Daniel M. Fernandez</span>
+                        </h1>
+                        
+                        <p class="text-sm sm:text-lg lg:text-xl font-medium text-slate-300 font-sans leading-relaxed">
+                            A student in <span class="text-gold-400 font-semibold border-b-2 border-gold-500/40 pb-0.5">University of the Cordilleras (BSIT)</span>
+                        </p>
+                    </div>
 
-                    <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                        Specializing in web development, user interface design, system analysis, and cross-platform software engineering based in Baguio City.
+                    <p class="wave-item text-slate-400 text-xs sm:text-sm max-w-xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        Welcome to my personal digital portfolio space. Focused on modern information technology, web development, software engineering, and high-tech digital solutions[cite: 5].
                     </p>
 
-                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-1">
-                        <button onclick="switchView('personal')" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-semibold text-sm shadow-lg shadow-sky-500/25 transition-all">
-                            Personal Info
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-1">
+                        <span class="wave-item px-3 py-1 rounded-lg bg-navy-800 border border-gold-500/20 text-xs font-mono text-slate-300">
+                            <i class="fa-solid fa-code text-gold-400 mr-1.5"></i>Information Technology
+                        </span>
+                        <span class="wave-item px-3 py-1 rounded-lg bg-navy-800 border border-gold-500/20 text-xs font-mono text-slate-300">
+                            <i class="fa-solid fa-laptop-code text-gold-400 mr-1.5"></i>Web & Systems
+                        </span>
+                        <span class="wave-item px-3 py-1 rounded-lg bg-navy-800 border border-gold-500/20 text-xs font-mono text-slate-300">
+                            <i class="fa-solid fa-building-columns text-gold-400 mr-1.5"></i>UC Cordilleras
+                        </span>
+                    </div>
+
+                    <!-- ACTION BUTTONS -->
+                    <div class="wave-item flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 pt-2">
+                        <button onclick="triggerHexWaveTransition(event, 'personal')" class="w-full sm:w-auto px-6 py-3 rounded-xl text-navy-950 font-bold font-heading gold-gradient-bg gold-gradient-bg-hover shadow-xl shadow-gold-500/20 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2 text-sm">
+                            <span>Explore Personal Info</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
                         </button>
-                        <button onclick="switchView('achievements')" class="px-5 py-2.5 rounded-xl glass-card hover:border-sky-400/50 text-slate-200 font-semibold text-sm transition-all">
-                            View Achievements
+                        <button onclick="triggerHexWaveTransition(event, 'achievements')" class="w-full sm:w-auto px-6 py-3 rounded-xl glass-panel-navy border border-gold-500/40 text-gold-300 hover:text-white hover:border-gold-400 font-bold font-heading transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2 text-sm">
+                            <i class="fa-solid fa-trophy text-gold-400 text-xs"></i>
+                            <span>View Achievements</span>
                         </button>
                     </div>
+
                 </div>
+
             </div>
         </section>
 
-        <!-- VIEW 2: PERSONAL INFO -->
-        <section id="view-personal" class="view-section view-hidden px-4 sm:px-6 lg:px-8 py-4 max-w-7xl mx-auto space-y-4">
-            <div class="text-center">
-                <h2 class="text-2xl sm:text-3xl font-bold text-white">Personal Information</h2>
-                <p class="text-slate-400 text-xs sm:text-sm mt-1">Academic background, technical focus, and profile details</p>
-            </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-                <!-- Profile Details Card -->
-                <div class="glass-card rounded-2xl p-4 sm:p-5 space-y-2">
-                    <h3 class="text-base sm:text-lg font-bold text-sky-400 border-b border-slate-700/60 pb-2">Profile Overview</h3>
-                    <ul class="divide-y divide-slate-800/70 text-xs sm:text-sm">
-                        <li class="py-1.5 flex justify-between">
-                            <span class="text-slate-400">Full Name</span>
-                            <span class="font-medium text-slate-100">Seth Daniel Martinez Fernandez</span>
-                        </li>
-                        <li class="py-1.5 flex justify-between">
-                            <span class="text-slate-400">Location</span>
-                            <span class="font-medium text-slate-100">Baguio City, Philippines</span>
-                        </li>
-                        <li class="py-1.5 flex justify-between">
-                            <span class="text-slate-400">Program</span>
-                            <span class="font-medium text-slate-100">BS Information Technology</span>
-                        </li>
-                        <li class="py-1.5 flex justify-between">
-                            <span class="text-slate-400">University</span>
-                            <span class="font-medium text-slate-100">University of the Cordilleras</span>
-                        </li>
-                    </ul>
+        <!-- ==================== 2. PERSONAL INFO VIEW ==================== -->
+        <section id="view-personal" class="view-section view-hidden max-w-6xl mx-auto w-full space-y-6">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch w-full">
+                
+                <div class="wave-item lg:col-span-7 glass-panel-navy p-6 rounded-3xl border border-gold-500/30 space-y-3 shadow-2xl relative overflow-hidden flex flex-col justify-center">
+                    <div class="absolute top-0 left-0 w-2 h-full gold-gradient-bg"></div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-900 border border-gold-500/30 text-gold-400 text-xs font-mono w-fit">
+                        <i class="fa-regular fa-user text-xs"></i>
+                        <span>PERSONAL BIO</span>
+                    </div>
+                    <h2 class="text-xl sm:text-2xl font-heading font-extrabold text-white">
+                        To get to know <span class="gold-gradient-text">about me</span>
+                    </h2>
+                    <div class="space-y-3 text-slate-200 text-xs sm:text-sm leading-relaxed font-sans">
+                        <p>
+                            "Hello my name is <span class="text-gold-400 font-semibold">Seth Daniel M. Fernandez</span> a Bachelor of Science in Information Technology, a student in University of the Cordilleras[cite: 5]. I will be helping you on how to create a website and express your creativity in designing a website[cite: 5]."
+                        </p>
+                        <p>
+                            My goal is to develop a website with ease to use, well organized elements, and usable for the company[cite: 5]. A good website should be a long last, because that's what are professor taught us, and as a information technology web developer, it is a passion of me to develop such ways on how website designs, and well functionality[cite: 5]."
+                        </p>
+                    </div>
                 </div>
 
-                <!-- Technical & Experience Card -->
-                <div class="glass-card rounded-2xl p-4 sm:p-5 space-y-2">
-                    <h3 class="text-base sm:text-lg font-bold text-sky-400 border-b border-slate-700/60 pb-2">Core Focus &amp; Experience</h3>
-                    <ul class="divide-y divide-slate-800/70 text-xs sm:text-sm">
-                        <li class="py-1.5 flex justify-between">
-                            <span class="text-slate-400">Specializations</span>
-                            <span class="font-medium text-slate-100">Web Dev, UI/UX, Systems Analysis</span>
-                        </li>
-                        <li class="py-1.5 flex justify-between">
-                            <span class="text-slate-400">Work Immersion</span>
-                            <span class="font-medium text-slate-100">IT Intern &bull; DICT CAR</span>
-                        </li>
-                        <li class="py-1.5 flex justify-between">
-                            <span class="text-slate-400">Senior High School</span>
-                            <span class="font-medium text-slate-100">Easter College (Programming Track)</span>
-                        </li>
-                        <li class="py-1.5 flex justify-between">
-                            <span class="text-slate-400">Tech Stack</span>
-                            <span class="font-medium text-slate-100">HTML/CSS/JS, Java, Backend Scripting</span>
-                        </li>
-                    </ul>
+                <div class="wave-item lg:col-span-5 glass-panel-navy p-6 rounded-3xl border border-gold-500/20 space-y-4 flex flex-col justify-between shadow-2xl">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between border-b border-gold-500/20 pb-2">
+                            <h3 class="text-lg font-heading font-bold text-white flex items-center gap-2">
+                                <span class="w-8 h-8 rounded-xl gold-gradient-bg flex items-center justify-center text-navy-950 text-xs shadow-md shadow-gold-500/20">
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                </span>
+                                Academic Profile
+                            </h3>
+                            <span class="text-[10px] font-mono text-gold-400 bg-navy-900 px-2 py-0.5 rounded-full border border-gold-500/20">VERIFIED</span>
+                        </div>
+
+                        <ul class="space-y-2.5 text-xs sm:text-sm">
+                            <li class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 border-b border-gold-500/10 pb-2">
+                                <span class="text-slate-400 font-mono text-[11px] uppercase tracking-wider">Full Name</span>
+                                <span class="font-semibold text-white">Seth Daniel M. Fernandez</span>
+                            </li>
+                            <li class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 border-b border-gold-500/10 pb-2">
+                                <span class="text-slate-400 font-mono text-[11px] uppercase tracking-wider">School</span>
+                                <span class="font-semibold text-gold-300">University of the Cordilleras</span>
+                            </li>
+                            <li class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 border-b border-gold-500/10 pb-2">
+                                <span class="text-slate-400 font-mono text-[11px] uppercase tracking-wider">Course</span>
+                                <span class="font-semibold text-white text-left sm:text-right">Bachelor of Science in Information Technology</span>
+                            </li>
+                            <li class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 pt-0.5">
+                                <span class="text-slate-400 font-mono text-[11px] uppercase tracking-wider">Birthday</span>
+                                <span class="font-semibold text-gold-400 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-cake-candles text-xs"></i>
+                                    May 20, 2008[cite: 5]
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="pt-2 border-t border-gold-500/15 flex items-center justify-between text-[11px] font-mono text-slate-400">
+                        <span>BAGUIO CITY, PH</span>
+                        <span class="text-gold-400">BSIT_STUDENT</span>
+                    </div>
                 </div>
+
             </div>
 
-            <div class="flex justify-center gap-3 pt-1">
-                <button onclick="switchView('home')" class="px-4 py-2 rounded-xl glass-card hover:border-sky-400/50 text-xs sm:text-sm font-medium text-slate-200 transition-all">
-                    &larr; Back to Home
+            <!-- THREE COLUMNS: INTERESTS, HOBBIES, STRENGTHS -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 w-full">
+                
+                <div class="wave-item glass-panel-navy rounded-3xl p-5 border border-gold-500/20 glass-panel-hover flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl gold-gradient-bg flex items-center justify-center text-navy-950 text-base shadow-lg shadow-gold-500/20 shrink-0">
+                                <i class="fa-solid fa-compass"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-mono text-gold-400 uppercase tracking-widest">Focus Areas</span>
+                                <h3 class="text-lg font-heading font-bold text-white">Interests</h3>
+                            </div>
+                        </div>
+
+                        <ul class="space-y-2 text-xs sm:text-sm text-slate-200">
+                            <li class="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-navy-900/70 border border-gold-500/15">
+                                <i class="fa-solid fa-palette text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Web Designer</span>
+                            </li>
+                            <li class="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-navy-900/70 border border-gold-500/15">
+                                <i class="fa-solid fa-code text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Web Developer</span>
+                            </li>
+                            <li class="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-navy-900/70 border border-gold-500/15">
+                                <i class="fa-solid fa-chart-line text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Data Analytics</span>
+                            </li>
+                            <li class="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-navy-900/70 border border-gold-500/15">
+                                <i class="fa-solid fa-puzzle-piece text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Problem Solving</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="wave-item glass-panel-navy rounded-3xl p-5 border border-gold-500/20 glass-panel-hover flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl gold-gradient-bg flex items-center justify-center text-navy-950 text-base shadow-lg shadow-gold-500/20 shrink-0">
+                                <i class="fa-solid fa-icons"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-mono text-gold-400 uppercase tracking-widest">Creative & Leisure</span>
+                                <h3 class="text-lg font-heading font-bold text-white">Hobbies</h3>
+                            </div>
+                        </div>
+
+                        <ul class="space-y-2 text-xs sm:text-sm text-slate-200">
+                            <li class="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-navy-900/70 border border-gold-500/15">
+                                <i class="fa-solid fa-microphone-lines text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Singing</span>
+                            </li>
+                            <li class="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-navy-900/70 border border-gold-500/15">
+                                <i class="fa-solid fa-guitar text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Playing guitar</span>
+                            </li>
+                            <li class="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-navy-900/70 border border-gold-500/15">
+                                <i class="fa-solid fa-gamepad text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Playing online games</span>
+                            </li>
+                            <li class="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-navy-900/70 border border-gold-500/15">
+                                <i class="fa-solid fa-pen-nib text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Canva designer</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="wave-item glass-panel-navy rounded-3xl p-5 border border-gold-500/20 glass-panel-hover flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl gold-gradient-bg flex items-center justify-center text-navy-950 text-base shadow-lg shadow-gold-500/20 shrink-0">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-mono text-gold-400 uppercase tracking-widest">Core Qualities</span>
+                                <h3 class="text-lg font-heading font-bold text-white">Strengths</h3>
+                            </div>
+                        </div>
+
+                        <ul class="space-y-2 text-xs sm:text-sm text-slate-200">
+                            <li class="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-navy-900/70 border border-gold-500/15">
+                                <i class="fa-solid fa-comments text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Communications</span>
+                            </li>
+                            <li class="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-navy-900/70 border border-gold-500/15">
+                                <i class="fa-solid fa-arrows-spin text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Adaptability</span>
+                            </li>
+                            <li class="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-navy-900/70 border border-gold-500/15">
+                                <i class="fa-solid fa-people-group text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Collaboration</span>
+                            </li>
+                            <li class="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-navy-900/70 border border-gold-500/15">
+                                <i class="fa-solid fa-circle-check text-gold-400 text-xs w-4 text-center"></i>
+                                <span class="font-medium">Reliability</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="wave-item flex items-center justify-center gap-4 pt-2">
+                <button onclick="triggerHexWaveTransition(event, 'home')" class="px-5 py-2.5 rounded-xl border border-gold-500/30 text-gold-400 hover:bg-gold-500 hover:text-navy-950 font-semibold transition-all text-xs sm:text-sm inline-flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Back to Home Page</span>
                 </button>
-                <button onclick="switchView('achievements')" class="px-4 py-2 rounded-xl bg-sky-500/20 border border-sky-500/40 hover:bg-sky-500/30 text-xs sm:text-sm font-medium text-sky-300 transition-all">
-                    Next: Achievements &rarr;
+                <button onclick="triggerHexWaveTransition(event, 'achievements')" class="px-5 py-2.5 rounded-xl gold-gradient-bg text-navy-950 font-bold hover:brightness-110 transition-all text-xs sm:text-sm inline-flex items-center gap-2 shadow-lg shadow-gold-500/20">
+                    <span>Next: Achievements</span>
+                    <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>
+
         </section>
 
-        <!-- VIEW 3: ACHIEVEMENTS -->
-        <section id="view-achievements" class="view-section view-hidden px-4 sm:px-6 lg:px-8 py-3 max-w-7xl mx-auto space-y-4">
-            <div class="text-center">
-                <h2 class="text-2xl sm:text-3xl font-bold text-white">Academic &amp; Professional Achievements</h2>
-                <p class="text-slate-400 text-xs sm:text-sm">Select an institution below to inspect milestones</p>
+
+        <!-- ==================== 3. ACHIEVEMENTS VIEW ==================== -->
+        <section id="view-achievements" class="view-section view-hidden max-w-6xl mx-auto w-full space-y-6">
+            
+            <!-- HEADER BANNER -->
+            <div class="wave-item text-center max-w-2xl mx-auto space-y-2">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass-panel-navy border border-gold-500/40 text-gold-300 text-xs font-mono">
+                    <i class="fa-solid fa-award text-gold-400"></i>
+                    <span>ACADEMIC MILESTONES & RECOGNITION</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-white tracking-tight">
+                    My School <span class="gold-gradient-text">Achievements</span>
+                </h2>
+                <p class="text-slate-400 text-xs sm:text-sm">
+                    Click on either of my alma mater school emblems below to explore my academic honors, leadership milestones, and accomplishments.
+                </p>
             </div>
 
-            <!-- Institution Selector Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto w-full">
-                <div onclick="selectSchoolAchievement('bchs')" id="card-bchs" class="glass-card rounded-2xl p-4 cursor-pointer hover:border-sky-400/60 transition-all flex items-center space-x-4">
-                    <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl bg-slate-900/80 border border-slate-700/60 flex items-center justify-center shrink-0 overflow-hidden">
-                        <img src="bchs-logo.png" alt="BCHS Logo" class="w-full h-full object-contain p-2">
+            <!-- TWO INTERACTIVE SCHOOL LOGOS -->
+            <div class="wave-item grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto w-full">
+                
+                <!-- LOGO 1: BAGUIO CITY HIGH SCHOOL -->
+                <button id="btn-school-bchs" onclick="selectSchoolAchievement('bchs')" class="school-logo-card glass-panel-navy p-6 rounded-3xl border-2 border-gold-500/25 hover:border-gold-400 text-center flex flex-col items-center justify-center gap-4 group cursor-pointer relative overflow-hidden">
+                    <div class="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full bg-navy-950/80 border border-gold-500/30 text-[10px] font-mono text-gold-400">
+                        JUNIOR HIGH
                     </div>
-                    <div>
-                        <h3 class="text-base sm:text-lg font-bold text-white">Baguio City High School</h3>
-                        <p class="text-xs text-sky-400 font-medium">Junior High School Milestones</p>
+
+                    <div class="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-white border-2 border-gold-400/70 p-2 flex items-center justify-center shadow-[0_0_20px_rgba(255,215,0,0.2)] group-hover:scale-105 transition-transform duration-300 overflow-hidden">
+                        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/2wBDAQMDAwQDBAgEBAgQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wgARCAC0ALQDASIAAhEBAxEB/8QAGwAAAgMBAQEAAAAAAAAAAAAAAAYEBQcDAQL/xAAaAQABBQEAAAAAAAAAAAAAAAAEAAIDBQYB/9oADAMBAAIQAxAAAALVaEgBIPlF452UUW1gtvqrm2sVlQc7KY2egl3lY6GxbsyivF3EyPRyKS1AdCAJACQAkQ/chYRIgz+gWsnRZMVci261ZPGlc5n28WvsodTyRjp4l/GbFoZfwwp6ccYbzco8AS14AkfP0i8ctR+3UDYWcepi9b62NV0Xmo/aPkh4WymKbUl6CoGpecbN5yfF2LhSCaSyrL/gwtvZMT2czK9QJBeWNPCxBb85ftOLoIuspzDYZNgUUOTeV96j/HK6jmaX6mZAnYMpZl4Gr0O3TnGexMn1iOpsylrN0Fq4TOuRuxbQeBuWy3rUgWrk0t/GXGv4dyysiPYXvPqWCZFpZbKBbQaiVU5yI97lbl/ybWSrcAkKzaO6ZYPdMNFeV493pZRh+LU5cSIBs7CXQSJa/YKZd+pqC0ZkRhfHw9jTcuR3X2Bcpnr/AN8+myxXJtV/JbR4+KjyW8ccYcktG2Ua14iaitFYsMS43dZKE0vHt0Uuw76IE8zNTPYlYU2zmrVLQTvirGoxhbsgQ7iiumpKu2k6SVXxPcSsdclqC4ZVqPIG0LCXhYYlfrNAy0a8vFy27w23kJfYDsheyaqudFpFvmsuXlxEUIt9Fe0jPLAZUSK34qHh9RA4qhuomPuxjUVr2U+nEgOyRkeuVTZs+6r9kBsBL0KmlBdkdVei81IaFfzrIPZ1zy3Gk+SO+fnj9uEGCPvU/TK678+yC3Q8NIS9SKzQBNXACSaj7UjQ2K5bK9mLpOii/wAVwylZc4cgdhMXOjA76DXy2NjzJlp27jd/IjSY3ya1PU9+4FZ8ASAEgBJYzjbuEZeaU7WpjX0v2qnQ2c76g/feTYftal07Qbx0FfbuTAVneHcJq0ASAEgBIASAEjwEqijDncsqQ5LpzOHWX8kOsAEgBIASAEv/2gAMAwEAAgADAAAAIfPNFstDeePPPPNki2jdNEVfPPD7x8GL/wA5ZPx1+4/1j7QgDfwyH7D2Bbzy2TMbhbcxNUnc3kAzPgLS3mvqZk2vnJhbKeXSPzkYByaoYZMA/zz/l47EqE7xzzzz7fPr3W5zzzzzyB+Hzzzzzz/xAAsEAACAgIBBAEDBAEFAAAAAAAEBQIDAQYABxITFBEQFSEWICMwIhcmMTM1/9oACAEBAAE/AuthwU6v1qGvXzI9uR60bA/aZ52V8lEByX/AHM9qUOUj7dZf3sP0XbO0w5bVz83L1G1L2xZp5Hk20F9Qf8AM9JbK6XoJj0eZ3FqK3c8Pq5o1N5v8AZh46dYjTfI9p0hG2Z+V+KqfM0sHl62Z9rXbL427Mv7b5g33O2G6h7lF+zG4Y0Q5+Yf8Ac9J8Xw0r1zD3O0v8A/9k=" alt="Baguio City High School Certificate" class="w-full h-48 object-cover rounded-xl border border-gold-500/30">
+                            </article>
+                            <article class="p-4 sm:p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 space-y-3">
+                                <div class="space-y-1">
+                                    <h4 class="text-lg font-heading font-bold text-white">Baguio City High School</h4>
+                                    <p class="text-slate-300 text-sm leading-relaxed">School memory from the campus.</p>
+                                </div>
+                                <img src="file_00000000fc7c81fa970e36a4a2800e44_1.png" alt="Baguio City High School Photo" class="w-full h-48 object-cover rounded-xl border border-gold-500/30">
+                            </article>
+                        </div>
                     </div>
                 </div>
 
-                <div onclick="selectSchoolAchievement('easter')" id="card-easter" class="glass-card rounded-2xl p-4 cursor-pointer hover:border-sky-400/60 transition-all flex items-center space-x-4">
-                    <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl bg-slate-900/80 border border-slate-700/60 flex items-center justify-center shrink-0 overflow-hidden">
-                        <img src="easter-logo.png" alt="Easter College Logo" class="w-full h-full object-contain p-2">
+                <!-- Easter College Incorporated Achievements Content -->
+                <div id="achievements-easter" class="hidden glass-panel-navy rounded-3xl p-6 sm:p-10 border border-gold-500/40 shadow-2xl space-y-6 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1.5 gold-gradient-bg"></div>
+                    
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gold-500/20 pb-5">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl gold-gradient-bg flex items-center justify-center text-navy-950 text-xl shadow-lg shadow-gold-500/20 shrink-0">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs font-mono text-gold-400 uppercase tracking-widest">Senior High School Milestone</span>
+                                <h3 class="text-2xl sm:text-3xl font-heading font-extrabold text-white">Easter College Incorporated</h3>
+                            </div>
+                        </div>
+                        <span class="px-3.5 py-1.5 rounded-full bg-navy-950 border border-gold-500/30 text-gold-300 text-xs font-mono w-fit">
+                            ALMA MATER • EASTER
+                        </span>
                     </div>
-                    <div>
-                        <h3 class="text-base sm:text-lg font-bold text-white">Easter College</h3>
-                        <p class="text-xs text-sky-400 font-medium">Senior High School &amp; Honors</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 hover:border-gold-400/50 transition-all space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-0.5 rounded-md bg-gold-500/15 text-gold-300 text-xs font-mono">PROGRAMMING & TECH</span>
+                                <i class="fa-solid fa-code text-gold-400"></i>
+                            </div>
+                            <h4 class="text-lg font-heading font-bold text-white">Java & Systems Development</h4>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Completed advanced Senior High coursework in Java computer programming, building robust calculator applications and management systems.
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 hover:border-gold-400/50 transition-all space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-0.5 rounded-md bg-gold-500/15 text-gold-300 text-xs font-mono">QUANTITATIVE RESEARCH</span>
+                                <i class="fa-solid fa-flask text-gold-400"></i>
+                            </div>
+                            <h4 class="text-lg font-heading font-bold text-white">Research Paper Author</h4>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Authored a quantitative research paper examining financial literacy and budgeting practices among Senior High students.
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 hover:border-gold-400/50 transition-all space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-0.5 rounded-md bg-gold-500/15 text-gold-300 text-xs font-mono">EMPOWERMENT TECH</span>
+                                <i class="fa-solid fa-laptop text-gold-400"></i>
+                            </div>
+                            <h4 class="text-lg font-heading font-bold text-white">Tech & Entrepreneurship</h4>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Excelled in empowerment technologies, digital design, and entrepreneurial fundamentals during Senior High coursework.
+                            </p>
+                        </div>
                     </div>
                 </div>
+
             </div>
 
-            <!-- Placeholder Prompt -->
-            <div id="achievement-placeholder" class="glass-card rounded-2xl p-4 text-center max-w-4xl mx-auto w-full text-slate-400 text-xs sm:text-sm">
-                Click on a school card above to display honors, recognitions, and certificate previews.
+            <div class="wave-item flex items-center justify-center gap-4 pt-2">
+                <button onclick="triggerHexWaveTransition(event, 'personal')" class="px-5 py-2.5 rounded-xl border border-gold-500/30 text-gold-400 hover:bg-gold-500 hover:text-navy-950 font-semibold transition-all text-xs sm:text-sm inline-flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Back to Personal Info</span>
+                </button>
+                <button onclick="triggerHexWaveTransition(event, 'home')" class="px-5 py-2.5 rounded-xl gold-gradient-bg text-navy-950 font-bold hover:brightness-110 transition-all text-xs sm:text-sm inline-flex items-center gap-2 shadow-lg shadow-gold-500/20">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Back to Home</span>
+                </button>
             </div>
 
-            <!-- BCHS Details Panel -->
-            <div id="achievements-bchs" class="view-hidden glass-card rounded-2xl p-4 sm:p-5 max-w-4xl mx-auto w-full space-y-3">
-                <div class="flex items-center justify-between border-b border-slate-700/60 pb-2">
-                    <h4 class="text-base sm:text-lg font-bold text-sky-400">Baguio City High School — Highlights</h4>
-                    <span class="text-xs text-slate-400">Academic Distinctions</span>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center">
-                    <ul class="sm:col-span-2 space-y-1.5 text-xs sm:text-sm text-slate-200 list-disc list-inside">
-                        <li>Consistent Academic Honor Student</li>
-                        <li>Active participant in Science &amp; Technology fairs</li>
-                        <li>Completed foundational ICT and computing modules</li>
-                    </ul>
-                    <div class="bg-slate-900/70 rounded-xl p-2 border border-slate-700/50">
-                        <img src="bchs-cert.jpg" alt="BCHS Certificate" class="max-h-32 object-contain mx-auto rounded">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Easter College Details Panel -->
-            <div id="achievements-easter" class="view-hidden glass-card rounded-2xl p-4 sm:p-5 max-w-4xl mx-auto w-full space-y-3">
-                <div class="flex items-center justify-between border-b border-slate-700/60 pb-2">
-                    <h4 class="text-base sm:text-lg font-bold text-sky-400">Easter College — Senior High Highlights</h4>
-                    <span class="text-xs text-slate-400">2025 Graduate</span>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center">
-                    <ul class="sm:col-span-2 space-y-1.5 text-xs sm:text-sm text-slate-200 list-disc list-inside">
-                        <li>Completed Senior High School Programming &amp; Practical Research Track</li>
-                        <li>Developed desktop form &amp; grade-reporting Java applications</li>
-                        <li>Recognized for excellence in software development projects</li>
-                    </ul>
-                    <div class="bg-slate-900/70 rounded-xl p-2 border border-slate-700/50">
-                        <img src="easter-cert.jpg" alt="Easter College Certificate" class="max-h-32 object-contain mx-auto rounded">
-                    </div>
-                </div>
-            </div>
         </section>
 
     </main>
 
+    <!-- HEXAGON WAVE TRANSITION SCRIPT -->
     <script>
-        function switchView(viewName) {
+        // DOM Elements
+        const loaderOverlay = document.getElementById('loader-overlay');
+        const loaderPercent = document.getElementById('loader-percent');
+        const loaderCanvas = document.getElementById('loader-canvas');
+        const hexagonCanvas = document.getElementById('hexagon-canvas');
+        const hexWaveOverlay = document.getElementById('hex-wave-overlay');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        let currentView = 'home';
+        let isTransitioning = false;
+
+        // Mobile Menu Toggle
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                menuIcon.className = 'fa-solid fa-bars text-xl';
+            } else {
+                menuIcon.className = 'fa-solid fa-xmark text-xl';
+            }
+        });
+
+        // Setup Loader Canvas
+        const lCtx = loaderCanvas.getContext('2d');
+        let lWidth, lHeight;
+        function resizeLoaderCanvas() {
+            lWidth = loaderCanvas.width = window.innerWidth;
+            lHeight = loaderCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeLoaderCanvas);
+        resizeLoaderCanvas();
+
+        // Initial Loading Animation
+        let loadProgress = 0;
+        const loadInterval = setInterval(() => {
+            loadProgress += Math.floor(Math.random() * 12) + 5;
+            if (loadProgress >= 100) {
+                loadProgress = 100;
+                clearInterval(loadInterval);
+                setTimeout(() => {
+                    loaderOverlay.classList.add('loader-done');
+                }, 300);
+            }
+            loaderPercent.textContent = loadProgress + '%';
+            drawLoaderHexagons(loadProgress / 100);
+        }, 60);
+
+        function drawLoaderHexagons(progress) {
+            lCtx.clearRect(0, 0, lWidth, lHeight);
+            const hexSize = 35;
+            const hHeight = hexSize * Math.sqrt(3);
+            const cols = Math.ceil(lWidth / (hexSize * 1.5)) + 2;
+            const rows = Math.ceil(lHeight / hHeight) + 2;
+
+            lCtx.strokeStyle = 'rgba(255, 215, 0, 0.12)';
+            lCtx.lineWidth = 1;
+
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    const x = c * hexSize * 1.5;
+                    const y = r * hHeight + (c % 2 === 0 ? 0 : hHeight / 2);
+                    
+                    const distFromCenter = Math.hypot(x - lWidth/2, y - lHeight/2);
+                    const maxDist = Math.hypot(lWidth/2, lHeight/2);
+                    
+                    if (distFromCenter < maxDist * progress) {
+                        lCtx.fillStyle = 'rgba(255, 215, 0, 0.04)';
+                        drawHex(lCtx, x, y, hexSize - 2, true, true);
+                    } else {
+                        drawHex(lCtx, x, y, hexSize - 2, false, true);
+                    }
+                }
+            }
+        }
+
+        function drawHex(ctx, x, y, size, fill, stroke) {
+            ctx.beginPath();
+            for (let i = 0; i < 6; i++) {
+                const angle = (Math.PI / 3) * i;
+                const hx = x + size * Math.cos(angle);
+                const hy = y + size * Math.sin(angle);
+                if (i === 0) ctx.moveTo(hx, hy);
+                else ctx.lineTo(hx, hy);
+            }
+            ctx.closePath();
+            if (fill) ctx.fill();
+            if (stroke) ctx.stroke();
+        }
+
+        // Background Ambient Hexagon Canvas
+        const bgCanvas = hexagonCanvas;
+        const bgCtx = bgCanvas.getContext('2d');
+        function resizeBgCanvas() {
+            bgCanvas.width = window.innerWidth;
+            bgCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeBgCanvas);
+        resizeBgCanvas();
+
+        function drawBgHexagons() {
+            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+            const hexSize = 45;
+            const hHeight = hexSize * Math.sqrt(3);
+            const cols = Math.ceil(bgCanvas.width / (hexSize * 1.5)) + 2;
+            const rows = Math.ceil(bgCanvas.height / hHeight) + 2;
+
+            bgCtx.strokeStyle = 'rgba(255, 215, 0, 0.05)';
+            bgCtx.lineWidth = 1;
+
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    const x = c * hexSize * 1.5;
+                    const y = r * hHeight + (c % 2 === 0 ? 0 : hHeight / 2);
+                    drawHex(bgCtx, x, y, hexSize - 3, false, true);
+                }
+            }
+            requestAnimationFrame(drawBgHexagons);
+        }
+        requestAnimationFrame(drawBgHexagons);
+
+        // Hex Wave Transition Overlay Canvas
+        const waveCanvas = document.getElementById('hex-wave-overlay');
+        const waveCtx = waveCanvas.getContext('2d');
+        function resizeWaveCanvas() {
+            waveCanvas.width = window.innerWidth;
+            waveCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeWaveCanvas);
+        resizeWaveCanvas();
+
+        function triggerHexWaveTransition(event, targetViewId) {
+            if (isTransitioning || currentView === targetViewId) return;
+            isTransitioning = true;
+
+            // Close mobile menu if open
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                menuIcon.className = 'fa-solid fa-bars text-xl';
+            }
+
+            const rect = event.currentTarget.getBoundingClientRect();
+            const originX = rect.left + rect.width / 2;
+            const originY = rect.top + rect.height / 2;
+
+            let startTime = null;
+            const duration = 750;
+            const maxRadius = Math.hypot(window.innerWidth, window.innerHeight) * 1.2;
+
+            function animateWave(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const elapsed = timestamp - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Ease out cubic
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const currentRadius = eased * maxRadius;
+
+                waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
+                
+                // Draw expanding golden hex grid wave
+                waveCtx.save();
+                waveCtx.beginPath();
+                waveCtx.arc(originX, originY, currentRadius, 0, Math.PI * 2);
+                waveCtx.fillStyle = 'rgba(10, 17, 40, 0.96)';
+                waveCtx.fill();
+                waveCtx.lineWidth = 4;
+                waveCtx.strokeStyle = '#ffd700';
+                waveCtx.stroke();
+                waveCtx.restore();
+
+                if (progress < 0.5 && progress + 0.02 >= 0.5) {
+                    // Switch view halfway through the wave spread
+                    switchView(targetViewId);
+                }
+
+                if (progress < 1) {
+                    requestAnimationFrame(animateWave);
+                } else {
+                    // Fade out wave canvas
+                    let fadeStart = null;
+                    const fadeDuration = 300;
+                    function fadeWave(ftimestamp) {
+                        if (!fadeStart) fadeStart = ftimestamp;
+                        const fElapsed = ftimestamp - fadeStart;
+                        const fProgress = Math.min(fElapsed / fadeDuration, 1);
+                        waveCanvas.style.opacity = 1 - fProgress;
+                        if (fProgress < 1) {
+                            requestAnimationFrame(fadeWave);
+                        } else {
+                            waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
+                            waveCanvas.style.opacity = 1;
+                            isTransitioning = false;
+                        }
+                    }
+                    requestAnimationFrame(fadeWave);
+                }
+            }
+            requestAnimationFrame(animateWave);
+        }
+
+        function switchView(targetId) {
+            currentView = targetId;
             const views = ['home', 'personal', 'achievements'];
             views.forEach(v => {
-                const section = document.getElementById('view-' + v);
-                const navBtn = document.getElementById('nav-' + v);
-                if (v === viewName) {
-                    section.classList.remove('view-hidden');
-                    navBtn.classList.add('active');
+                const el = document.getElementById('view-' + v);
+                if (v === targetId) {
+                    el.classList.remove('view-hidden');
                 } else {
-                    section.classList.add('view-hidden');
-                    navBtn.classList.remove('active');
+                    el.classList.add('view-hidden');
+                }
+            });
+
+            // Update Nav active styles
+            views.forEach(v => {
+                const deskBtn = document.getElementById('nav-btn-' + v);
+                const mobBtn = document.getElementById('mob-btn-' + v);
+                if (v === targetId) {
+                    if (deskBtn) {
+                        deskBtn.className = "wave-item px-5 py-2.5 rounded-xl text-sm font-semibold text-navy-950 gold-gradient-bg shadow-md shadow-gold-500/20 transition-all flex items-center gap-2";
+                    }
+                    if (mobBtn) {
+                        mobBtn.className = "w-full mobile-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-base font-semibold text-navy-950 gold-gradient-bg";
+                    }
+                } else {
+                    if (deskBtn) {
+                        deskBtn.className = "wave-item px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 border border-gold-500/20 hover:border-gold-500/60 hover:text-gold-400 hover:bg-navy-800/50 transition-all flex items-center gap-2";
+                    }
+                    if (mobBtn) {
+                        mobBtn.className = "w-full mobile-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-base font-medium text-slate-300 border border-gold-500/20 hover:text-gold-400 hover:bg-navy-800/50";
+                    }
                 }
             });
         }
 
+        // School Achievement Tab Switcher
         function selectSchoolAchievement(school) {
+            const btnBchs = document.getElementById('btn-school-bchs');
+            const btnEaster = document.getElementById('btn-school-easter');
             const placeholder = document.getElementById('achievement-placeholder');
-            const bchsPanel = document.getElementById('achievements-bchs');
-            const easterPanel = document.getElementById('achievements-easter');
-
-            placeholder.classList.add('view-hidden');
-            bchsPanel.classList.add('view-hidden');
-            easterPanel.classList.add('view-hidden');
+            const bchsContent = document.getElementById('achievements-bchs');
+            const easterContent = document.getElementById('achievements-easter');
 
             if (school === 'bchs') {
-                bchsPanel.classList.remove('view-hidden');
+                btnBchs.classList.add('active-school');
+                btnEaster.classList.remove('active-school');
+                placeholder.classList.add('hidden');
+                bchsContent.classList.remove('hidden');
+                bchsContent.classList.add('animate-reveal');
+                easterContent.classList.add('hidden');
             } else if (school === 'easter') {
-                easterPanel.classList.remove('view-hidden');
+                btnEaster.classList.add('active-school');
+                btnBchs.classList.remove('active-school');
+                placeholder.classList.add('hidden');
+                easterContent.classList.remove('hidden');
+                easterContent.classList.add('animate-reveal');
+                bchsContent.classList.add('hidden');
             }
         }
     </script>
