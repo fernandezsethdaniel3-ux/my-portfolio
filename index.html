@@ -1,753 +1,978 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seth Daniel M. Fernandez | Portfolio</title>
+    <title>Seth, Daniel M. Fernandez | Visual Portfolio</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        heading: ['Plus Jakarta Sans', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        heading: ['Space Grotesk', 'sans-serif'],
                     },
                     colors: {
                         navy: {
-                            950: '#040914',
-                            900: '#081226',
-                            850: '#0c1a36',
-                            800: '#102246',
-                            700: '#183266',
+                            950: '#050a17',
+                            900: '#0a1128',
+                            800: '#0c1838',
+                            700: '#111d4a',
+                            600: '#1a2b63',
                         },
                         gold: {
-                            300: '#fde047',
-                            400: '#facc15',
-                            500: '#eab308',
-                            600: '#ca8a04',
+                            300: '#ffe875',
+                            400: '#f3c64f',
+                            500: '#ffd700',
+                            600: '#dfa010',
+                            700: '#b88209',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 3s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        },
+                        glow: {
+                            '0%': { filter: 'drop-shadow(0 0 10px rgba(255, 215, 0, 0.3))' },
+                            '100%': { filter: 'drop-shadow(0 0 25px rgba(255, 215, 0, 0.7))' },
                         }
                     }
                 }
             }
         }
     </script>
+
     <style>
-        html, body {
-            height: 100%;
-            overflow: hidden;
-            background-color: #040914;
-            color: #f8fafc;
-            user-select: none;
+        body {
+            background-color: #050a17;
+            color: #e2e8f0;
+            overflow-x: hidden;
+            overflow-y: hidden; /* Keep the portfolio fixed without page scrolling */
         }
 
-        /* Subtle Ambient Background Grid */
-        .bg-tech-grid {
-            background-image: 
-                radial-gradient(circle at 20% 25%, rgba(234, 179, 8, 0.08) 0%, transparent 45%),
-                radial-gradient(circle at 80% 75%, rgba(24, 50, 102, 0.35) 0%, transparent 50%),
-                linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 44px 44px, 44px 44px;
-        }
-
-        /* Glass Panel Styling */
-        .glass-panel {
-            background: rgba(12, 26, 54, 0.72);
+        /* Glassmorphism Panels */
+        .glass-panel-navy {
+            background: rgba(12, 24, 56, 0.65);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(250, 204, 21, 0.22);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65);
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(5, 10, 23, 0.6);
         }
 
-        /* Page Sections (Static Viewport Locked) */
-        .page-section {
-            position: absolute;
-            inset: 0;
-            padding-top: 4.5rem;
-            padding-bottom: 1.25rem;
+        .glass-panel-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-panel-hover:hover {
+            background: rgba(17, 29, 74, 0.75);
+            border-color: rgba(255, 215, 0, 0.45);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px 0 rgba(255, 215, 0, 0.18);
+        }
+
+        .glass-nav {
+            background: rgba(10, 17, 40, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+        }
+
+        /* Gradient Gold Text & Backgrounds */
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #ffe875 0%, #ffd700 40%, #dfa010 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-gradient-bg {
+            background: linear-gradient(135deg, #ffd700 0%, #dfa010 100%);
+        }
+
+        .gold-gradient-bg-hover:hover {
+            background: linear-gradient(135deg, #ffe875 0%, #ffd700 100%);
+        }
+
+        /* View Section Page Motion Classes */
+        .view-section {
+            position: relative;
+            width: 100%;
+            will-change: opacity, transform;
+            min-height: calc(100vh - 80px);
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-            opacity: 0;
+        }
+
+        .view-hidden {
+            display: none !important;
+        }
+
+        .wave-item {
+            will-change: transform, opacity;
+            transform-origin: center center;
+        }
+
+        #hex-wave-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
             pointer-events: none;
-            visibility: hidden;
+            z-index: 80;
         }
 
-        .page-section.active {
-            opacity: 1;
-            pointer-events: auto;
-            visibility: visible;
-        }
-
-        /* Internal Compact Scrollbar only for Achievements sub-viewports on small screens */
-        .custom-scroll::-webkit-scrollbar {
-            width: 5px;
-        }
-        .custom-scroll::-webkit-scrollbar-track {
-            background: rgba(8, 18, 38, 0.4);
-            border-radius: 9999px;
-        }
-        .custom-scroll::-webkit-scrollbar-thumb {
-            background: rgba(250, 204, 21, 0.35);
-            border-radius: 9999px;
-        }
-        .custom-scroll::-webkit-scrollbar-thumb:hover {
-            background: rgba(250, 204, 21, 0.6);
-        }
-
-        /* Navigation Active Pill */
-        .nav-btn.active {
-            background: rgba(250, 204, 21, 0.16);
-            color: #fde047;
-            border-color: rgba(250, 204, 21, 0.45);
-        }
-
-        /* School Selector Card Active State */
-        .school-tab.active {
-            border-color: #facc15;
-            background: linear-gradient(135deg, rgba(250, 204, 21, 0.18) 0%, rgba(16, 34, 70, 0.9) 100%);
-            box-shadow: 0 0 25px rgba(250, 204, 21, 0.22);
-            transform: translateY(-2px);
-        }
-
-        /* Hexagonal Wave Transition Overlay */
-        #hex-transition-overlay {
+        #loader-overlay {
             position: fixed;
             inset: 0;
             z-index: 9999;
+            background: radial-gradient(circle at center, #0c1838 0%, #050a17 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s;
+        }
+
+        #loader-overlay.loader-done {
+            opacity: 0;
+            visibility: hidden;
             pointer-events: none;
+        }
+
+        /* School Logo Selection Card Active State */
+        .school-logo-card {
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .school-logo-card.active-school {
+            border-color: #ffd700;
+            background: rgba(17, 29, 74, 0.9);
+            box-shadow: 0 0 35px rgba(255, 215, 0, 0.28);
+            transform: translateY(-4px) scale(1.02);
+        }
+
+        /* Smooth Reveal Animation for Achievement Panel */
+        @keyframes slideFadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        .animate-reveal {
+            animation: slideFadeUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050a17;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #111d4a;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1a2b63;
+        }
+
+
+
+        /* Expanded profile composition: layered orbital geometry, grid and ID-style framing. */
+        .profile-stage { min-height: min(76vh, 700px); isolation: isolate; }
+        .profile-aura { position:absolute; width: min(88%, 570px); aspect-ratio:1; border-radius:50%; background: radial-gradient(circle, rgba(255,215,0,.16) 0%, rgba(26,43,99,.22) 38%, transparent 72%); filter: blur(12px); z-index:-3; }
+        .profile-grid { position:absolute; inset:8% 5%; opacity:.22; z-index:-2; background-image:linear-gradient(rgba(255,215,0,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,.18) 1px,transparent 1px); background-size:28px 28px; mask-image:radial-gradient(ellipse,black 15%,transparent 72%); }
+        .profile-orbit { position:absolute; border:1px solid rgba(255,215,0,.35); border-radius:50%; pointer-events:none; }
+        .profile-orbit-one { width:86%; aspect-ratio:1; transform:rotate(-24deg) scaleY(.72); border-style:dashed; animation:profileOrbit 34s linear infinite; }
+        .profile-orbit-two { width:96%; aspect-ratio:1; transform:rotate(34deg) scaleY(.48); border-color:rgba(125,166,255,.34); animation:profileOrbitReverse 42s linear infinite; }
+        .profile-orbit-three { width:72%; aspect-ratio:1; border-width:2px; border-color:rgba(255,215,0,.12); box-shadow:0 0 45px rgba(255,215,0,.08), inset 0 0 35px rgba(255,215,0,.06); }
+        .profile-orbit-one span,.profile-orbit-one i,.profile-orbit-two span { position:absolute; display:block; width:11px; height:11px; border-radius:50%; background:#ffd700; box-shadow:0 0 18px rgba(255,215,0,.9); }
+        .profile-orbit-one span { top:12%; left:14%; }.profile-orbit-one i { right:7%; bottom:28%; width:7px;height:7px;background:#9abaff; }
+        .profile-orbit-two span { right:17%; top:10%; width:8px;height:8px;background:#9abaff;box-shadow:0 0 16px #9abaff; }
+        .profile-photo-shell { width: min(74%, 440px); padding:10px; border:1px solid rgba(255,215,0,.55); border-radius:30px; background:linear-gradient(145deg,rgba(17,29,74,.92),rgba(5,10,23,.94)); box-shadow:0 25px 80px rgba(0,0,0,.48),0 0 38px rgba(255,215,0,.18); backdrop-filter:blur(12px); transform:translateY(2px); transition:transform .5s ease,box-shadow .5s ease; }
+        .profile-stage:hover .profile-photo-shell { transform:translateY(-5px) scale(1.015); box-shadow:0 30px 90px rgba(0,0,0,.55),0 0 48px rgba(255,215,0,.28); }
+        .profile-photo-topline { display:flex; align-items:center; justify-content:center; gap:8px; padding:3px 2px 10px; color:#ffe875; font:600 9px/1 'Space Grotesk',sans-serif; letter-spacing:.22em; }
+        .profile-photo-topline span:first-child { width:6px;height:6px;border-radius:50%;background:#ffd700;box-shadow:0 0 10px #ffd700; }
+        .profile-photo-frame { padding:7px; border-radius:22px; background:linear-gradient(135deg,rgba(255,215,0,.85),rgba(255,215,0,.08) 35%,rgba(125,166,255,.38) 70%,rgba(255,215,0,.55)); }
+        .profile-photo-frame img { width:100%; background:#0a1128; }
+        .profile-photo-caption { display:flex; align-items:center; justify-content:space-between; padding:12px 8px 3px; color:#ffe875; }
+        .profile-photo-caption div { display:flex; flex-direction:column; gap:3px; }.profile-photo-caption strong { font:700 12px 'Space Grotesk',sans-serif; letter-spacing:.16em; color:#fff; }.profile-photo-caption span { font:500 8px 'Space Grotesk',sans-serif; letter-spacing:.2em; color:#94a3b8; }.profile-photo-caption i { font-size:13px; opacity:.75; }
+        .profile-index { color:rgba(255,232,117,.75); font:600 9px 'Space Grotesk',sans-serif; letter-spacing:.22em; z-index:2; }.profile-index b { font-size:22px;color:#fff;letter-spacing:0; }.profile-index-line { width:1px;height:55px;background:linear-gradient(#ffd700,transparent);margin:5px auto; }
+        .profile-float-tag { position:absolute; z-index:12; display:flex; align-items:center; gap:9px; padding:11px 14px; border:1px solid rgba(255,215,0,.3); border-radius:12px; background:rgba(5,10,23,.82); color:#ffe875; box-shadow:0 12px 30px rgba(0,0,0,.3); backdrop-filter:blur(12px); font:600 9px 'Space Grotesk',sans-serif; letter-spacing:.13em; white-space:nowrap; }.profile-tag-top { top:13%; right:1%; }.profile-tag-bottom { bottom:12%; left:5%; color:#cbd5e1; }.profile-tag-top i { color:#ffd700; }.profile-live-dot { width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 12px #4ade80; }
+        .profile-side-mark { position:absolute; right:4%; bottom:22%; z-index:0; color:rgba(255,215,0,.11); font:800 clamp(42px,6vw,82px)/1 'Space Grotesk',sans-serif; letter-spacing:-.1em; pointer-events:none; }.profile-side-mark span { color:rgba(255,255,255,.14); }
+        .profile-corner { position:absolute; width:44px;height:44px;border-color:rgba(255,215,0,.65);border-style:solid;z-index:2; }.profile-corner-tl { top:8%;left:8%;border-width:1px 0 0 1px; }.profile-corner-br { bottom:8%;right:8%;border-width:0 1px 1px 0; }
+        @keyframes profileOrbit { to { transform:rotate(336deg) scaleY(.72); } } @keyframes profileOrbitReverse { to { transform:rotate(-326deg) scaleY(.48); } }
+        @media (max-width:1023px) { .profile-stage { min-height: min(64vh,560px); }.profile-photo-shell { width:min(66%,390px); }.profile-tag-top { right:0;top:8%; }.profile-tag-bottom { left:0;bottom:8%; } }
+        @media (max-width:767px) { .profile-stage { min-height:460px; }.profile-photo-shell { width:min(72%,330px); }.profile-index { display:none; }.profile-float-tag { padding:8px 10px;font-size:8px; }.profile-tag-top { top:4%;right:0; }.profile-tag-bottom { bottom:4%;left:0; }.profile-corner-tl { top:3%;left:2%; }.profile-corner-br { bottom:3%;right:2%; } }
+        @media (max-height:760px) and (min-width:1024px) { .profile-stage { min-height: min(68vh,570px); }.profile-photo-shell img { max-height: min(55vh,480px); } }
+
+        /* Responsive viewport fitting: keep every portfolio panel visible without
+           removing content or disabling the original hexagon effects. */
+        html, body {
+            width: 100%;
+            height: 100%;
+            min-height: 100%;
+        }
+        body {
             overflow: hidden;
         }
-
-        .hex-cell {
-            position: absolute;
-            clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
-            background: linear-gradient(135deg, #0c1a36 0%, #102246 70%, #eab308 180%);
-            border: 1px solid rgba(250, 204, 21, 0.35);
-            transform: scale(0);
-            opacity: 0;
-            transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease;
-            will-change: transform, opacity;
+        main {
+            height: calc(100dvh - 5rem);
+            min-height: 0;
+            box-sizing: border-box;
         }
-
-        .hex-cell.cover {
-            transform: scale(1.08);
-            opacity: 1;
+        .view-section {
+            height: calc(100dvh - 5rem);
+            min-height: 0;
+            max-height: calc(100dvh - 5rem);
+            box-sizing: border-box;
+            overflow: hidden;
+            padding-top: clamp(0.55rem, 1.2vh, 1rem);
+            padding-bottom: clamp(0.55rem, 1.2vh, 1rem);
         }
-
-        /* Portrait Frame Glow */
-        .portrait-ring {
-            box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.35), 0 18px 40px -10px rgba(0, 0, 0, 0.75);
+        #view-personal, #view-achievements {
+            gap: clamp(0.45rem, 1vh, 0.9rem);
+        }
+        img {
+            max-width: 100%;
+        }
+        /* Reduce the whole content area proportionally on shorter laptop screens. */
+        @media (max-height: 1000px) and (min-width: 768px) {
+            main { zoom: 1; }
+        }
+        @media (max-height: 900px) and (min-width: 768px) {
+            main { zoom: 0.96; }
+        }
+        @media (max-height: 800px) and (min-width: 768px) {
+            main { zoom: 0.91; }
+        }
+        @media (max-height: 700px) and (min-width: 768px) {
+            main { zoom: 0.90; }
+        }
+        /* On narrow screens, fit the available width while retaining all information. */
+        @media (max-width: 767px) {
+            main { zoom: 0.94; }
+            .view-section {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+        }
+        @media (max-width: 480px) {
+            main { zoom: 0.90; }
         }
     </style>
 </head>
-<body class="bg-tech-grid antialiased selection:bg-gold-500 selection:text-navy-950">
+<body class="font-sans antialiased selection:bg-gold-500 selection:text-navy-950">
 
-    <!-- Hexagonal Wave Transition Layer -->
-    <div id="hex-transition-overlay" aria-hidden="true"></div>
-
-    <!-- Top Fixed Navigation Bar -->
-    <header class="fixed top-0 left-0 right-0 z-50 h-16 px-4 sm:px-8 flex items-center justify-between bg-navy-950/85 backdrop-blur-md border-b border-gold-500/20">
-        <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('home')">
-            <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center text-navy-950 font-heading font-extrabold text-base shadow-md">
-                SF
+    <!-- HEXAGON LIGHT-SPREAD LOADING SCREEN -->
+    <div id="loader-overlay">
+        <canvas id="loader-canvas" class="w-full h-full block"></canvas>
+        <div class="absolute bottom-14 flex flex-col items-center gap-2 pointer-events-none">
+            <div class="flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel-navy border border-gold-500/40">
+                <span class="w-2 h-2 rounded-full bg-gold-400 animate-ping"></span>
+                <span class="font-mono text-xs tracking-widest text-gold-300 uppercase">Initializing System</span>
             </div>
-            <div class="hidden sm:block">
-                <p class="font-heading font-bold text-sm tracking-wide text-white leading-none">SETH DANIEL M. FERNANDEZ</p>
-                <p class="font-mono text-[11px] text-gold-400 tracking-wider mt-0.5">BSIT • UNIVERSITY OF THE CORDILLERAS</p>
+            <span id="loader-percent" class="font-heading font-bold text-sm gold-gradient-text tracking-wider">0%</span>
+        </div>
+    </div>
+
+    <canvas id="hexagon-canvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0"></canvas>
+    <canvas id="hex-wave-overlay"></canvas>
+
+    <div class="fixed top-1/4 -left-32 w-96 h-96 rounded-full pointer-events-none z-0 animate-pulse-slow" style="background: radial-gradient(circle, rgba(255, 215, 0, 0.12) 0%, rgba(5, 10, 23, 0) 70%);"></div>
+    <div class="fixed bottom-1/4 -right-32 w-96 h-96 rounded-full pointer-events-none z-0 animate-pulse-slow" style="background: radial-gradient(circle, rgba(17, 29, 74, 0.5) 0%, rgba(5, 10, 23, 0) 70%);"></div>
+
+    <!-- HEADER / NAVIGATION BAR -->
+    <header class="fixed top-0 left-0 w-full z-50 glass-nav wave-item">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="#home" onclick="triggerHexWaveTransition(event, 'home')" class="flex items-center gap-3 group wave-item">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-400 to-gold-600 p-0.5 transition-transform duration-300 group-hover:scale-105 shadow-lg shadow-gold-500/20">
+                        <div class="w-full h-full bg-navy-950 rounded-[10px] flex items-center justify-center">
+                            <span class="font-heading font-extrabold text-base gold-gradient-text">SF</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-heading font-bold text-lg tracking-tight text-white group-hover:text-gold-400 transition-colors">Seth<span class="text-gold-500">.</span>dev</span>
+                        <span class="text-[10px] font-mono text-slate-400 tracking-wider">UC BAGUIO • BSIT</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center space-x-3">
+                    <button id="nav-btn-home" onclick="triggerHexWaveTransition(event, 'home')" class="wave-item px-5 py-2.5 rounded-xl text-sm font-semibold text-navy-950 gold-gradient-bg shadow-md shadow-gold-500/20 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-house-chimney text-xs"></i>
+                        <span>Home Page</span>
+                    </button>
+                    <button id="nav-btn-personal" onclick="triggerHexWaveTransition(event, 'personal')" class="wave-item px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 border border-gold-500/20 hover:border-gold-500/60 hover:text-gold-400 hover:bg-navy-800/50 transition-all flex items-center gap-2">
+                        <i class="fa-regular fa-user text-xs"></i>
+                        <span>Personal Info</span>
+                    </button>
+                    <button id="nav-btn-achievements" onclick="triggerHexWaveTransition(event, 'achievements')" class="wave-item px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 border border-gold-500/20 hover:border-gold-500/60 hover:text-gold-400 hover:bg-navy-800/50 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-trophy text-xs"></i>
+                        <span>Achievements</span>
+                    </button>
+                </nav>
+
+                <!-- Mobile Hamburger Button -->
+                <button id="mobile-menu-btn" aria-label="Toggle Navigation" class="md:hidden p-2.5 rounded-xl border border-gold-500/20 text-slate-300 hover:text-gold-400 hover:bg-navy-800/50">
+                    <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+                </button>
             </div>
         </div>
 
-        <nav class="flex items-center gap-1.5 sm:gap-2.5" aria-label="Primary Navigation">
-            <button onclick="navigateTo('home')" data-target="home" class="nav-btn active px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 border border-transparent hover:text-white hover:bg-navy-800/70 transition-all flex items-center gap-2">
-                <i class="fa-solid fa-house text-gold-400 text-xs"></i>
-                <span>Home</span>
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden glass-panel-navy border-t border-gold-500/20 px-4 pt-3 pb-6 space-y-3">
+            <button id="mob-btn-home" onclick="triggerHexWaveTransition(event, 'home')" class="w-full mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-semibold text-navy-950 gold-gradient-bg">
+                <i class="fa-solid fa-house-chimney text-sm"></i>
+                <span>Home Page</span>
             </button>
-            <button onclick="navigateTo('about')" data-target="about" class="nav-btn px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 border border-transparent hover:text-white hover:bg-navy-800/70 transition-all flex items-center gap-2">
-                <i class="fa-solid fa-user-astronaut text-gold-400 text-xs"></i>
-                <span>About</span>
+            <button id="mob-btn-personal" onclick="triggerHexWaveTransition(event, 'personal')" class="w-full mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium text-slate-300 border border-gold-500/20 hover:text-gold-400 hover:bg-navy-800/50">
+                <i class="fa-regular fa-user text-sm"></i>
+                <span>Personal Info</span>
             </button>
-            <button onclick="navigateTo('showcase')" data-target="showcase" class="nav-btn px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 border border-transparent hover:text-white hover:bg-navy-800/70 transition-all flex items-center gap-2">
-                <i class="fa-solid fa-layer-group text-gold-400 text-xs"></i>
-                <span>Interests &amp; Strengths</span>
-            </button>
-            <button onclick="navigateTo('achievements')" data-target="achievements" class="nav-btn px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 border border-transparent hover:text-white hover:bg-navy-800/70 transition-all flex items-center gap-2">
-                <i class="fa-solid fa-trophy text-gold-400 text-xs"></i>
+            <button id="mob-btn-achievements" onclick="triggerHexWaveTransition(event, 'achievements')" class="w-full mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium text-slate-300 border border-gold-500/20 hover:text-gold-400 hover:bg-navy-800/50">
+                <i class="fa-solid fa-trophy text-sm"></i>
                 <span>Achievements</span>
             </button>
-        </nav>
+        </div>
     </header>
 
-    <!-- =========================================================
-         SECTION 1: HOME
-    ========================================================== -->
-    <section id="section-home" class="page-section active px-4 sm:px-8">
-        <div class="w-full max-w-6xl glass-panel rounded-3xl p-6 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <!-- Left Text Content -->
-            <div class="lg:col-span-7 space-y-5">
-                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-400/30 text-gold-300 text-xs font-mono tracking-wide">
-                    <span class="w-2 h-2 rounded-full bg-gold-400 animate-pulse"></span>
-                    WELCOME TO MY DIGITAL PORTFOLIO
+    <!-- MAIN VIEW CONTAINER -->
+    <main class="relative z-10 pt-20">
+
+        <!-- ==================== 1. HOME VIEW ==================== -->
+        <section id="view-home" class="view-section px-4 sm:px-6 lg:px-8 py-10">
+            <div class="max-w-screen-2xl mx-auto w-full flex flex-col lg:flex-row items-center justify-between gap-5 xl:gap-8">
+
+                <!-- LEFT SIDE: EXPANDED PROFILE FEATURE WITH LAYERED TECH ORBITS -->
+                <div class="w-full lg:w-[50%] xl:w-[52%] flex justify-center items-center shrink-0 wave-item">
+                    <div class="profile-stage relative group w-full max-w-[650px] flex items-center justify-center">
+                        <div class="profile-aura" aria-hidden="true"></div>
+                        <div class="profile-grid" aria-hidden="true"></div>
+                        <div class="profile-orbit profile-orbit-one" aria-hidden="true"><span></span><i></i></div>
+                        <div class="profile-orbit profile-orbit-two" aria-hidden="true"><span></span></div>
+                        <div class="profile-orbit profile-orbit-three" aria-hidden="true"></div>
+                        <div class="profile-corner profile-corner-tl" aria-hidden="true"></div>
+                        <div class="profile-corner profile-corner-br" aria-hidden="true"></div>
+                        <div class="profile-index absolute left-2 top-1/2 -translate-y-1/2 hidden sm:flex flex-col gap-2">
+                            <span>PROFILE</span><b>01</b><span class="profile-index-line"></span><span>2026</span>
+                        </div>
+                        <div class="profile-photo-shell relative z-10">
+                            <div class="profile-photo-topline"><span></span> DIGITAL IDENTITY <span>•</span> BSIT</div>
+                            <div class="profile-photo-frame">
+                                <img src="Profile.jpg" alt="Seth Daniel M. Fernandez" class="w-full max-h-[min(66vh,590px)] object-contain rounded-[1.35rem] block">
+                            </div>
+                            <div class="profile-photo-caption"><div><strong>SETH DANIEL</strong><span>INFORMATION TECHNOLOGY</span></div><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+                        </div>
+                        <div class="profile-float-tag profile-tag-top"><i class="fa-solid fa-code"></i><span>BUILD • CREATE • EXPLORE</span></div>
+                        <div class="profile-float-tag profile-tag-bottom"><span class="profile-live-dot"></span><span>PORTFOLIO / 2026</span></div>
+                        <div class="profile-side-mark" aria-hidden="true">S<span>.</span>F</div>
+                    </div>
                 </div>
 
-                <div class="space-y-2">
-                    <p class="text-slate-300 text-base sm:text-lg font-medium">Hello, I'm</p>
-                    <h1 class="font-heading font-extrabold text-3xl sm:text-5xl text-white tracking-tight leading-tight">
-                        Seth Daniel M. <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-gold-400 to-gold-500">Fernandez</span>
-                    </h1>
-                    <p class="text-gold-400 font-mono text-xs sm:text-sm tracking-wider uppercase pt-1">
-                        Bachelor of Science in Information Technology • University of the Cordilleras
+                <!-- RIGHT SIDE: WELCOMING TEXT & DETAILS -->
+                <div class="w-full lg:w-[50%] xl:w-[48%] space-y-5 text-center lg:text-left">
+                    
+                    <div class="wave-item inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel-navy border border-gold-500/40 text-gold-300 text-xs sm:text-sm font-mono shadow-lg shadow-gold-500/10">
+                        <i class="fa-solid fa-atom text-gold-400 animate-spin" style="animation-duration: 10s;"></i>
+                        <span>University of the Cordilleras</span>
+                        <span class="text-slate-500">•</span>
+                        <span class="text-gold-400 font-semibold">BSIT Student</span>
+                    </div>
+
+                    <div class="space-y-3 wave-item">
+                        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-extrabold text-white tracking-tight leading-tight">
+                            Hello, my name is <br/>
+                            <span class="gold-gradient-text">Seth, Daniel M. Fernandez</span>
+                        </h1>
+                        
+                        <p class="text-base sm:text-xl lg:text-2xl font-medium text-slate-300 font-sans leading-relaxed">
+                            A student in <span class="text-gold-400 font-semibold border-b-2 border-gold-500/40 pb-0.5">University of the Cordilleras (BSIT)</span>
+                        </p>
+                    </div>
+
+                    <p class="wave-item text-slate-400 text-xs sm:text-sm lg:text-base max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        Welcome to my personal digital portfolio space. Focused on modern information technology, web development, software engineering, and high-tech digital solutions.
                     </p>
-                </div>
 
-                <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl">
-                    Known as <span class="text-white font-semibold">Dani</span>, I am an Information Technology student passionate about clean web design, responsive software development, algorithmic problem-solving, and collaborative innovation.
-                </p>
-
-                <!-- Quick Stats / Badges -->
-                <div class="grid grid-cols-3 gap-3 pt-1 max-w-lg">
-                    <div class="p-3 rounded-xl bg-navy-900/80 border border-gold-500/20">
-                        <p class="text-[11px] font-mono text-slate-400 uppercase">Program</p>
-                        <p class="text-sm sm:text-base font-bold text-white mt-0.5">BSIT</p>
-                    </div>
-                    <div class="p-3 rounded-xl bg-navy-900/80 border border-gold-500/20">
-                        <p class="text-[11px] font-mono text-slate-400 uppercase">Focus</p>
-                        <p class="text-sm sm:text-base font-bold text-gold-400 mt-0.5">Web &amp; UI/UX</p>
-                    </div>
-                    <div class="p-3 rounded-xl bg-navy-900/80 border border-gold-500/20">
-                        <p class="text-[11px] font-mono text-slate-400 uppercase">Location</p>
-                        <p class="text-sm sm:text-base font-bold text-white mt-0.5">Baguio City</p>
-                    </div>
-                </div>
-
-                <!-- Navigation Action Buttons -->
-                <div class="flex flex-wrap items-center gap-3 pt-2">
-                    <button onclick="navigateTo('about')" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-gold-400 to-gold-500 hover:from-gold-300 hover:to-gold-400 text-navy-950 font-heading font-bold text-sm transition-all shadow-lg shadow-gold-500/20 flex items-center gap-2">
-                        <span>Explore My Profile</span>
-                        <i class="fa-solid fa-arrow-right text-xs"></i>
-                    </button>
-                    <button onclick="navigateTo('achievements')" class="px-5 py-2.5 rounded-xl bg-navy-900/90 hover:bg-navy-800 text-white border border-gold-500/35 font-heading font-semibold text-sm transition-all flex items-center gap-2">
-                        <i class="fa-solid fa-award text-gold-400 text-xs"></i>
-                        <span>View Achievements</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Right Portrait Card -->
-            <div class="lg:col-span-5 flex flex-col items-center justify-center">
-                <div class="relative group">
-                    <div class="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-gold-500/30 via-transparent to-blue-500/30 blur-lg opacity-80"></div>
-                    <div class="relative w-60 h-72 sm:w-72 sm:h-80 rounded-3xl overflow-hidden bg-navy-900 portrait-ring">
-                        <img src="file_00000000fc7c81fa970e36a4a2800e44_2.png" alt="Seth Daniel M. Fernandez Portrait" class="w-full h-full object-cover object-top">
-                    </div>
-                    <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-navy-950 border border-gold-400/50 shadow-xl whitespace-nowrap">
-                        <span class="text-xs font-mono text-gold-300 font-semibold">Dani • Student Developer</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- =========================================================
-         SECTION 2: ABOUT ME
-    ========================================================== -->
-    <section id="section-about" class="page-section px-4 sm:px-8">
-        <div class="w-full max-w-6xl glass-panel rounded-3xl p-6 sm:p-10 space-y-6">
-            <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b border-gold-500/20 pb-4 gap-2">
-                <div>
-                    <span class="text-xs font-mono text-gold-400 tracking-widest uppercase">Personal Background</span>
-                    <h2 class="font-heading font-extrabold text-2xl sm:text-4xl text-white mt-0.5">About Me</h2>
-                </div>
-                <span class="text-xs font-mono text-slate-400">Baguio City, Philippines</span>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-                <!-- Bio Narrative -->
-                <div class="lg:col-span-7 p-6 rounded-2xl bg-navy-900/70 border border-gold-500/20 flex flex-col justify-between space-y-4">
-                    <div class="space-y-3">
-                        <h3 class="font-heading font-bold text-lg text-gold-300 flex items-center gap-2">
-                            <i class="fa-solid fa-id-card-clip"></i>
-                            <span>Who I Am</span>
-                        </h3>
-                        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-                            I am <strong class="text-white">Seth Daniel M. Fernandez</strong> (also known as <strong class="text-gold-300">Dani</strong>), born on <strong class="text-white">May 20, 2008</strong>. Currently, I am pursuing my <strong class="text-white">Bachelor of Science in Information Technology (BSIT)</strong> at the <strong class="text-gold-300">University of the Cordilleras</strong>.
-                        </p>
-                        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-                            My academic foundation was shaped at <strong class="text-white">Baguio City High School</strong> for Junior High School and <strong class="text-white">Easter College Incorporated</strong> for Senior High School, where I honed my skills in Java programming, web technologies, and research. Beyond coding, I enjoy expressing creativity through graphic design on Canva, playing the guitar, singing, and collaborating with peers to build intuitive digital experiences.
-                        </p>
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 pt-1">
+                        <span class="wave-item px-3 py-1.5 rounded-lg bg-navy-800 border border-gold-500/20 text-xs font-mono text-slate-300 hover:border-gold-500/50 transition-colors">
+                            <i class="fa-solid fa-code text-gold-400 mr-1.5"></i>Information Technology
+                        </span>
+                        <span class="wave-item px-3 py-1.5 rounded-lg bg-navy-800 border border-gold-500/20 text-xs font-mono text-slate-300 hover:border-gold-500/50 transition-colors">
+                            <i class="fa-solid fa-laptop-code text-gold-400 mr-1.5"></i>Web & Systems
+                        </span>
+                        <span class="wave-item px-3 py-1.5 rounded-lg bg-navy-800 border border-gold-500/20 text-xs font-mono text-slate-300 hover:border-gold-500/50 transition-colors">
+                            <i class="fa-solid fa-building-columns text-gold-400 mr-1.5"></i>UC Cordilleras
+                        </span>
                     </div>
 
-                    <div class="pt-3 border-t border-white/10 flex flex-wrap gap-2">
-                        <span class="px-3 py-1 rounded-lg bg-navy-800 text-xs font-mono text-gold-300 border border-gold-500/25">HTML5 &amp; CSS3</span>
-                        <span class="px-3 py-1 rounded-lg bg-navy-800 text-xs font-mono text-gold-300 border border-gold-500/25">JavaScript</span>
-                        <span class="px-3 py-1 rounded-lg bg-navy-800 text-xs font-mono text-gold-300 border border-gold-500/25">Java GUI</span>
-                        <span class="px-3 py-1 rounded-lg bg-navy-800 text-xs font-mono text-gold-300 border border-gold-500/25">Python</span>
-                        <span class="px-3 py-1 rounded-lg bg-navy-800 text-xs font-mono text-gold-300 border border-gold-500/25">Canva Design</span>
-                    </div>
-                </div>
-
-                <!-- Academic & Personal Details Card -->
-                <div class="lg:col-span-5 p-6 rounded-2xl bg-navy-900/70 border border-gold-500/20 flex flex-col justify-between space-y-4">
-                    <h3 class="font-heading font-bold text-lg text-gold-300 flex items-center gap-2">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                        <span>Academic &amp; Personal Profile</span>
-                    </h3>
-
-                    <ul class="space-y-3 text-sm">
-                        <li class="flex items-start justify-between gap-4 pb-2.5 border-b border-white/10">
-                            <span class="text-slate-400 font-mono text-xs uppercase">Full Name</span>
-                            <span class="text-white font-medium text-right">Seth Daniel M. Fernandez</span>
-                        </li>
-                        <li class="flex items-start justify-between gap-4 pb-2.5 border-b border-white/10">
-                            <span class="text-slate-400 font-mono text-xs uppercase">Nickname</span>
-                            <span class="text-gold-300 font-medium text-right">Dani</span>
-                        </li>
-                        <li class="flex items-start justify-between gap-4 pb-2.5 border-b border-white/10">
-                            <span class="text-slate-400 font-mono text-xs uppercase">Birthdate</span>
-                            <span class="text-white font-medium text-right">May 20, 2008</span>
-                        </li>
-                        <li class="flex items-start justify-between gap-4 pb-2.5 border-b border-white/10">
-                            <span class="text-slate-400 font-mono text-xs uppercase">University</span>
-                            <span class="text-white font-medium text-right">University of the Cordilleras</span>
-                        </li>
-                        <li class="flex items-start justify-between gap-4 pb-2.5 border-b border-white/10">
-                            <span class="text-slate-400 font-mono text-xs uppercase">Senior High</span>
-                            <span class="text-white font-medium text-right">Easter College Incorporated</span>
-                        </li>
-                        <li class="flex items-start justify-between gap-4">
-                            <span class="text-slate-400 font-mono text-xs uppercase">Junior High</span>
-                            <span class="text-white font-medium text-right">Baguio City High School</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- =========================================================
-         SECTION 3: INTERESTS, HOBBIES & STRENGTHS
-    ========================================================== -->
-    <section id="section-showcase" class="page-section px-4 sm:px-8">
-        <div class="w-full max-w-6xl glass-panel rounded-3xl p-6 sm:p-10 space-y-6">
-            <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b border-gold-500/20 pb-4 gap-2">
-                <div>
-                    <span class="text-xs font-mono text-gold-400 tracking-widest uppercase">What Drives Me</span>
-                    <h2 class="font-heading font-extrabold text-2xl sm:text-4xl text-white mt-0.5">Interests, Hobbies &amp; Strengths</h2>
-                </div>
-                <span class="text-xs font-mono text-slate-400">Core Pillars</span>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Column 1: Interests -->
-                <div class="p-6 rounded-2xl bg-navy-900/75 border border-gold-500/25 hover:border-gold-400/60 transition-all flex flex-col justify-between space-y-4">
-                    <div class="space-y-4">
-                        <div class="w-12 h-12 rounded-xl bg-gold-500/15 border border-gold-400/35 flex items-center justify-center text-gold-400 text-xl">
-                            <i class="fa-solid fa-code"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-heading font-bold text-xl text-white">Interests</h3>
-                            <p class="text-xs font-mono text-gold-400 mt-0.5">TECHNICAL &amp; ANALYTICAL FOCUS</p>
-                        </div>
-                        <ul class="space-y-3 text-sm text-slate-300">
-                            <li class="flex items-start gap-2.5">
-                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
-                                <span><strong class="text-white">Web Design &amp; UI/UX:</strong> Crafting clean, structured, and responsive user interfaces.</span>
-                            </li>
-                            <li class="flex items-start gap-2.5">
-                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
-                                <span><strong class="text-white">Web &amp; App Development:</strong> Building interactive web solutions and desktop tools.</span>
-                            </li>
-                            <li class="flex items-start gap-2.5">
-                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
-                                <span><strong class="text-white">Data Analytics:</strong> Interpreting patterns and structured datasets for informed decisions.</span>
-                            </li>
-                            <li class="flex items-start gap-2.5">
-                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
-                                <span><strong class="text-white">Algorithms:</strong> Breaking down logical problems into efficient step-by-step solutions.</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Column 2: Hobbies -->
-                <div class="p-6 rounded-2xl bg-navy-900/75 border border-gold-500/25 hover:border-gold-400/60 transition-all flex flex-col justify-between space-y-4">
-                    <div class="space-y-4">
-                        <div class="w-12 h-12 rounded-xl bg-gold-500/15 border border-gold-400/35 flex items-center justify-center text-gold-400 text-xl">
-                            <i class="fa-solid fa-guitar"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-heading font-bold text-xl text-white">Hobbies</h3>
-                            <p class="text-xs font-mono text-gold-400 mt-0.5">CREATIVE &amp; LEISURE PURSUITS</p>
-                        </div>
-                        <ul class="space-y-3 text-sm text-slate-300">
-                            <li class="flex items-start gap-2.5">
-                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
-                                <span><strong class="text-white">Playing the Guitar:</strong> Practicing chords, melodies, and acoustic arrangements.</span>
-                            </li>
-                            <li class="flex items-start gap-2.5">
-                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
-                                <span><strong class="text-white">Singing:</strong> Expressing creativity and relaxation through music and vocals.</span>
-                            </li>
-                            <li class="flex items-start gap-2.5">
-                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
-                                <span><strong class="text-white">Canva Graphic Design:</strong> Designing digital layouts, presentations, and visual assets.</span>
-                            </li>
-                            <li class="flex items-start gap-2.5">
-                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
-                                <span><strong class="text-white">Online Gaming:</strong> Strategic teamwork and unwinding during leisure hours.</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Column 3: Strengths -->
-                <div class="p-6 rounded-2xl bg-navy-900/75 border border-gold-500/25 hover:border-gold-400/60 transition-all flex flex-col justify-between space-y-4">
-                    <div class="space-y-4">
-                        <div class="w-12 h-12 rounded-xl bg-gold-500/15 border border-gold-400/35 flex items-center justify-center text-gold-400 text-xl">
-                            <i class="fa-solid fa-shield-halved"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-heading font-bold text-xl text-white">Strengths</h3>
-                            <p class="text-xs font-mono text-gold-400 mt-0.5">INTERPERSONAL &amp; WORK ETHIC</p>
-                        </div>
-                        <ul class="space-y-3 text-sm text-slate-300">
-                            <li class="flex items-start gap-2.5">
-                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
-                                <span><strong class="text-white">Communication:</strong> Articulating technical ideas clearly across team roles.</span>
-                            </li>
-                            <li class="flex items-start gap-2.5">
-                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
-                                <span><strong class="text-white">Adaptability:</strong> Quickly adjusting to new tools, frameworks, and project goals.</span>
-                            </li>
-                            <li class="flex items-start gap-2.5">
-                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
-                                <span><strong class="text-white">Collaboration:</strong> Supporting teammates and fostering constructive group synergy.</span>
-                            </li>
-                            <li class="flex items-start gap-2.5">
-                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
-                                <span><strong class="text-white">Reliability:</strong> Delivering clean, tested work consistently and on schedule.</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- =========================================================
-         SECTION 4: ACHIEVEMENTS (INTERACTIVE SCHOOL SWITCHER)
-    ========================================================== -->
-    <section id="section-achievements" class="page-section px-4 sm:px-8">
-        <div class="w-full max-w-6xl h-[82vh] glass-panel rounded-3xl p-5 sm:p-8 flex flex-col justify-between gap-4">
-            <!-- Header & School Switcher Buttons -->
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gold-500/20 pb-4 shrink-0">
-                <div>
-                    <span class="text-xs font-mono text-gold-400 tracking-widest uppercase">Academic Milestones</span>
-                    <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-white mt-0.5">Achievements &amp; Alma Maters</h2>
-                </div>
-
-                <!-- School Selector Tabs -->
-                <div class="grid grid-cols-2 gap-3 w-full md:w-auto">
-                    <button id="tab-bchs" onclick="selectSchool('bchs')" class="school-tab active px-3.5 py-2 rounded-2xl border border-gold-500/30 bg-navy-900/80 flex items-center gap-3 text-left transition-all">
-                        <div class="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center shrink-0 overflow-hidden">
-                            <!-- Replace with your BCHS Logo Base64 -->
-                            <img src="PASTE_YOUR_BCHS_LOGO_BASE64_HERE" alt="Baguio City High School Logo" class="w-full h-full object-contain">
-                        </div>
-                        <div>
-                            <p class="font-heading font-bold text-xs sm:text-sm text-white leading-tight">Baguio City High School</p>
-                            <p class="font-mono text-[10px] text-gold-400">Junior High School</p>
-                        </div>
-                    </button>
-
-                    <button id="tab-easter" onclick="selectSchool('easter')" class="school-tab px-3.5 py-2 rounded-2xl border border-gold-500/30 bg-navy-900/80 flex items-center gap-3 text-left transition-all">
-                        <div class="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center shrink-0 overflow-hidden">
-                            <!-- Replace with your Easter College Logo Base64 -->
-                            <img src="PASTE_YOUR_EASTER_LOGO_BASE64_HERE" alt="Easter College Incorporated Logo" class="w-full h-full object-contain">
-                        </div>
-                        <div>
-                            <p class="font-heading font-bold text-xs sm:text-sm text-white leading-tight">Easter College Inc.</p>
-                            <p class="font-mono text-[10px] text-gold-400">Senior High School</p>
-                        </div>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Scrollable Content Container for Selected School -->
-            <div class="flex-1 overflow-y-auto custom-scroll pr-1">
-                
-                <!-- PANEL A: BAGUIO CITY HIGH SCHOOL -->
-                <div id="achievements-bchs" class="space-y-6">
-                    <!-- Balanced 2x2 Milestone Cards -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 hover:border-gold-400/50 transition-all space-y-2">
-                            <div class="flex items-center justify-between">
-                                <span class="px-2.5 py-0.5 rounded-md bg-gold-500/15 text-gold-300 text-xs font-mono">ACADEMIC EXCELLENCE</span>
-                                <i class="fa-solid fa-medal text-gold-400"></i>
-                            </div>
-                            <h3 class="text-lg font-heading font-bold text-white">With Honors Recognition</h3>
-                            <p class="text-slate-300 text-sm leading-relaxed">
-                                Consistently maintained strong academic standing across core Junior High School subjects through disciplined study habits.
-                            </p>
-                        </div>
-
-                        <div class="p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 hover:border-gold-400/50 transition-all space-y-2">
-                            <div class="flex items-center justify-between">
-                                <span class="px-2.5 py-0.5 rounded-md bg-gold-500/15 text-gold-300 text-xs font-mono">DIGITAL FOUNDATION</span>
-                                <i class="fa-solid fa-laptop-code text-gold-400"></i>
-                            </div>
-                            <h3 class="text-lg font-heading font-bold text-white">ICT &amp; Computer Literacy</h3>
-                            <p class="text-slate-300 text-sm leading-relaxed">
-                                Developed early proficiency in productivity suites, digital presentations, and foundational computing concepts.
-                            </p>
-                        </div>
-
-                        <div class="p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 hover:border-gold-400/50 transition-all space-y-2">
-                            <div class="flex items-center justify-between">
-                                <span class="px-2.5 py-0.5 rounded-md bg-gold-500/15 text-gold-300 text-xs font-mono">MILESTONE</span>
-                                <i class="fa-solid fa-graduation-cap text-gold-400"></i>
-                            </div>
-                            <h3 class="text-lg font-heading font-bold text-white">Junior High School Completer</h3>
-                            <p class="text-slate-300 text-sm leading-relaxed">
-                                Successfully completed Junior High School at Baguio City High School (SY 2023–2024), preparing for Senior High specialization.
-                            </p>
-                        </div>
-
-                        <div class="p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 hover:border-gold-400/50 transition-all space-y-2">
-                            <div class="flex items-center justify-between">
-                                <span class="px-2.5 py-0.5 rounded-md bg-gold-500/15 text-gold-300 text-xs font-mono">CHARACTER &amp; VALUES</span>
-                                <i class="fa-solid fa-award text-gold-400"></i>
-                            </div>
-                            <h3 class="text-lg font-heading font-bold text-white">DepEd Core Values Awardee</h3>
-                            <p class="text-slate-300 text-sm leading-relaxed">
-                                Recognized for exemplifying Maka-Diyos, Maka-tao, Makakalikasan, and Makabansa principles throughout the school year.
-                            </p>
-                        </div>
+                    <!-- ACTION BUTTONS -->
+                    <div class="wave-item flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <button onclick="triggerHexWaveTransition(event, 'personal')" class="w-full sm:w-auto px-7 py-3.5 rounded-xl text-navy-950 font-bold font-heading gold-gradient-bg gold-gradient-bg-hover shadow-xl shadow-gold-500/20 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 text-sm sm:text-base">
+                            <span>Explore Personal Info</span>
+                            <i class="fa-solid fa-arrow-right text-xs sm:text-sm"></i>
+                        </button>
+                        <button onclick="triggerHexWaveTransition(event, 'achievements')" class="w-full sm:w-auto px-7 py-3.5 rounded-xl glass-panel-navy border border-gold-500/40 text-gold-300 hover:text-white hover:border-gold-400 font-bold font-heading transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 text-sm sm:text-base">
+                            <i class="fa-solid fa-trophy text-gold-400 text-xs sm:text-sm"></i>
+                            <span>View Achievements</span>
+                        </button>
                     </div>
 
-                    <!-- Certificates & School Memories Subsection -->
-                    <div class="space-y-3 pt-2 border-t border-gold-500/20">
-                        <div class="flex items-center justify-between">
-                            <h3 class="font-heading font-bold text-lg text-gold-300 flex items-center gap-2">
-                                <i class="fa-solid fa-images"></i>
-                                <span>Certificates &amp; School Memories</span>
-                            </h3>
-                            <span class="text-xs font-mono text-slate-400">SY 2023–2024</span>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-stretch">
-                            <!-- Card 1: Conduct Award Certificate -->
-                            <article class="p-4 sm:p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 flex flex-col justify-between space-y-4">
-                                <div class="space-y-1.5">
-                                    <div class="flex items-center justify-between">
-                                        <span class="px-2.5 py-0.5 rounded-md bg-gold-500/15 text-gold-300 text-xs font-mono">CERTIFICATE</span>
-                                        <span class="text-xs font-mono text-slate-400">MAY 29, 2024</span>
-                                    </div>
-                                    <h4 class="text-lg font-heading font-bold text-white">Conduct Award</h4>
-                                    <p class="text-slate-300 text-sm leading-relaxed">
-                                        Awarded for consistently and dutifully carrying out the Department of Education core values during School Year 2023–2024.
-                                    </p>
-                                </div>
-                                <div class="w-full h-72 rounded-xl overflow-hidden bg-navy-950/90 border border-gold-500/25 flex items-center justify-center p-2">
-                                    <!-- Replace with your Conduct Award Certificate Base64 -->
-                                    <img src="PASTE_YOUR_CONDUCT_AWARD_BASE64_HERE" alt="Conduct Award Certificate" class="max-h-full max-w-full object-contain rounded-lg">
-                                </div>
-                            </article>
-
-                            <!-- Card 2: School Memory Photo -->
-                            <article class="p-4 sm:p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 flex flex-col justify-between space-y-4">
-                                <div class="space-y-1.5">
-                                    <div class="flex items-center justify-between">
-                                        <span class="px-2.5 py-0.5 rounded-md bg-gold-500/15 text-gold-300 text-xs font-mono">ALMA MATER</span>
-                                        <span class="text-xs font-mono text-slate-400">BCHS</span>
-                                    </div>
-                                    <h4 class="text-lg font-heading font-bold text-white">BCHS Campus Memory</h4>
-                                    <p class="text-slate-300 text-sm leading-relaxed">
-                                        A memorable snapshot with classmates during Junior High School at Baguio City High School.
-                                    </p>
-                                </div>
-                                <div class="w-full h-72 rounded-xl overflow-hidden bg-navy-950/90 border border-gold-500/25 flex items-center justify-center">
-                                    <!-- Replace with your School Photo Base64 -->
-                                    <img src="PASTE_YOUR_SCHOOL_PHOTO_BASE64_HERE" alt="Baguio City High School Memory" class="w-full h-full object-cover">
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PANEL B: EASTER COLLEGE INCORPORATED -->
-                <div id="achievements-easter" class="hidden space-y-5">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 hover:border-gold-400/50 transition-all space-y-2">
-                            <div class="flex items-center justify-between">
-                                <span class="px-2.5 py-0.5 rounded-md bg-gold-500/15 text-gold-300 text-xs font-mono">SOFTWARE DEVELOPMENT</span>
-                                <i class="fa-brands fa-java text-gold-400 text-lg"></i>
-                            </div>
-                            <h3 class="text-lg font-heading font-bold text-white">Java GUI Desktop Applications</h3>
-                            <p class="text-slate-300 text-sm leading-relaxed">
-                                Engineered functional Java Swing desktop systems including a Student Report Card Calculator, 12-Month Electric Bill Calculator, and Enrollment Forms.
-                            </p>
-                        </div>
-
-                        <div class="p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 hover:border-gold-400/50 transition-all space-y-2">
-                            <div class="flex items-center justify-between">
-                                <span class="px-2.5 py-0.5 rounded-md bg-gold-500/15 text-gold-300 text-xs font-mono">WORK IMMERSION • MARCH 2026</span>
-                                <i class="fa-solid fa-building-shield text-gold-400"></i>
-                            </div>
-                            <h3 class="text-lg font-heading font-bold text-white">DICT Work Immersion &amp; DTR System</h3>
-                            <p class="text-slate-300 text-sm leading-relaxed">
-                                Completed work immersion at the Department of Information and Communications Technology (DICT), developing a Java GUI Daily Time Record app with CSV export.
-                            </p>
-                        </div>
-
-                        <div class="p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 hover:border-gold-400/50 transition-all space-y-2">
-                            <div class="flex items-center justify-between">
-                                <span class="px-2.5 py-0.5 rounded-md bg-gold-500/15 text-gold-300 text-xs font-mono">ACADEMIC RESEARCH</span>
-                                <i class="fa-solid fa-book-open-reader text-gold-400"></i>
-                            </div>
-                            <h3 class="text-lg font-heading font-bold text-white">Quantitative Research Author</h3>
-                            <p class="text-slate-300 text-sm leading-relaxed">
-                                Co-authored Senior High research studies examining student budgeting and financial literacy, as well as smartphone time management and academic performance.
-                            </p>
-                        </div>
-
-                        <div class="p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 hover:border-gold-400/50 transition-all space-y-2">
-                            <div class="flex items-center justify-between">
-                                <span class="px-2.5 py-0.5 rounded-md bg-gold-500/15 text-gold-300 text-xs font-mono">EMPOWERMENT TECH</span>
-                                <i class="fa-solid fa-wand-magic-sparkles text-gold-400"></i>
-                            </div>
-                            <h3 class="text-lg font-heading font-bold text-white">Senior High School Graduate</h3>
-                            <p class="text-slate-300 text-sm leading-relaxed">
-                                Graduated from Easter College Incorporated with strong foundations in computer programming, entrepreneurship, and collaborative digital production.
-                            </p>
-                        </div>
-                    </div>
                 </div>
 
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- =========================================================
-         JAVASCRIPT: HEXAGONAL WAVE TRANSITION & SCHOOL SWITCHER
-    ========================================================== -->
+
+        <!-- ==================== 2. PERSONAL INFO VIEW ==================== -->
+        <section id="view-personal" class="view-section view-hidden px-4 sm:px-6 lg:px-8 py-12 max-w-7xl mx-auto space-y-10">
+        </section>
+
+
+        <!-- ==================== 3. ACHIEVEMENTS VIEW ==================== -->
+        <section id="view-achievements" class="view-section view-hidden px-4 sm:px-6 lg:px-8 py-12 max-w-7xl mx-auto space-y-10">
+        </section>
+
+    </main>
+
+    <!-- JAVASCRIPT: SCHOOL LOGO ACHIEVEMENTS TOGGLE + HEXAGON WAVE TRANSITION + LOADER -->
     <script>
-        let currentSection = 'home';
-        let isTransitioning = false;
-
-        // Build Hexagonal Grid dynamically based on viewport size
-        function createHexGrid() {
-            const overlay = document.getElementById('hex-transition-overlay');
-            overlay.innerHTML = '';
-
-            const vw = window.innerWidth;
-            const vh = window.innerHeight;
-            const hexSize = vw < 640 ? 75 : 110;
-            const hexWidth = hexSize;
-            const hexHeight = hexSize * 0.866;
-
-            const cols = Math.ceil(vw / (hexWidth * 0.75)) + 2;
-            const rows = Math.ceil(vh / hexHeight) + 2;
-
-            const cells = [];
-
-            for (let col = -1; col < cols; col++) {
-                for (let row = -1; row < rows; row++) {
-                    const hex = document.createElement('div');
-                    hex.className = 'hex-cell';
-
-                    const x = col * (hexWidth * 0.75);
-                    const y = row * hexHeight + (col % 2 !== 0 ? hexHeight / 2 : 0);
-
-                    hex.style.width = `${hexWidth + 2}px`;
-                    hex.style.height = `${hexHeight + 2}px`;
-                    hex.style.left = `${x}px`;
-                    hex.style.top = `${y}px`;
-
-                    // Diagonal wave delay from top-left to bottom-right
-                    const normalizedDist = (x / vw) * 0.65 + (y / vh) * 0.35;
-                    const delay = Math.max(0, normalizedDist * 280);
-                    hex.dataset.delay = delay;
-
-                    overlay.appendChild(hex);
-                    cells.push(hex);
-                }
-            }
-            return cells;
-        }
-
-        let hexCells = createHexGrid();
-        window.addEventListener('resize', () => {
-            if (!isTransitioning) {
-                hexCells = createHexGrid();
-            }
-        });
-
-        // Navigate between static viewport sections with Hexagonal Wave
-        function navigateTo(targetId) {
-            if (isTransitioning || targetId === currentSection) return;
-            isTransitioning = true;
-
-            // Update Navigation Active State
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.target === targetId);
-            });
-
-            // Phase 1: Wave In (Cover Screen)
-            hexCells.forEach(cell => {
-                const delay = parseFloat(cell.dataset.delay);
-                setTimeout(() => {
-                    cell.classList.add('cover');
-                }, delay);
-            });
-
-            // Phase 2: Switch Active Section mid-transition
-            const maxDelay = 300;
-            setTimeout(() => {
-                document.querySelectorAll('.page-section').forEach(sec => {
-                    sec.classList.remove('active');
-                });
-                const nextSec = document.getElementById(`section-${targetId}`);
-                if (nextSec) nextSec.classList.add('active');
-                currentSection = targetId;
-
-                // Phase 3: Wave Out (Reveal New Section)
-                hexCells.forEach(cell => {
-                    const delay = parseFloat(cell.dataset.delay);
-                    setTimeout(() => {
-                        cell.classList.remove('cover');
-                    }, delay);
-                });
-
-                setTimeout(() => {
-                    isTransitioning = false;
-                }, maxDelay + 380);
-
-            }, maxDelay + 220);
-        }
-
-        // Toggle between Baguio City High School and Easter College Inc.
-        function selectSchool(school) {
-            const bchsTab = document.getElementById('tab-bchs');
-            const easterTab = document.getElementById('tab-easter');
+        // Toggle between Baguio City High School and Easter College Incorporated Achievements
+        function selectSchoolAchievement(schoolKey) {
+            const placeholder = document.getElementById('achievement-placeholder');
             const bchsPanel = document.getElementById('achievements-bchs');
             const easterPanel = document.getElementById('achievements-easter');
 
-            if (school === 'bchs') {
-                bchsTab.classList.add('active');
-                easterTab.classList.remove('active');
+            const btnBchs = document.getElementById('btn-school-bchs');
+            const btnEaster = document.getElementById('btn-school-easter');
+
+            // Hide placeholder
+            placeholder.classList.add('hidden');
+
+            // Reset active states
+            btnBchs.classList.remove('active-school');
+            btnEaster.classList.remove('active-school');
+            bchsPanel.classList.add('hidden');
+            easterPanel.classList.add('hidden');
+            bchsPanel.classList.remove('animate-reveal');
+            easterPanel.classList.remove('animate-reveal');
+
+            if (schoolKey === 'bchs') {
+                btnBchs.classList.add('active-school');
                 bchsPanel.classList.remove('hidden');
-                easterPanel.classList.add('hidden');
-            } else {
-                easterTab.classList.add('active');
-                bchsTab.classList.remove('active');
+                void bchsPanel.offsetWidth; // trigger reflow for animation
+                bchsPanel.classList.add('animate-reveal');
+            } else if (schoolKey === 'easter') {
+                btnEaster.classList.add('active-school');
                 easterPanel.classList.remove('hidden');
-                bchsPanel.classList.add('hidden');
+                void easterPanel.offsetWidth;
+                easterPanel.classList.add('animate-reveal');
             }
         }
+
+        function drawHexagon(ctx, x, y, radius, strokeStyle, fillStyle, lineWidth = 1) {
+            ctx.beginPath();
+            for (let i = 0; i < 6; i++) {
+                const angle = (Math.PI / 3) * i - Math.PI / 6;
+                const hx = x + radius * Math.cos(angle);
+                const hy = y + radius * Math.sin(angle);
+                if (i === 0) ctx.moveTo(hx, hy); else ctx.lineTo(hx, hy);
+            }
+            ctx.closePath();
+            if (fillStyle) { ctx.fillStyle = fillStyle; ctx.fill(); }
+            if (strokeStyle) { ctx.strokeStyle = strokeStyle; ctx.lineWidth = lineWidth; ctx.stroke(); }
+        }
+
+        function easeInOutCubic(x) {
+            return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+        }
+
+        // ==================== 1. CENTER-OUT LIGHT-SPREADING HEXAGON LOADER ====================
+        (function initHexLightLoader() {
+            const loaderOverlay = document.getElementById('loader-overlay');
+            const loaderCanvas = document.getElementById('loader-canvas');
+            const loaderPercent = document.getElementById('loader-percent');
+            const ctx = loaderCanvas.getContext('2d');
+
+            const radius = 34;
+            const hexW = Math.sqrt(3) * radius;
+            let cells = [];
+            let centerX = 0;
+            let centerY = 0;
+            let maxRingDist = 1;
+            let loaderFinished = false;
+
+            function buildLoaderGrid() {
+                loaderCanvas.width = window.innerWidth;
+                loaderCanvas.height = window.innerHeight;
+                centerX = loaderCanvas.width / 2;
+                centerY = loaderCanvas.height / 2;
+
+                cells = [];
+                const rings = 5;
+                maxRingDist = rings * hexW;
+
+                for (let q = -rings; q <= rings; q++) {
+                    const r1 = Math.max(-rings, -q - rings);
+                    const r2 = Math.min(rings, -q + rings);
+                    for (let r = r1; r <= r2; r++) {
+                        const x = centerX + radius * Math.sqrt(3) * (q + r / 2);
+                        const y = centerY + radius * (3 / 2) * r;
+                        const dist = Math.hypot(x - centerX, y - centerY);
+                        const ringIndex = Math.max(Math.abs(q), Math.abs(r), Math.abs(-q - r));
+                        cells.push({ q, r, x, y, dist, ringIndex });
+                    }
+                }
+            }
+
+            buildLoaderGrid();
+            window.addEventListener('resize', () => {
+                if (!loaderFinished) buildLoaderGrid();
+            });
+
+            const startTime = performance.now();
+            const LOAD_DURATION = 1650;
+
+            function renderLoader(now) {
+                if (loaderFinished) return;
+
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / LOAD_DURATION, 1);
+                const easedProg = 1 - Math.pow(1 - progress, 3);
+                const pct = Math.round(easedProg * 100);
+                loaderPercent.textContent = `${pct}%`;
+
+                ctx.clearRect(0, 0, loaderCanvas.width, loaderCanvas.height);
+
+                const beamRadius = easedProg * (maxRingDist + hexW * 1.4);
+
+                cells.forEach(cell => {
+                    const cellLit = Math.max(0, Math.min(1, (beamRadius - cell.dist + hexW * 0.6) / (hexW * 0.8)));
+                    if (cellLit <= 0.05) return;
+
+                    const neighborOffsets = [[1, 0], [0, 1], [-1, 1]];
+                    neighborOffsets.forEach(([dq, dr]) => {
+                        const nq = cell.q + dq;
+                        const nr = cell.r + dr;
+                        const neighbor = cells.find(c => c.q === nq && c.r === nr);
+                        if (!neighbor) return;
+
+                        const nLit = Math.max(0, Math.min(1, (beamRadius - neighbor.dist + hexW * 0.6) / (hexW * 0.8)));
+                        if (nLit <= 0.05) return;
+
+                        const from = cell.dist <= neighbor.dist ? cell : neighbor;
+                        const to = cell.dist <= neighbor.dist ? neighbor : cell;
+                        const bridgeProgress = Math.min(cellLit, nLit);
+
+                        const endX = from.x + (to.x - from.x) * bridgeProgress;
+                        const endY = from.y + (to.y - from.y) * bridgeProgress;
+
+                        const grad = ctx.createLinearGradient(from.x, from.y, endX, endY);
+                        grad.addColorStop(0, `rgba(255, 215, 0, ${0.15 * bridgeProgress})`);
+                        grad.addColorStop(0.5, `rgba(255, 232, 117, ${0.75 * bridgeProgress})`);
+                        grad.addColorStop(1, `rgba(255, 255, 255, ${0.9 * bridgeProgress})`);
+
+                        ctx.save();
+                        ctx.beginPath();
+                        ctx.moveTo(from.x, from.y);
+                        ctx.lineTo(endX, endY);
+                        ctx.strokeStyle = grad;
+                        ctx.lineWidth = 2.2;
+                        ctx.shadowColor = 'rgba(255, 215, 0, 0.85)';
+                        ctx.shadowBlur = 10;
+                        ctx.stroke();
+                        ctx.restore();
+                    });
+                });
+
+                cells.forEach(cell => {
+                    const activation = Math.max(0, Math.min(1, (beamRadius - cell.dist + hexW * 0.5) / (hexW * 0.75)));
+                    const isCenter = cell.ringIndex === 0;
+                    const crestDist = Math.abs(beamRadius - cell.dist);
+                    const crestBoost = crestDist < hexW ? Math.sin((1 - crestDist / hexW) * Math.PI) : 0;
+
+                    const scale = isCenter ? 1 + Math.sin(now * 0.008) * 0.06 : 0.86 + activation * 0.14 + crestBoost * 0.08;
+                    const strokeAlpha = isCenter ? 0.95 : 0.1 + activation * 0.65 + crestBoost * 0.25;
+                    const fillAlpha = isCenter ? 0.38 : activation * 0.16 + crestBoost * 0.22;
+
+                    ctx.save();
+                    ctx.translate(cell.x, cell.y);
+                    ctx.scale(scale, scale);
+
+                    if (activation > 0.1 || isCenter) {
+                        ctx.shadowColor = 'rgba(255, 215, 0, 0.7)';
+                        ctx.shadowBlur = isCenter ? 22 : 12 * (activation + crestBoost);
+                    }
+
+                    drawHexagon(ctx, 0, 0, radius - 3, `rgba(255, 215, 0, ${Math.min(strokeAlpha, 1)})`, `rgba(255, 215, 0, ${Math.min(fillAlpha, 0.5)})`, isCenter ? 2.2 : 1.3);
+
+                    if (activation > 0.15 || isCenter) {
+                        const coreAlpha = isCenter ? 1 : activation;
+                        ctx.beginPath();
+                        ctx.arc(0, 0, isCenter ? 4.5 : 2.6 * coreAlpha, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(255, 245, 180, ${coreAlpha})`;
+                        ctx.fill();
+                    }
+                    ctx.restore();
+                });
+
+                if (progress < 1) {
+                    requestAnimationFrame(renderLoader);
+                } else {
+                    loaderFinished = true;
+                    setTimeout(() => { loaderOverlay.classList.add('loader-done'); }, 180);
+                }
+            }
+            requestAnimationFrame(renderLoader);
+        })();
+
+        // ==================== 2. BACKGROUND HEXAGON CANVAS ====================
+        const bgCanvas = document.getElementById('hexagon-canvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        const hexRadius = 38;
+        const hexWidth = Math.sqrt(3) * hexRadius;
+        const hexHeight = 2 * hexRadius;
+        let bgCols, bgRows, bgGrid = [];
+        let mouse = { x: null, y: null, radius: 180 };
+        let activeRipples = [];
+        let isTransitioning = false;
+        let activeView = 'home';
+
+        function resizeBgCanvas() {
+            bgCanvas.width = window.innerWidth;
+            bgCanvas.height = window.innerHeight;
+            initBgGrid();
+        }
+        window.addEventListener('resize', resizeBgCanvas);
+        window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+        window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+
+        function initBgGrid() {
+            bgGrid = [];
+            bgCols = Math.ceil(bgCanvas.width / hexWidth) + 2;
+            bgRows = Math.ceil(bgCanvas.height / (hexHeight * 0.75)) + 2;
+            for (let r = 0; r < bgRows; r++) {
+                for (let c = 0; c < bgCols; c++) {
+                    let x = c * hexWidth + (r % 2 === 1 ? hexWidth / 2 : 0);
+                    let y = r * hexHeight * 0.75;
+                    bgGrid.push({ x, y, pulse: Math.random() * Math.PI * 2, pulseSpeed: 0.015 + Math.random() * 0.015 });
+                }
+            }
+        }
+
+        function spawnBgRipple(originX, originY, duration = 700) {
+            activeRipples.push({
+                x: originX,
+                y: originY,
+                startTime: performance.now(),
+                duration: duration,
+                maxRadius: Math.hypot(window.innerWidth, window.innerHeight) * 1.15
+            });
+        }
+
+        function animateBg(now) {
+            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+            activeRipples = activeRipples.filter(r => (now - r.startTime) < r.duration);
+
+            bgGrid.forEach(cell => {
+                cell.pulse += cell.pulseSpeed;
+                let baseOpacity = 0.05 + Math.sin(cell.pulse) * 0.03;
+                let dist = mouse.x !== null ? Math.hypot(mouse.x - cell.x, mouse.y - cell.y) : 9999;
+
+                let scale = 1;
+                let alphaBoost = 0;
+                let fillBoost = 0;
+                let lineWidth = 0.8;
+
+                if (dist < mouse.radius) {
+                    const factor = 1 - (dist / mouse.radius);
+                    alphaBoost += factor * 0.45;
+                    fillBoost += factor * 0.12;
+                    lineWidth = Math.max(lineWidth, 1.5);
+                }
+
+                activeRipples.forEach(ripple => {
+                    const elapsed = now - ripple.startTime;
+                    const progress = easeInOutCubic(Math.min(elapsed / ripple.duration, 1));
+                    const cellDist = Math.hypot(cell.x - ripple.x, cell.y - ripple.y);
+                    const currentRing = progress * ripple.maxRadius;
+                    const ringWidth = 110;
+
+                    if (Math.abs(cellDist - currentRing) < ringWidth) {
+                        const ringProg = 1 - (Math.abs(cellDist - currentRing) / ringWidth);
+                        const waveSine = Math.sin(ringProg * Math.PI);
+
+                        scale = Math.min(scale, 1 - waveSine * 0.48);
+                        alphaBoost += waveSine * 0.9;
+                        fillBoost += waveSine * 0.35;
+                        lineWidth = Math.max(lineWidth, 1.8);
+                    }
+                });
+
+                const finalStrokeAlpha = Math.min(baseOpacity + alphaBoost, 0.98);
+                const strokeStyle = `rgba(255, 215, 0, ${finalStrokeAlpha})`;
+                const fillStyle = fillBoost > 0 ? `rgba(17, 36, 86, ${Math.min(fillBoost, 0.7)})` : null;
+
+                bgCtx.save();
+                bgCtx.translate(cell.x, cell.y);
+                bgCtx.scale(scale, scale);
+                drawHexagon(bgCtx, 0, 0, hexRadius, strokeStyle, fillStyle, lineWidth);
+                bgCtx.restore();
+            });
+
+            requestAnimationFrame(animateBg);
+        }
+
+        // ==================== 3. SMOOTH & SLIGHTLY FAST HEXAGON WAVE TRANSITION ====================
+        const waveOverlay = document.getElementById('hex-wave-overlay');
+        const waveCtx = waveOverlay.getContext('2d');
+
+        function resizeWaveOverlay() {
+            waveOverlay.width = window.innerWidth;
+            waveOverlay.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeWaveOverlay);
+        resizeWaveOverlay();
+
+        function triggerHexWaveTransition(e, targetView) {
+            if (e) e.preventDefault();
+            if (isTransitioning || targetView === activeView) return;
+
+            isTransitioning = true;
+            const currentSec = document.getElementById(`view-${activeView}`);
+            const nextSec = document.getElementById(`view-${targetView}`);
+
+            let clickX = window.innerWidth / 2;
+            let clickY = window.innerHeight / 2;
+            if (e) {
+                if (e.clientX && e.clientY) {
+                    clickX = e.clientX;
+                    clickY = e.clientY;
+                } else if (e.currentTarget) {
+                    const r = e.currentTarget.getBoundingClientRect();
+                    clickX = r.left + r.width / 2;
+                    clickY = r.top + r.height / 2;
+                }
+            }
+
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                menuIcon.className = 'fa-solid fa-bars text-xl';
+            }
+
+            const DURATION = 680;
+            spawnBgRipple(clickX, clickY, DURATION);
+
+            const wRadius = 34;
+            const wWidth = Math.sqrt(3) * wRadius;
+            const wHeight = 2 * wRadius;
+            const cols = Math.ceil(waveOverlay.width / wWidth) + 2;
+            const rows = Math.ceil(waveOverlay.height / (wHeight * 0.75)) + 2;
+            const maxScreenDist = Math.hypot(
+                Math.max(clickX, waveOverlay.width - clickX),
+                Math.max(clickY, waveOverlay.height - clickY)
+            );
+
+            const hexWaveCells = [];
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    const x = c * wWidth + (r % 2 === 1 ? wWidth / 2 : 0);
+                    const y = r * wHeight * 0.75;
+                    const dist = Math.hypot(x - clickX, y - clickY);
+                    hexWaveCells.push({ x, y, dist });
+                }
+            }
+
+            const currentItems = Array.from(currentSec.querySelectorAll('.wave-item'));
+            const globalItems = Array.from(document.querySelectorAll('header .wave-item, footer .wave-item'));
+
+            [...currentItems, ...globalItems].forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const elX = rect.left + rect.width / 2;
+                const elY = rect.top + rect.height / 2;
+                el.dataset.waveDist = Math.hypot(elX - clickX, elY - clickY);
+            });
+
+            let switchedView = false;
+            let nextItems = [];
+            const startTime = performance.now();
+
+            function step(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / DURATION, 1);
+                const easedProgress = easeInOutCubic(progress);
+
+                waveCtx.clearRect(0, 0, waveOverlay.width, waveOverlay.height);
+                const waveFront = easedProgress * (maxScreenDist + 160);
+                const bandWidth = 170;
+
+                hexWaveCells.forEach(cell => {
+                    const delta = waveFront - cell.dist;
+                    if (delta > -bandWidth && delta < bandWidth) {
+                        const norm = 1 - Math.abs(delta) / bandWidth;
+                        const smoothBell = Math.pow(Math.sin(norm * Math.PI * 0.5), 1.6);
+
+                        const scale = delta >= 0
+                            ? 0.25 + smoothBell * 0.85
+                            : 0.4 + smoothBell * 0.7;
+
+                        const strokeAlpha = smoothBell * 0.85;
+                        const fillAlpha = smoothBell * 0.45;
+
+                        waveCtx.save();
+                        waveCtx.translate(cell.x, cell.y);
+                        waveCtx.scale(scale, scale);
+
+                        drawHexagon(
+                            waveCtx,
+                            0,
+                            0,
+                            wRadius - 1,
+                            `rgba(255, 215, 0, ${strokeAlpha})`,
+                            `rgba(10, 17, 40, ${fillAlpha})`,
+                            1.4
+                        );
+                        waveCtx.restore();
+                    }
+                });
+
+                if (progress < 0.5) {
+                    const outPhase = progress / 0.5;
+                    currentItems.forEach(el => {
+                        const d = parseFloat(el.dataset.waveDist || 0);
+                        const delay = (d / (maxScreenDist || 1)) * 0.35;
+                        const localP = Math.min(Math.max((outPhase - delay) / 0.65, 0), 1);
+                        const eOut = localP * localP * (3 - 2 * localP);
+
+                        el.style.transform = `translate3d(0, ${-eOut * 22}px, 0) scale(${1 - eOut * 0.06})`;
+                        el.style.opacity = (1 - eOut).toString();
+                    });
+
+                    globalItems.forEach(el => {
+                        const d = parseFloat(el.dataset.waveDist || 0);
+                        const delay = (d / (maxScreenDist || 1)) * 0.35;
+                        const localP = Math.min(Math.max((outPhase - delay) / 0.65, 0), 1);
+                        const pulse = Math.sin(localP * Math.PI);
+                        el.style.transform = `translate3d(0, ${-pulse * 4}px, 0) scale(${1 - pulse * 0.015})`;
+                    });
+                } else {
+                    if (!switchedView) {
+                        switchedView = true;
+                        currentSec.classList.add('view-hidden');
+                        currentItems.forEach(el => {
+                            el.style.transform = '';
+                            el.style.opacity = '';
+                        });
+
+                        nextSec.classList.remove('view-hidden');
+                        updateNavButtons(targetView);
+                        window.scrollTo({ top: 0, behavior: 'instant' });
+
+                        nextItems = Array.from(nextSec.querySelectorAll('.wave-item'));
+                        nextItems.forEach(el => {
+                            const rect = el.getBoundingClientRect();
+                            const elX = rect.left + rect.width / 2;
+                            const elY = rect.top + rect.height / 2;
+                            el.dataset.waveDist = Math.hypot(elX - clickX, elY - clickY);
+                            el.style.opacity = '0';
+                            el.style.transform = 'translate3d(0, 22px, 0) scale(0.94)';
+                        });
+                    }
+
+                    const inPhase = (progress - 0.5) / 0.5;
+                    nextItems.forEach(el => {
+                        const d = parseFloat(el.dataset.waveDist || 0);
+                        const delay = (d / (maxScreenDist || 1)) * 0.35;
+                        const localP = Math.min(Math.max((inPhase - delay) / 0.65, 0), 1);
+                        const eIn = 1 - Math.pow(1 - localP, 3);
+
+                        el.style.transform = `translate3d(0, ${(1 - eIn) * 22}px, 0) scale(${0.94 + eIn * 0.06})`;
+                        el.style.opacity = eIn.toString();
+                    });
+
+                    globalItems.forEach(el => {
+                        const d = parseFloat(el.dataset.waveDist || 0);
+                        const delay = (d / (maxScreenDist || 1)) * 0.35;
+                        const localP = Math.min(Math.max((inPhase - delay) / 0.65, 0), 1);
+                        const pulse = Math.sin(localP * Math.PI);
+                        el.style.transform = `translate3d(0, ${-pulse * 4}px, 0) scale(${1 - pulse * 0.015})`;
+                    });
+                }
+
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    waveCtx.clearRect(0, 0, waveOverlay.width, waveOverlay.height);
+                    [...nextItems, ...globalItems].forEach(el => {
+                        el.style.transform = '';
+                        el.style.opacity = '';
+                    });
+                    activeView = targetView;
+                    isTransitioning = false;
+                }
+            }
+
+            requestAnimationFrame(step);
+        }
+
+        function updateNavButtons(targetView) {
+            const views = ['home', 'personal', 'achievements'];
+            
+            const desktopActive = "wave-item px-5 py-2.5 rounded-xl text-sm font-semibold text-navy-950 gold-gradient-bg shadow-md shadow-gold-500/20 transition-all flex items-center gap-2";
+            const desktopInactive = "wave-item px-5 py-2.5 rounded-xl text-sm font-medium text-slate-300 border border-gold-500/20 hover:border-gold-500/60 hover:text-gold-400 hover:bg-navy-800/50 transition-all flex items-center gap-2";
+
+            const mobileActive = "w-full mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-semibold text-navy-950 gold-gradient-bg";
+            const mobileInactive = "w-full mobile-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium text-slate-300 border border-gold-500/20 hover:text-gold-400 hover:bg-navy-800/50";
+
+            views.forEach(view => {
+                const deskBtn = document.getElementById(`nav-btn-${view}`);
+                const mobBtn = document.getElementById(`mob-btn-${view}`);
+                const footBtn = document.getElementById(`foot-btn-${view}`);
+
+                if (deskBtn) deskBtn.className = (view === targetView) ? desktopActive : desktopInactive;
+                if (mobBtn) mobBtn.className = (view === targetView) ? mobileActive : mobileInactive;
+                if (footBtn) {
+                    footBtn.className = (view === targetView) 
+                        ? "text-gold-400 hover:underline font-semibold" 
+                        : "hover:text-gold-400 transition-colors";
+                }
+            });
+        }
+
+        window.onload = function() {
+            resizeBgCanvas();
+            requestAnimationFrame(animateBg);
+        };
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            menuIcon.className = mobileMenu.classList.contains('hidden') ? 'fa-solid fa-bars text-xl' : 'fa-solid fa-xmark text-xl';
+        });
     </script>
 </body>
 </html>
