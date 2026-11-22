@@ -1,287 +1,753 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Easter College — Certificates Carousel</title>
-  <style>
-    :root {
-      --ec-green-dark: #14532d;
-      --ec-green: #166534;
-      --ec-green-soft: #f0fdf4;
-      --ec-border: #bbf7d0;
-      --text-main: #1f2937;
-      --text-muted: #4b5563;
-      --bg-page: #f8fafc;
-      --bg-card: #ffffff;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seth Daniel M. Fernandez | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        navy: {
+                            950: '#040914',
+                            900: '#081226',
+                            850: '#0c1a36',
+                            800: '#102246',
+                            700: '#183266',
+                        },
+                        gold: {
+                            300: '#fde047',
+                            400: '#facc15',
+                            500: '#eab308',
+                            600: '#ca8a04',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background-color: #040914;
+            color: #f8fafc;
+            user-select: none;
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        /* Subtle Ambient Background Grid */
+        .bg-tech-grid {
+            background-image: 
+                radial-gradient(circle at 20% 25%, rgba(234, 179, 8, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 80% 75%, rgba(24, 50, 102, 0.35) 0%, transparent 50%),
+                linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 44px 44px, 44px 44px;
+        }
 
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: var(--bg-page);
-      color: var(--text-main);
-      padding: 2rem 1rem;
-    }
+        /* Glass Panel Styling */
+        .glass-panel {
+            background: rgba(12, 26, 54, 0.72);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(250, 204, 21, 0.22);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65);
+        }
 
-    .easter-college-section {
-      max-width: 820px;
-      margin: 0 auto;
-      background: var(--bg-card);
-      border: 1px solid var(--ec-border);
-      border-radius: 16px;
-      padding: 1.75rem;
-      box-shadow: 0 10px 28px rgba(20, 83, 45, 0.08);
-    }
+        /* Page Sections (Static Viewport Locked) */
+        .page-section {
+            position: absolute;
+            inset: 0;
+            padding-top: 4.5rem;
+            padding-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            visibility: hidden;
+        }
 
-    .ec-header {
-      border-bottom: 2px solid var(--ec-green-soft);
-      padding-bottom: 0.9rem;
-      margin-bottom: 1.5rem;
-    }
+        .page-section.active {
+            opacity: 1;
+            pointer-events: auto;
+            visibility: visible;
+        }
 
-    .ec-badge {
-      display: inline-block;
-      background: var(--ec-green-soft);
-      color: var(--ec-green);
-      border: 1px solid var(--ec-border);
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 0.25rem 0.65rem;
-      border-radius: 999px;
-      margin-bottom: 0.5rem;
-    }
+        /* Internal Compact Scrollbar only for Achievements sub-viewports on small screens */
+        .custom-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: rgba(8, 18, 38, 0.4);
+            border-radius: 9999px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: rgba(250, 204, 21, 0.35);
+            border-radius: 9999px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: rgba(250, 204, 21, 0.6);
+        }
 
-    .ec-header h2 {
-      font-size: 1.5rem;
-      color: var(--ec-green-dark);
-    }
+        /* Navigation Active Pill */
+        .nav-btn.active {
+            background: rgba(250, 204, 21, 0.16);
+            color: #fde047;
+            border-color: rgba(250, 204, 21, 0.45);
+        }
 
-    .ec-header p {
-      margin-top: 0.35rem;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-    }
+        /* School Selector Card Active State */
+        .school-tab.active {
+            border-color: #facc15;
+            background: linear-gradient(135deg, rgba(250, 204, 21, 0.18) 0%, rgba(16, 34, 70, 0.9) 100%);
+            box-shadow: 0 0 25px rgba(250, 204, 21, 0.22);
+            transform: translateY(-2px);
+        }
 
-    /* Carousel Styles */
-    .ec-cert-carousel {
-      display: flex;
-      flex-direction: column;
-      gap: 0.85rem;
-    }
+        /* Hexagonal Wave Transition Overlay */
+        #hex-transition-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            pointer-events: none;
+            overflow: hidden;
+        }
 
-    .ec-cert-stage {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.85rem;
-    }
+        .hex-cell {
+            position: absolute;
+            clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+            background: linear-gradient(135deg, #0c1a36 0%, #102246 70%, #eab308 180%);
+            border: 1px solid rgba(250, 204, 21, 0.35);
+            transform: scale(0);
+            opacity: 0;
+            transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease;
+            will-change: transform, opacity;
+        }
 
-    .ec-cert-frame {
-      flex: 1;
-      max-width: 680px;
-      background: #ffffff;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 0.85rem;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-      text-align: center;
-    }
+        .hex-cell.cover {
+            transform: scale(1.08);
+            opacity: 1;
+        }
 
-    .ec-cert-frame img {
-      display: block;
-      width: 100%;
-      height: 430px;
-      object-fit: contain; /* Shows full certificate without cutting off edges */
-      background: #f9fafb;
-      border-radius: 8px;
-      transition: opacity 0.2s ease;
-    }
-
-    .ec-cert-frame figcaption {
-      margin-top: 0.7rem;
-      font-size: 0.98rem;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .ec-cert-meta {
-      margin-top: 0.2rem;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      word-break: break-word;
-    }
-
-    .ec-cert-btn {
-      flex: 0 0 auto;
-      width: 44px;
-      height: 44px;
-      border: none;
-      border-radius: 999px;
-      background: var(--ec-green-dark);
-      color: #ffffff;
-      font-size: 1.6rem;
-      line-height: 1;
-      cursor: pointer;
-      display: grid;
-      place-items: center;
-      transition: transform 0.15s ease, background-color 0.2s ease;
-    }
-
-    .ec-cert-btn:hover {
-      background: var(--ec-green);
-      transform: scale(1.06);
-    }
-
-    .ec-cert-btn:active {
-      transform: scale(0.96);
-    }
-
-    .ec-cert-btn:focus-visible {
-      outline: 3px solid #86efac;
-      outline-offset: 2px;
-    }
-
-    .ec-cert-footer {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--text-muted);
-    }
-
-    @media (max-width: 600px) {
-      .easter-college-section {
-        padding: 1.1rem;
-      }
-
-      .ec-cert-stage {
-        gap: 0.45rem;
-      }
-
-      .ec-cert-btn {
-        width: 36px;
-        height: 36px;
-        font-size: 1.3rem;
-      }
-
-      .ec-cert-frame img {
-        height: 260px;
-      }
-    }
-  </style>
+        /* Portrait Frame Glow */
+        .portrait-ring {
+            box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.35), 0 18px 40px -10px rgba(0, 0, 0, 0.75);
+        }
+    </style>
 </head>
-<body>
-  <section class="easter-college-section" id="easter-college" aria-labelledby="ecHeading">
-    <header class="ec-header">
-      <span class="ec-badge">Easter College Incorporated</span>
-      <h2 id="ecHeading">HP LIFE Certificates of Completion</h2>
-      <p>Use Previous or Next to view one certificate at a time without cropping.</p>
+<body class="bg-tech-grid antialiased selection:bg-gold-500 selection:text-navy-950">
+
+    <!-- Hexagonal Wave Transition Layer -->
+    <div id="hex-transition-overlay" aria-hidden="true"></div>
+
+    <!-- Top Fixed Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 z-50 h-16 px-4 sm:px-8 flex items-center justify-between bg-navy-950/85 backdrop-blur-md border-b border-gold-500/20">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('home')">
+            <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center text-navy-950 font-heading font-extrabold text-base shadow-md">
+                SF
+            </div>
+            <div class="hidden sm:block">
+                <p class="font-heading font-bold text-sm tracking-wide text-white leading-none">SETH DANIEL M. FERNANDEZ</p>
+                <p class="font-mono text-[11px] text-gold-400 tracking-wider mt-0.5">BSIT • UNIVERSITY OF THE CORDILLERAS</p>
+            </div>
+        </div>
+
+        <nav class="flex items-center gap-1.5 sm:gap-2.5" aria-label="Primary Navigation">
+            <button onclick="navigateTo('home')" data-target="home" class="nav-btn active px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 border border-transparent hover:text-white hover:bg-navy-800/70 transition-all flex items-center gap-2">
+                <i class="fa-solid fa-house text-gold-400 text-xs"></i>
+                <span>Home</span>
+            </button>
+            <button onclick="navigateTo('about')" data-target="about" class="nav-btn px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 border border-transparent hover:text-white hover:bg-navy-800/70 transition-all flex items-center gap-2">
+                <i class="fa-solid fa-user-astronaut text-gold-400 text-xs"></i>
+                <span>About</span>
+            </button>
+            <button onclick="navigateTo('showcase')" data-target="showcase" class="nav-btn px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 border border-transparent hover:text-white hover:bg-navy-800/70 transition-all flex items-center gap-2">
+                <i class="fa-solid fa-layer-group text-gold-400 text-xs"></i>
+                <span>Interests &amp; Strengths</span>
+            </button>
+            <button onclick="navigateTo('achievements')" data-target="achievements" class="nav-btn px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-300 border border-transparent hover:text-white hover:bg-navy-800/70 transition-all flex items-center gap-2">
+                <i class="fa-solid fa-trophy text-gold-400 text-xs"></i>
+                <span>Achievements</span>
+            </button>
+        </nav>
     </header>
 
-    <div class="ec-cert-carousel" aria-label="Easter College HP LIFE Certificates Carousel">
-      <div class="ec-cert-stage">
-        <button type="button" class="ec-cert-btn prev-btn" aria-label="Previous certificate">&lsaquo;</button>
+    <!-- =========================================================
+         SECTION 1: HOME
+    ========================================================== -->
+    <section id="section-home" class="page-section active px-4 sm:px-8">
+        <div class="w-full max-w-6xl glass-panel rounded-3xl p-6 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <!-- Left Text Content -->
+            <div class="lg:col-span-7 space-y-5">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-400/30 text-gold-300 text-xs font-mono tracking-wide">
+                    <span class="w-2 h-2 rounded-full bg-gold-400 animate-pulse"></span>
+                    WELCOME TO MY DIGITAL PORTFOLIO
+                </div>
 
-        <figure class="ec-cert-frame">
-          <img
-            id="ecCertImage"
-            src="03d06d67-7deb-43f6-9eb6-41c6d70d40d2.jpg"
-            alt="HP LIFE Certificate of Completion: Success Mindset"
-          />
-          <figcaption id="ecCertCaption">Success Mindset</figcaption>
-          <div id="ecCertMeta" class="ec-cert-meta"></div>
-        </figure>
+                <div class="space-y-2">
+                    <p class="text-slate-300 text-base sm:text-lg font-medium">Hello, I'm</p>
+                    <h1 class="font-heading font-extrabold text-3xl sm:text-5xl text-white tracking-tight leading-tight">
+                        Seth Daniel M. <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-gold-400 to-gold-500">Fernandez</span>
+                    </h1>
+                    <p class="text-gold-400 font-mono text-xs sm:text-sm tracking-wider uppercase pt-1">
+                        Bachelor of Science in Information Technology • University of the Cordilleras
+                    </p>
+                </div>
 
-        <button type="button" class="ec-cert-btn next-btn" aria-label="Next certificate">&rsaquo;</button>
-      </div>
+                <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl">
+                    Known as <span class="text-white font-semibold">Dani</span>, I am an Information Technology student passionate about clean web design, responsive software development, algorithmic problem-solving, and collaborative innovation.
+                </p>
 
-      <div class="ec-cert-footer">
-        <span id="ecCertCounter">1 / 5</span>
-      </div>
-    </div>
-  </section>
+                <!-- Quick Stats / Badges -->
+                <div class="grid grid-cols-3 gap-3 pt-1 max-w-lg">
+                    <div class="p-3 rounded-xl bg-navy-900/80 border border-gold-500/20">
+                        <p class="text-[11px] font-mono text-slate-400 uppercase">Program</p>
+                        <p class="text-sm sm:text-base font-bold text-white mt-0.5">BSIT</p>
+                    </div>
+                    <div class="p-3 rounded-xl bg-navy-900/80 border border-gold-500/20">
+                        <p class="text-[11px] font-mono text-slate-400 uppercase">Focus</p>
+                        <p class="text-sm sm:text-base font-bold text-gold-400 mt-0.5">Web &amp; UI/UX</p>
+                    </div>
+                    <div class="p-3 rounded-xl bg-navy-900/80 border border-gold-500/20">
+                        <p class="text-[11px] font-mono text-slate-400 uppercase">Location</p>
+                        <p class="text-sm sm:text-base font-bold text-white mt-0.5">Baguio City</p>
+                    </div>
+                </div>
 
-  <script>
-    const ecCertificates = [
-      {
-        src: "03d06d67-7deb-43f6-9eb6-41c6d70d40d2.jpg",
-        title: "Success Mindset",
-        issuer: "HP LIFE | HP Foundation",
-        recipient: "Fernandez, Seth, Daniel M.",
-        presented: "2/24/2026",
-        serial: "bedcb7cc-0d02-4aec-b7cc-4f63d9e3d4a7"
-      },
-      {
-        src: "c2ade337-bf20-48f4-8ca9-bf915d68d0d2.jpg",
-        title: "Resume Writing and Job Interviewing",
-        issuer: "HP LIFE | HP Foundation",
-        recipient: "Fernandez, Seth, Daniel M.",
-        presented: "2/24/2026",
-        serial: "2fc82f87-9843-432f-9aad-d7f345413e1b"
-      },
-      {
-        src: "cfb37508-c036-4ad1-b783-fc5dffa26ee7.jpg",
-        title: "Effective Leadership",
-        issuer: "HP LIFE | HP Foundation",
-        recipient: "Fernandez, Seth, Daniel M.",
-        presented: "2/24/2026",
-        serial: "3dda5318-8bf7-49bf-9102-f5ece3e88faf"
-      },
-      {
-        src: "a3f5c805-b4dc-4330-9a51-591eeec0345e.jpg",
-        title: "Professional Networking for Career Growth",
-        issuer: "HP LIFE | HP Foundation",
-        recipient: "Fernandez, Seth, Daniel M.",
-        presented: "2/24/2026",
-        serial: "5685b227-2df4-4ccc-bdb6-66a4b74557b8"
-      },
-      {
-        src: "d4ad1303-fa45-4e3c-97cf-b31a20ac25f4.jpg",
-        title: "Effective Presentations",
-        issuer: "HP LIFE | HP Foundation",
-        recipient: "Fernandez, Seth, Daniel M.",
-        presented: "2/24/2026",
-        serial: "48aa0b15-64d8-439d-9201-6bb7d2789118"
-      }
-    ];
+                <!-- Navigation Action Buttons -->
+                <div class="flex flex-wrap items-center gap-3 pt-2">
+                    <button onclick="navigateTo('about')" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-gold-400 to-gold-500 hover:from-gold-300 hover:to-gold-400 text-navy-950 font-heading font-bold text-sm transition-all shadow-lg shadow-gold-500/20 flex items-center gap-2">
+                        <span>Explore My Profile</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                    <button onclick="navigateTo('achievements')" class="px-5 py-2.5 rounded-xl bg-navy-900/90 hover:bg-navy-800 text-white border border-gold-500/35 font-heading font-semibold text-sm transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-award text-gold-400 text-xs"></i>
+                        <span>View Achievements</span>
+                    </button>
+                </div>
+            </div>
 
-    let currentCertIndex = 0;
+            <!-- Right Portrait Card -->
+            <div class="lg:col-span-5 flex flex-col items-center justify-center">
+                <div class="relative group">
+                    <div class="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-gold-500/30 via-transparent to-blue-500/30 blur-lg opacity-80"></div>
+                    <div class="relative w-60 h-72 sm:w-72 sm:h-80 rounded-3xl overflow-hidden bg-navy-900 portrait-ring">
+                        <img src="file_00000000fc7c81fa970e36a4a2800e44_2.png" alt="Seth Daniel M. Fernandez Portrait" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-navy-950 border border-gold-400/50 shadow-xl whitespace-nowrap">
+                        <span class="text-xs font-mono text-gold-300 font-semibold">Dani • Student Developer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    const certImgEl = document.getElementById("ecCertImage");
-    const certCaptionEl = document.getElementById("ecCertCaption");
-    const certMetaEl = document.getElementById("ecCertMeta");
-    const certCounterEl = document.getElementById("ecCertCounter");
-    const prevCertBtn = document.querySelector(".ec-cert-carousel .prev-btn");
-    const nextCertBtn = document.querySelector(".ec-cert-carousel .next-btn");
+    <!-- =========================================================
+         SECTION 2: ABOUT ME
+    ========================================================== -->
+    <section id="section-about" class="page-section px-4 sm:px-8">
+        <div class="w-full max-w-6xl glass-panel rounded-3xl p-6 sm:p-10 space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b border-gold-500/20 pb-4 gap-2">
+                <div>
+                    <span class="text-xs font-mono text-gold-400 tracking-widest uppercase">Personal Background</span>
+                    <h2 class="font-heading font-extrabold text-2xl sm:text-4xl text-white mt-0.5">About Me</h2>
+                </div>
+                <span class="text-xs font-mono text-slate-400">Baguio City, Philippines</span>
+            </div>
 
-    function renderCertificate(index) {
-      currentCertIndex = (index + ecCertificates.length) % ecCertificates.length;
-      const cert = ecCertificates[currentCertIndex];
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                <!-- Bio Narrative -->
+                <div class="lg:col-span-7 p-6 rounded-2xl bg-navy-900/70 border border-gold-500/20 flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <h3 class="font-heading font-bold text-lg text-gold-300 flex items-center gap-2">
+                            <i class="fa-solid fa-id-card-clip"></i>
+                            <span>Who I Am</span>
+                        </h3>
+                        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                            I am <strong class="text-white">Seth Daniel M. Fernandez</strong> (also known as <strong class="text-gold-300">Dani</strong>), born on <strong class="text-white">May 20, 2008</strong>. Currently, I am pursuing my <strong class="text-white">Bachelor of Science in Information Technology (BSIT)</strong> at the <strong class="text-gold-300">University of the Cordilleras</strong>.
+                        </p>
+                        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                            My academic foundation was shaped at <strong class="text-white">Baguio City High School</strong> for Junior High School and <strong class="text-white">Easter College Incorporated</strong> for Senior High School, where I honed my skills in Java programming, web technologies, and research. Beyond coding, I enjoy expressing creativity through graphic design on Canva, playing the guitar, singing, and collaborating with peers to build intuitive digital experiences.
+                        </p>
+                    </div>
 
-      certImgEl.style.opacity = "0.35";
-      certImgEl.src = cert.src;
-      certImgEl.alt = `${cert.issuer} Certificate of Completion: ${cert.title} for ${cert.recipient}`;
-      certImgEl.onload = () => {
-        certImgEl.style.opacity = "1";
-      };
+                    <div class="pt-3 border-t border-white/10 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-lg bg-navy-800 text-xs font-mono text-gold-300 border border-gold-500/25">HTML5 &amp; CSS3</span>
+                        <span class="px-3 py-1 rounded-lg bg-navy-800 text-xs font-mono text-gold-300 border border-gold-500/25">JavaScript</span>
+                        <span class="px-3 py-1 rounded-lg bg-navy-800 text-xs font-mono text-gold-300 border border-gold-500/25">Java GUI</span>
+                        <span class="px-3 py-1 rounded-lg bg-navy-800 text-xs font-mono text-gold-300 border border-gold-500/25">Python</span>
+                        <span class="px-3 py-1 rounded-lg bg-navy-800 text-xs font-mono text-gold-300 border border-gold-500/25">Canva Design</span>
+                    </div>
+                </div>
 
-      certCaptionEl.textContent = cert.title;
-      certMetaEl.textContent = `${cert.issuer} • Presented ${cert.presented} • Serial: ${cert.serial}`;
-      certCounterEl.textContent = `${currentCertIndex + 1} / ${ecCertificates.length}`;
-    }
+                <!-- Academic & Personal Details Card -->
+                <div class="lg:col-span-5 p-6 rounded-2xl bg-navy-900/70 border border-gold-500/20 flex flex-col justify-between space-y-4">
+                    <h3 class="font-heading font-bold text-lg text-gold-300 flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span>Academic &amp; Personal Profile</span>
+                    </h3>
 
-    prevCertBtn.addEventListener("click", () => renderCertificate(currentCertIndex - 1));
-    nextCertBtn.addEventListener("click", () => renderCertificate(currentCertIndex + 1));
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start justify-between gap-4 pb-2.5 border-b border-white/10">
+                            <span class="text-slate-400 font-mono text-xs uppercase">Full Name</span>
+                            <span class="text-white font-medium text-right">Seth Daniel M. Fernandez</span>
+                        </li>
+                        <li class="flex items-start justify-between gap-4 pb-2.5 border-b border-white/10">
+                            <span class="text-slate-400 font-mono text-xs uppercase">Nickname</span>
+                            <span class="text-gold-300 font-medium text-right">Dani</span>
+                        </li>
+                        <li class="flex items-start justify-between gap-4 pb-2.5 border-b border-white/10">
+                            <span class="text-slate-400 font-mono text-xs uppercase">Birthdate</span>
+                            <span class="text-white font-medium text-right">May 20, 2008</span>
+                        </li>
+                        <li class="flex items-start justify-between gap-4 pb-2.5 border-b border-white/10">
+                            <span class="text-slate-400 font-mono text-xs uppercase">University</span>
+                            <span class="text-white font-medium text-right">University of the Cordilleras</span>
+                        </li>
+                        <li class="flex items-start justify-between gap-4 pb-2.5 border-b border-white/10">
+                            <span class="text-slate-400 font-mono text-xs uppercase">Senior High</span>
+                            <span class="text-white font-medium text-right">Easter College Incorporated</span>
+                        </li>
+                        <li class="flex items-start justify-between gap-4">
+                            <span class="text-slate-400 font-mono text-xs uppercase">Junior High</span>
+                            <span class="text-white font-medium text-right">Baguio City High School</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    renderCertificate(0);
-  </script>
+    <!-- =========================================================
+         SECTION 3: INTERESTS, HOBBIES & STRENGTHS
+    ========================================================== -->
+    <section id="section-showcase" class="page-section px-4 sm:px-8">
+        <div class="w-full max-w-6xl glass-panel rounded-3xl p-6 sm:p-10 space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b border-gold-500/20 pb-4 gap-2">
+                <div>
+                    <span class="text-xs font-mono text-gold-400 tracking-widest uppercase">What Drives Me</span>
+                    <h2 class="font-heading font-extrabold text-2xl sm:text-4xl text-white mt-0.5">Interests, Hobbies &amp; Strengths</h2>
+                </div>
+                <span class="text-xs font-mono text-slate-400">Core Pillars</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Column 1: Interests -->
+                <div class="p-6 rounded-2xl bg-navy-900/75 border border-gold-500/25 hover:border-gold-400/60 transition-all flex flex-col justify-between space-y-4">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-xl bg-gold-500/15 border border-gold-400/35 flex items-center justify-center text-gold-400 text-xl">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-heading font-bold text-xl text-white">Interests</h3>
+                            <p class="text-xs font-mono text-gold-400 mt-0.5">TECHNICAL &amp; ANALYTICAL FOCUS</p>
+                        </div>
+                        <ul class="space-y-3 text-sm text-slate-300">
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
+                                <span><strong class="text-white">Web Design &amp; UI/UX:</strong> Crafting clean, structured, and responsive user interfaces.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
+                                <span><strong class="text-white">Web &amp; App Development:</strong> Building interactive web solutions and desktop tools.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
+                                <span><strong class="text-white">Data Analytics:</strong> Interpreting patterns and structured datasets for informed decisions.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
+                                <span><strong class="text-white">Algorithms:</strong> Breaking down logical problems into efficient step-by-step solutions.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Column 2: Hobbies -->
+                <div class="p-6 rounded-2xl bg-navy-900/75 border border-gold-500/25 hover:border-gold-400/60 transition-all flex flex-col justify-between space-y-4">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-xl bg-gold-500/15 border border-gold-400/35 flex items-center justify-center text-gold-400 text-xl">
+                            <i class="fa-solid fa-guitar"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-heading font-bold text-xl text-white">Hobbies</h3>
+                            <p class="text-xs font-mono text-gold-400 mt-0.5">CREATIVE &amp; LEISURE PURSUITS</p>
+                        </div>
+                        <ul class="space-y-3 text-sm text-slate-300">
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
+                                <span><strong class="text-white">Playing the Guitar:</strong> Practicing chords, melodies, and acoustic arrangements.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
+                                <span><strong class="text-white">Singing:</strong> Expressing creativity and relaxation through music and vocals.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
+                                <span><strong class="text-white">Canva Graphic Design:</strong> Designing digital layouts, presentations, and visual assets.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
+                                <span><strong class="text-white">Online Gaming:</strong> Strategic teamwork and unwinding during leisure hours.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Column 3: Strengths -->
+                <div class="p-6 rounded-2xl bg-navy-900/75 border border-gold-500/25 hover:border-gold-400/60 transition-all flex flex-col justify-between space-y-4">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-xl bg-gold-500/15 border border-gold-400/35 flex items-center justify-center text-gold-400 text-xl">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-heading font-bold text-xl text-white">Strengths</h3>
+                            <p class="text-xs font-mono text-gold-400 mt-0.5">INTERPERSONAL &amp; WORK ETHIC</p>
+                        </div>
+                        <ul class="space-y-3 text-sm text-slate-300">
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
+                                <span><strong class="text-white">Communication:</strong> Articulating technical ideas clearly across team roles.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
+                                <span><strong class="text-white">Adaptability:</strong> Quickly adjusting to new tools, frameworks, and project goals.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
+                                <span><strong class="text-white">Collaboration:</strong> Supporting teammates and fostering constructive group synergy.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-gold-400 mt-1 text-xs"></i>
+                                <span><strong class="text-white">Reliability:</strong> Delivering clean, tested work consistently and on schedule.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 4: ACHIEVEMENTS (INTERACTIVE SCHOOL SWITCHER)
+    ========================================================== -->
+    <section id="section-achievements" class="page-section px-4 sm:px-8">
+        <div class="w-full max-w-6xl h-[82vh] glass-panel rounded-3xl p-5 sm:p-8 flex flex-col justify-between gap-4">
+            <!-- Header & School Switcher Buttons -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gold-500/20 pb-4 shrink-0">
+                <div>
+                    <span class="text-xs font-mono text-gold-400 tracking-widest uppercase">Academic Milestones</span>
+                    <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-white mt-0.5">Achievements &amp; Alma Maters</h2>
+                </div>
+
+                <!-- School Selector Tabs -->
+                <div class="grid grid-cols-2 gap-3 w-full md:w-auto">
+                    <button id="tab-bchs" onclick="selectSchool('bchs')" class="school-tab active px-3.5 py-2 rounded-2xl border border-gold-500/30 bg-navy-900/80 flex items-center gap-3 text-left transition-all">
+                        <div class="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center shrink-0 overflow-hidden">
+                            <!-- Replace with your BCHS Logo Base64 -->
+                            <img src="PASTE_YOUR_BCHS_LOGO_BASE64_HERE" alt="Baguio City High School Logo" class="w-full h-full object-contain">
+                        </div>
+                        <div>
+                            <p class="font-heading font-bold text-xs sm:text-sm text-white leading-tight">Baguio City High School</p>
+                            <p class="font-mono text-[10px] text-gold-400">Junior High School</p>
+                        </div>
+                    </button>
+
+                    <button id="tab-easter" onclick="selectSchool('easter')" class="school-tab px-3.5 py-2 rounded-2xl border border-gold-500/30 bg-navy-900/80 flex items-center gap-3 text-left transition-all">
+                        <div class="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center shrink-0 overflow-hidden">
+                            <!-- Replace with your Easter College Logo Base64 -->
+                            <img src="PASTE_YOUR_EASTER_LOGO_BASE64_HERE" alt="Easter College Incorporated Logo" class="w-full h-full object-contain">
+                        </div>
+                        <div>
+                            <p class="font-heading font-bold text-xs sm:text-sm text-white leading-tight">Easter College Inc.</p>
+                            <p class="font-mono text-[10px] text-gold-400">Senior High School</p>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Scrollable Content Container for Selected School -->
+            <div class="flex-1 overflow-y-auto custom-scroll pr-1">
+                
+                <!-- PANEL A: BAGUIO CITY HIGH SCHOOL -->
+                <div id="achievements-bchs" class="space-y-6">
+                    <!-- Balanced 2x2 Milestone Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 hover:border-gold-400/50 transition-all space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-0.5 rounded-md bg-gold-500/15 text-gold-300 text-xs font-mono">ACADEMIC EXCELLENCE</span>
+                                <i class="fa-solid fa-medal text-gold-400"></i>
+                            </div>
+                            <h3 class="text-lg font-heading font-bold text-white">With Honors Recognition</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Consistently maintained strong academic standing across core Junior High School subjects through disciplined study habits.
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 hover:border-gold-400/50 transition-all space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-0.5 rounded-md bg-gold-500/15 text-gold-300 text-xs font-mono">DIGITAL FOUNDATION</span>
+                                <i class="fa-solid fa-laptop-code text-gold-400"></i>
+                            </div>
+                            <h3 class="text-lg font-heading font-bold text-white">ICT &amp; Computer Literacy</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Developed early proficiency in productivity suites, digital presentations, and foundational computing concepts.
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 hover:border-gold-400/50 transition-all space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-0.5 rounded-md bg-gold-500/15 text-gold-300 text-xs font-mono">MILESTONE</span>
+                                <i class="fa-solid fa-graduation-cap text-gold-400"></i>
+                            </div>
+                            <h3 class="text-lg font-heading font-bold text-white">Junior High School Completer</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Successfully completed Junior High School at Baguio City High School (SY 2023–2024), preparing for Senior High specialization.
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 hover:border-gold-400/50 transition-all space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-0.5 rounded-md bg-gold-500/15 text-gold-300 text-xs font-mono">CHARACTER &amp; VALUES</span>
+                                <i class="fa-solid fa-award text-gold-400"></i>
+                            </div>
+                            <h3 class="text-lg font-heading font-bold text-white">DepEd Core Values Awardee</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Recognized for exemplifying Maka-Diyos, Maka-tao, Makakalikasan, and Makabansa principles throughout the school year.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Certificates & School Memories Subsection -->
+                    <div class="space-y-3 pt-2 border-t border-gold-500/20">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-heading font-bold text-lg text-gold-300 flex items-center gap-2">
+                                <i class="fa-solid fa-images"></i>
+                                <span>Certificates &amp; School Memories</span>
+                            </h3>
+                            <span class="text-xs font-mono text-slate-400">SY 2023–2024</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-stretch">
+                            <!-- Card 1: Conduct Award Certificate -->
+                            <article class="p-4 sm:p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 flex flex-col justify-between space-y-4">
+                                <div class="space-y-1.5">
+                                    <div class="flex items-center justify-between">
+                                        <span class="px-2.5 py-0.5 rounded-md bg-gold-500/15 text-gold-300 text-xs font-mono">CERTIFICATE</span>
+                                        <span class="text-xs font-mono text-slate-400">MAY 29, 2024</span>
+                                    </div>
+                                    <h4 class="text-lg font-heading font-bold text-white">Conduct Award</h4>
+                                    <p class="text-slate-300 text-sm leading-relaxed">
+                                        Awarded for consistently and dutifully carrying out the Department of Education core values during School Year 2023–2024.
+                                    </p>
+                                </div>
+                                <div class="w-full h-72 rounded-xl overflow-hidden bg-navy-950/90 border border-gold-500/25 flex items-center justify-center p-2">
+                                    <!-- Replace with your Conduct Award Certificate Base64 -->
+                                    <img src="PASTE_YOUR_CONDUCT_AWARD_BASE64_HERE" alt="Conduct Award Certificate" class="max-h-full max-w-full object-contain rounded-lg">
+                                </div>
+                            </article>
+
+                            <!-- Card 2: School Memory Photo -->
+                            <article class="p-4 sm:p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 flex flex-col justify-between space-y-4">
+                                <div class="space-y-1.5">
+                                    <div class="flex items-center justify-between">
+                                        <span class="px-2.5 py-0.5 rounded-md bg-gold-500/15 text-gold-300 text-xs font-mono">ALMA MATER</span>
+                                        <span class="text-xs font-mono text-slate-400">BCHS</span>
+                                    </div>
+                                    <h4 class="text-lg font-heading font-bold text-white">BCHS Campus Memory</h4>
+                                    <p class="text-slate-300 text-sm leading-relaxed">
+                                        A memorable snapshot with classmates during Junior High School at Baguio City High School.
+                                    </p>
+                                </div>
+                                <div class="w-full h-72 rounded-xl overflow-hidden bg-navy-950/90 border border-gold-500/25 flex items-center justify-center">
+                                    <!-- Replace with your School Photo Base64 -->
+                                    <img src="PASTE_YOUR_SCHOOL_PHOTO_BASE64_HERE" alt="Baguio City High School Memory" class="w-full h-full object-cover">
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANEL B: EASTER COLLEGE INCORPORATED -->
+                <div id="achievements-easter" class="hidden space-y-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 hover:border-gold-400/50 transition-all space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-0.5 rounded-md bg-gold-500/15 text-gold-300 text-xs font-mono">SOFTWARE DEVELOPMENT</span>
+                                <i class="fa-brands fa-java text-gold-400 text-lg"></i>
+                            </div>
+                            <h3 class="text-lg font-heading font-bold text-white">Java GUI Desktop Applications</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Engineered functional Java Swing desktop systems including a Student Report Card Calculator, 12-Month Electric Bill Calculator, and Enrollment Forms.
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 hover:border-gold-400/50 transition-all space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-0.5 rounded-md bg-gold-500/15 text-gold-300 text-xs font-mono">WORK IMMERSION • MARCH 2026</span>
+                                <i class="fa-solid fa-building-shield text-gold-400"></i>
+                            </div>
+                            <h3 class="text-lg font-heading font-bold text-white">DICT Work Immersion &amp; DTR System</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Completed work immersion at the Department of Information and Communications Technology (DICT), developing a Java GUI Daily Time Record app with CSV export.
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 hover:border-gold-400/50 transition-all space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-0.5 rounded-md bg-gold-500/15 text-gold-300 text-xs font-mono">ACADEMIC RESEARCH</span>
+                                <i class="fa-solid fa-book-open-reader text-gold-400"></i>
+                            </div>
+                            <h3 class="text-lg font-heading font-bold text-white">Quantitative Research Author</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Co-authored Senior High research studies examining student budgeting and financial literacy, as well as smartphone time management and academic performance.
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-navy-900/75 border border-gold-500/20 hover:border-gold-400/50 transition-all space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-0.5 rounded-md bg-gold-500/15 text-gold-300 text-xs font-mono">EMPOWERMENT TECH</span>
+                                <i class="fa-solid fa-wand-magic-sparkles text-gold-400"></i>
+                            </div>
+                            <h3 class="text-lg font-heading font-bold text-white">Senior High School Graduate</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Graduated from Easter College Incorporated with strong foundations in computer programming, entrepreneurship, and collaborative digital production.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================
+         JAVASCRIPT: HEXAGONAL WAVE TRANSITION & SCHOOL SWITCHER
+    ========================================================== -->
+    <script>
+        let currentSection = 'home';
+        let isTransitioning = false;
+
+        // Build Hexagonal Grid dynamically based on viewport size
+        function createHexGrid() {
+            const overlay = document.getElementById('hex-transition-overlay');
+            overlay.innerHTML = '';
+
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+            const hexSize = vw < 640 ? 75 : 110;
+            const hexWidth = hexSize;
+            const hexHeight = hexSize * 0.866;
+
+            const cols = Math.ceil(vw / (hexWidth * 0.75)) + 2;
+            const rows = Math.ceil(vh / hexHeight) + 2;
+
+            const cells = [];
+
+            for (let col = -1; col < cols; col++) {
+                for (let row = -1; row < rows; row++) {
+                    const hex = document.createElement('div');
+                    hex.className = 'hex-cell';
+
+                    const x = col * (hexWidth * 0.75);
+                    const y = row * hexHeight + (col % 2 !== 0 ? hexHeight / 2 : 0);
+
+                    hex.style.width = `${hexWidth + 2}px`;
+                    hex.style.height = `${hexHeight + 2}px`;
+                    hex.style.left = `${x}px`;
+                    hex.style.top = `${y}px`;
+
+                    // Diagonal wave delay from top-left to bottom-right
+                    const normalizedDist = (x / vw) * 0.65 + (y / vh) * 0.35;
+                    const delay = Math.max(0, normalizedDist * 280);
+                    hex.dataset.delay = delay;
+
+                    overlay.appendChild(hex);
+                    cells.push(hex);
+                }
+            }
+            return cells;
+        }
+
+        let hexCells = createHexGrid();
+        window.addEventListener('resize', () => {
+            if (!isTransitioning) {
+                hexCells = createHexGrid();
+            }
+        });
+
+        // Navigate between static viewport sections with Hexagonal Wave
+        function navigateTo(targetId) {
+            if (isTransitioning || targetId === currentSection) return;
+            isTransitioning = true;
+
+            // Update Navigation Active State
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.target === targetId);
+            });
+
+            // Phase 1: Wave In (Cover Screen)
+            hexCells.forEach(cell => {
+                const delay = parseFloat(cell.dataset.delay);
+                setTimeout(() => {
+                    cell.classList.add('cover');
+                }, delay);
+            });
+
+            // Phase 2: Switch Active Section mid-transition
+            const maxDelay = 300;
+            setTimeout(() => {
+                document.querySelectorAll('.page-section').forEach(sec => {
+                    sec.classList.remove('active');
+                });
+                const nextSec = document.getElementById(`section-${targetId}`);
+                if (nextSec) nextSec.classList.add('active');
+                currentSection = targetId;
+
+                // Phase 3: Wave Out (Reveal New Section)
+                hexCells.forEach(cell => {
+                    const delay = parseFloat(cell.dataset.delay);
+                    setTimeout(() => {
+                        cell.classList.remove('cover');
+                    }, delay);
+                });
+
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, maxDelay + 380);
+
+            }, maxDelay + 220);
+        }
+
+        // Toggle between Baguio City High School and Easter College Inc.
+        function selectSchool(school) {
+            const bchsTab = document.getElementById('tab-bchs');
+            const easterTab = document.getElementById('tab-easter');
+            const bchsPanel = document.getElementById('achievements-bchs');
+            const easterPanel = document.getElementById('achievements-easter');
+
+            if (school === 'bchs') {
+                bchsTab.classList.add('active');
+                easterTab.classList.remove('active');
+                bchsPanel.classList.remove('hidden');
+                easterPanel.classList.add('hidden');
+            } else {
+                easterTab.classList.add('active');
+                bchsTab.classList.remove('active');
+                easterPanel.classList.remove('hidden');
+                bchsPanel.classList.add('hidden');
+            }
+        }
+    </script>
 </body>
 </html>
